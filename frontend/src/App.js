@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // pages & components
 import Home from './pages/Home' 
 import Navbar from './components/NavBar'
+import Signup from './pages/signup';
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
               <Route
                 path="/"
                 element={<Home />} 
+              />
+              <Route
+                path="/signput"
+                element={!user ? <Signup /> : <Navigate to="/" />}
               />
             </Routes>
         </div>
