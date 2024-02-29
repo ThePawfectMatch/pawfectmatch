@@ -19,6 +19,7 @@ export const useSignup = () => {
 
     if (!response.ok) {
       setIsLoading(false)
+      console.log("this is a problem")
       setError(json.error)
     }
     if (response.ok) {
@@ -30,6 +31,8 @@ export const useSignup = () => {
 
       // update loading state
       setIsLoading(false)
+
+      console.log("login successful")
     }
   }
 

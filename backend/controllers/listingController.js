@@ -28,17 +28,17 @@ const getListing = async (req, res) => {
 
 // create new listing
 const createListing = async (req, res) => {
-  const {title, load, reps} = req.body
+  const {name, type, breed} = req.body
 
   let emptyFields = []
 
-  if(!title) {
+  if(!name) {
     emptyFields.push('name')
   }
-  if(!load) {
+  if(!type) {
     emptyFields.push('type')
   }
-  if(!reps) {
+  if(!breed) {
     emptyFields.push('breed')
   }
   if(emptyFields.length > 0) {
@@ -47,7 +47,7 @@ const createListing = async (req, res) => {
 
   // add doc to db
   try {
-    const listing = await Listing.create({title, load, reps})
+    const listing = await Listing.create({name, type, breed})
     res.status(200).json(listing)
   } catch (error) {
     res.status(400).json({error: error.message})
