@@ -1,12 +1,12 @@
-import { ListingsContext } from "../context/ListingContext";
-import { useContext } from "react";
+import { ListingsContext } from '../context/ListingContext'
+import { useContext } from 'react'
 
 export const useListingsContext = () => {
-    const context = useContext(ListingsContext)
+  const context = useContext(ListingsContext)
 
-    if (!context) {
-        throw Error('useListingsContext must be used inside a ListingsContextProvider')
-    }
+  if (!context) {
+    throw Error('useListingsContext must be used inside an ListingsContextProvider')
+  }
 
-    return context
+  return context
 }

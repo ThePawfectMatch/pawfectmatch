@@ -1,22 +1,36 @@
-import { Link } from "react-router-dom";
-import '../styles/home.css'
+import { useEffect }from 'react'
+import { useListingsContext } from "../hooks/useListingsContext"
+
+// components
+import ListingDetails from '../components/ListingDetails'
+import ListingForm from '../components/ListingForm'
 
 const Home = () => {
-    
-    
-    return (
-        <div className="homewrapper">
-            <h1 className="logo">PawfectMatch</h1>
-            <div className="homebuttons">
-                <Link to="/signup">
-                    <button className="toSignup">Sign up</button>
-                </Link>
-                <Link to="/login">
-                    <button className="toLogin">Login</button>
-                </Link>
-            </div>
-        </div>
-    )
+  const {listings, dispatch} = useListingsContext()
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      const response = await fetch('/api/listings')
+      const json = await response.json()
+
+      if (response.ok) {
+        dispatch({type: 'SET_LISTINGS', payload: json})
+      }
+    }
+
+    fetchListings()
+  }, [dispatch])
+
+  return (
+    <div className="home">
+      <div className="listings">
+        {listings && listings.map((listing) => (
+          <ListingDetails key={listing._id} listing={listing} />
+        ))}
+      </div>
+      <ListingForm />
+    </div>
+  )
 }
 
-export default Home;
+export default Home

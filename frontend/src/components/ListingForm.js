@@ -2,74 +2,75 @@ import { useState } from "react"
 import { useListingsContext } from "../hooks/useListingsContext"
 
 const ListingForm = () => {
-    const { dispatch } = useListingsContext()
-    const [name, setName] = useState('')
-    const [type, setType] = useState('')
-    const [breed, setBreed] = useState('')
-    const [error, setError] = useState(null)
-    const [emptyFields, setEmptyFields] = useState([])
-    const handleSubmit = async (e) => {
-        // prevent refresh
-        e.preventDefault()
+  const { dispatch } = useListingsContext()
 
-        const listing = {name, type, breed}
+  const [name, setName] = useState('')
+  const [type, setType] = useState('')
+  const [breed, setBreed] = useState('')
+  const [error, setError] = useState(null)
+  const [emptyFields, setEmptyFields] = useState([])
 
-        const response = await fetch('/api/listings', {
-            method: 'POST',
-            body: JSON.stringify(listing),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        const json = await response.json()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-        if (!response.ok) {
-            setError(json.error)
-            setEmptyFields(json.emptyFields)
-        }
+    const listing = {name, type, breed}
 
-        if (response.ok) {
-            setError(null)
-            setEmptyFields([])
-            setName('')
-            setType('')
-            setBreed('')
-            console.log('New Listing Added', json)
-            dispatch({type: 'CREATE_LISTING', payload: json})
-        }
+    const response = await fetch('/api/listings', {
+      method: 'POST',
+      body: JSON.stringify(listing),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const json = await response.json()
+
+    if (!response.ok) {
+      setError(json.error)
+      setEmptyFields(json.emptyFields)
     }
-    
-    return (
-        <form className="create" onSubmit={handleSubmit}>
-            <h3>Add a new Listing</h3>
+    if (response.ok) {
+      setName('')
+      setType('')
+      setBreed('')
+      setError(null)
+      setEmptyFields([])
+      console.log('new listing added', json)
+      dispatch({type: 'CREATE_LISTING', payload: json})
+    }
+  }
 
-            <label>Pet Name:</label>
-            <input type="text"
-             onChange={(e) => setName(e.target.value)}
-             value={name}
-             // add error class if empty field to do styling if we want
-             className={emptyFields && emptyFields.includes('name') ? 'error' : ''}
-             />
+  return (
+    <form className="create" onSubmit={handleSubmit}>
+      <h3>Add a New Listing</h3>
 
-            <label>Pet Type:</label>
-            <input type="text"
-             onChange={(e) => setType(e.target.value)}
-             value={type}
-             className={emptyFields && emptyFields.includes('type') ? 'error' : ''}
-             />
+      <label>Name:</label>
+      <input 
+        type="text"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        className={emptyFields.includes('name') ? 'error' : ''}
+      />
 
-            <label>Pet Breed:</label>
-            <input type="text"
-             onChange={(e) => setBreed(e.target.value)}
-             value={breed}
-             className={emptyFields && emptyFields.includes('breed') ? 'error' : ''}
-             />
+      <label>Type:</label>
+      <input 
+        type="text"
+        onChange={(e) => setType(e.target.value)}
+        value={type}
+        className={emptyFields.includes('type') ? 'error' : ''}
+      />
 
-            <button>Add Listing</button>
-            {error && <div className="error">{error}</div>
-            }
-        </form>
-    )
+      <label>Breed:</label>
+      <input 
+        type="text"
+        onChange={(e) => setBreed(e.target.value)}
+        value={breed}
+        className={emptyFields.includes('breed') ? 'error' : ''}
+      />
+
+      <button>Add Listing</button>
+      {error && <div className="error">{error}</div>}
+    </form>
+  )
 }
 
 export default ListingForm
