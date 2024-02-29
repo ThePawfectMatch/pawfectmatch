@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // pages & components
 import Home from './pages/Home' 
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 import Navbar from './components/NavBar'
 
 function App() {
@@ -14,6 +16,14 @@ function App() {
               <Route
                 path="/"
                 element={<Home />} 
+              />
+              <Route
+                path="/login"
+                element={<Login />} 
+              />
+              <Route
+                path="/signup"
+                element={<Signup />} 
               />
             </Routes>
         </div>
