@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // pages & components
 import Home from './pages/Home'
+import Main from './pages/Main'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
@@ -16,6 +17,10 @@ function App() {
             <Route 
               path="/"
               element={<Home />}
+            />
+            <Route 
+              path="/main" 
+              element={<Main />} 
             />
             <Route 
               path="/login" 
