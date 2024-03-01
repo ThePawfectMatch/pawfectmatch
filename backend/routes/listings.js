@@ -6,8 +6,13 @@ const {
   deleteListing,
   updateListing
 } = require('../controllers/listingController')
+//This helps to restrict access if you are not logged in 
+const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
+
+//require auth for certain routes (Discuss this with group?)
+router.use(requireAuth)
 
 // GET all workouts
 router.get('/', getListings)

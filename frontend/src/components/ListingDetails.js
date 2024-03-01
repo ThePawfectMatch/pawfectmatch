@@ -1,11 +1,20 @@
 import { useListingsContext } from '../hooks/useListingsContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const ListingDetails = ({ listing }) => {
   const { dispatch } = useListingsContext()
+  const { user } = useAuthContext()
 
   const handleClick = async () => {
+    if(!user) {
+      return 
+    }
+
     const response = await fetch('/api/listings/' + listing._id, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
     })
     const json = await response.json()
 
