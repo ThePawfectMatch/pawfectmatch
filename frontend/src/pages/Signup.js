@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
+import Dropdown from "../components/Dropdown"
 
 const Signup = () => {
   const [email, setEmail] = useState('')
@@ -28,6 +29,9 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)} 
         value={password} 
       />
+
+      <Dropdown isMulti={true}/>
+      <Dropdown isMulti={false}/>
 
       <button disabled={isLoading}>Sign up</button>
       {error && <div className="error">{error}</div>}
