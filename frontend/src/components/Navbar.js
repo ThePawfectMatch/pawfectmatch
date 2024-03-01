@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="container">
-        <Link to="/">
+        <Link to="/main">
           <h1>PawfectMatch</h1>
         </Link>
         <nav>
