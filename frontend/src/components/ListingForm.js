@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { useListingsContext } from "../hooks/useListingsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const ListingForm = () => {
   const { dispatch } = useListingsContext()
+  const { user } = useAuthContext()
 
   const [name, setName] = useState('')
   const [type, setType] = useState('')
@@ -13,13 +15,19 @@ const ListingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if(!user) {
+      setError('You must be logged in')
+      return
+    }
+
     const listing = {name, type, breed}
 
     const response = await fetch('/api/listings', {
       method: 'POST',
       body: JSON.stringify(listing),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       }
     })
     const json = await response.json()
