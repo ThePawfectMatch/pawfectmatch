@@ -30,15 +30,17 @@ const Signup = () => {
   const [zip, setZip] = useState('')
   const [bio, setBio] = useState('')
 
-  const [userType, setUserType] = useState('')
-  const [livingArrangements, setLivingArrangements] = useState('')
-  const [lifestyleTraits, setLifestyleTraits] = useState([])
+  /* Dropdown questions return object with label and value */
+  const [userType, setUserType] = useState()
+  const [livingArrangements, setLivingArrangements] = useState()
+  const [lifestyleTraits, setLifestyleTraits] = useState() /* multi dropdown returns array of objects */
 
   const {signup, error, isLoading} = useSignup()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     /* FIXME: update signup with required info */
+    /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
     await signup(email, password)
   }
 
@@ -87,13 +89,13 @@ const Signup = () => {
       <h3>Zip Code:</h3>
       <input 
         type="number" 
-        onChange={(e) => {setZip(e.target.value); console.log(lifestyleTraits)}}
+        onChange={(e) => setZip(e.target.value)}
         value={zip} 
       />
 
-      <Dropdown question={"User Type:"} isMulti={false} options={Q1} onChange={(value) => setUserType(value.value)} />
-      <Dropdown question={"Living Arrangements:"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value.value)} />
-      <Dropdown question={"Lifestyle Traits (select all that apply):"} isMulti={true} options={Q3} onChange={(value) => console.log(value)} />
+      <Dropdown question={"User Type:"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
+      <Dropdown question={"Living Arrangements:"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
+      <Dropdown question={"Lifestyle Traits (select all that apply):"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
 
       <h3>Bio:</h3>
       <input 
