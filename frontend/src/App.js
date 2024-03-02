@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import { useAuthContext } from './hooks/useAuthContext'
 
 // pages & components
 import Home from './pages/Home'
@@ -11,7 +9,6 @@ import Main from './pages/Main'
 
 function App() {
   const { user } = useAuthContext()
-  const { user } = useAuthContext()
   return (
     <div className="App">
       <BrowserRouter>
@@ -19,7 +16,7 @@ function App() {
           <Routes>
             <Route 
               path="/"
-              element={user ?<Home /> : <Navigate to="/login" />}
+              element={<Home />}
             />
             <Route 
               path="/login" 
