@@ -1,5 +1,6 @@
 import { useListingsContext } from '../hooks/useListingsContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+import "./ListingDetails.css"
 
 const ListingDetails = ({ listing }) => {
   const { dispatch } = useListingsContext()
@@ -24,12 +25,18 @@ const ListingDetails = ({ listing }) => {
   }
 
   return (
-    <div className="listing-details">
-      <h4>{listing.name}</h4>
-      <p><strong>Type: </strong>{listing.type}</p>
-      <p><strong>Breed: </strong>{listing.breed}</p>
-      <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
+    <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <h1>{listing.name}</h1>
+        <img src="/images/test_avatar.jpg" alt="Avatar" styles="width:300px;height:300px;"></img>
+      </div>
+      <div class="flip-card-back">
+        <p>{listing.type}</p>
+        <p>{listing.breed}</p>
+      </div>
     </div>
+  </div>
   )
 }
 
