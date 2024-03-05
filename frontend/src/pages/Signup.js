@@ -20,6 +20,12 @@ const Q3 = [
   {label: 'Lonely', value: 'lonely'}
 ]
 
+const Q4 = [
+  {label: 'Dog', value: 'dog'},
+  {label: 'Cat', value: 'cat'},
+  {label: 'Gator', value: 'gator'}
+]
+
 const Signup = () => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -33,6 +39,7 @@ const Signup = () => {
   const [userType, setUserType] = useState()
   const [livingArrangements, setLivingArrangements] = useState()
   const [lifestyleTraits, setLifestyleTraits] = useState() /* multi dropdown returns array of objects */
+  const [petPreferences, setPetPreferences] = useState()
 
   const {signup, error, isLoading} = useSignup()
 
@@ -40,7 +47,15 @@ const Signup = () => {
     e.preventDefault()
     /* FIXME: update signup with required info */
     /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
-    await signup(email, password)
+    const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
+    const petPreferencesValues = petPreferences?.map(preference => preference.value)
+
+    await signup(email, password, firstName, lastName, phoneNumber, 
+      zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
+  }
+
+  const genBio = async () => {
+
   }
 
   return (
@@ -89,6 +104,7 @@ const Signup = () => {
       <Dropdown question={"User Type:"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
       <Dropdown question={"Living Arrangements:"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
       <Dropdown question={"Lifestyle Traits (select all that apply):"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
+      <Dropdown question={"Pet Preferences (select all that apply):"} isMulti={true} options={Q4} onChange={(value) => setPetPreferences(value)} />
 
       <h3>Bio:</h3>
       <input 
@@ -98,7 +114,7 @@ const Signup = () => {
       />
       {/* ADD API CALL TO THIS BUTTON*/}
       <div>
-        <button>Generate Bio</button>
+        <button type="button" onClick={genBio}>Generate Bio</button>
       </div>
       <div>
         <button disabled={isLoading}>Sign up</button>
