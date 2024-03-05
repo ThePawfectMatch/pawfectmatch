@@ -21,7 +21,6 @@ const Q3 = [
 ]
 
 const Signup = () => {
-  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -48,11 +47,11 @@ const Signup = () => {
     <form className="signup" onSubmit={handleSubmit}>
       <h1>Sign Up</h1>
       
-      <h3>Username:</h3>
+      <h3>Email:</h3>
       <input 
-        type="username" 
-        onChange={(e) => setUsername(e.target.value)} 
-        value={username} 
+        type="email" 
+        onChange={(e) => setEmail(e.target.value)}
+        value={email} 
       />
       <h3>Password:</h3>
       <input 
@@ -73,12 +72,6 @@ const Signup = () => {
         type="lastName" 
         onChange={(e) => setLastName(e.target.value)}
         value={lastName} 
-      />
-      <h3>Email:</h3>
-      <input 
-        type="email" 
-        onChange={(e) => setEmail(e.target.value)}
-        value={email} 
       />
       <h3>Phone Number:</h3>
       <input 
@@ -103,6 +96,10 @@ const Signup = () => {
         onChange={(e) => setBio(e.target.value)}
         value={bio} 
       />
+      {/* ADD API CALL TO THIS BUTTON*/}
+      <div>
+        <button>Generate Bio</button>
+      </div>
       <div>
         <button disabled={isLoading}>Sign up</button>
       </div>
