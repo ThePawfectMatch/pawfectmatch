@@ -34,7 +34,7 @@ const Main = () => {
         <Navbar />
         <div className="main">
         <div className="listings">
-            <CardDisplay listing={listings}></CardDisplay>
+            {listings && <CardDisplay listing={listings}></CardDisplay>}
         </div>
         </div>
         <div className="listing-button">
