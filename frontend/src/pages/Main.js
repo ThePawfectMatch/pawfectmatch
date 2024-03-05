@@ -1,5 +1,6 @@
 import { useEffect }from 'react'
 import { useListingsContext } from "../hooks/useListingsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 // components
 import ListingDetails from '../components/ListingDetails'
@@ -7,10 +8,13 @@ import ListingForm from '../components/ListingForm'
 
 const Main = () => {
   const {listings, dispatch} = useListingsContext()
+  const {user} = useAuthContext()
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await fetch('/api/listings')
+      const response = await fetch('/api/listings', {
+        headers: {'Authorization': `Bearer ${user.token}`},
+      })
       const json = await response.json()
 
       if (response.ok) {
