@@ -1,10 +1,10 @@
 import { useEffect }from 'react'
 import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { Link } from 'react-router-dom'
 
 // components
 import ListingDetails from '../components/ListingDetails'
-import ListingForm from '../components/ListingForm'
 import Navbar from '../components/Navbar'
 
 const Main = () => {
@@ -35,8 +35,10 @@ const Main = () => {
             <ListingDetails key={listing._id} listing={listing} />
             ))}
         </div>
-        <ListingForm />
         </div>
+        <Link to="/Listing">
+          <button>List</button>
+        </Link>
     </div>
   )
 }
