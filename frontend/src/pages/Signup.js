@@ -2,37 +2,110 @@ import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
 import Dropdown from "../components/Dropdown"
 
+/* Dropdown menu question arrays */
+const Q1 = [
+  {label: 'Individual', value: 'individual'},
+  {label: 'Organization', value: 'organization'}
+]
+
+const Q2 = [
+  {label: 'House', value: 'house'},
+  {label: 'Apartment', value: 'apartment'},
+  {label: 'Homeless', value: 'loser'}
+]
+
+const Q3 = [
+  {label: 'Happy', value: 'happy'},
+  {label: 'Energetic', value: 'energetic'},
+  {label: 'Lonely', value: 'lonely'}
+]
+
 const Signup = () => {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [zip, setZip] = useState('')
+  const [bio, setBio] = useState('')
+
+  /* Dropdown questions return object with label and value */
+  const [userType, setUserType] = useState()
+  const [livingArrangements, setLivingArrangements] = useState()
+  const [lifestyleTraits, setLifestyleTraits] = useState() /* multi dropdown returns array of objects */
+
   const {signup, error, isLoading} = useSignup()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    /* FIXME: update signup with required info */
+    /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
     await signup(email, password)
   }
 
   return (
     <form className="signup" onSubmit={handleSubmit}>
-      <h3>Sign Up</h3>
+      <h1>Sign Up</h1>
       
-      <label>Email address:</label>
+      <h3>Username:</h3>
       <input 
-        type="email" 
-        onChange={(e) => setEmail(e.target.value)} 
-        value={email} 
+        type="username" 
+        onChange={(e) => setUsername(e.target.value)} 
+        value={username} 
       />
-      <label>Password:</label>
+      <h3>Password:</h3>
       <input 
         type="password" 
         onChange={(e) => setPassword(e.target.value)} 
         value={password} 
       />
 
-      <Dropdown />
+      <h2>Contact Information</h2>
+      <h3>First Name:</h3>
+      <input 
+        type="firstName" 
+        onChange={(e) => setFirstName(e.target.value)}
+        value={firstName} 
+      />
+      <h3>Last Name:</h3>
+      <input 
+        type="lastName" 
+        onChange={(e) => setLastName(e.target.value)}
+        value={lastName} 
+      />
+      <h3>Email:</h3>
+      <input 
+        type="email" 
+        onChange={(e) => setEmail(e.target.value)}
+        value={email} 
+      />
+      <h3>Phone Number:</h3>
+      <input 
+        type="number" 
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        value={phoneNumber} 
+      />
+      <h3>Zip Code:</h3>
+      <input 
+        type="number" 
+        onChange={(e) => setZip(e.target.value)}
+        value={zip} 
+      />
 
-      <button disabled={isLoading}>Sign up</button>
+      <Dropdown question={"User Type:"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
+      <Dropdown question={"Living Arrangements:"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
+      <Dropdown question={"Lifestyle Traits (select all that apply):"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
+
+      <h3>Bio:</h3>
+      <input 
+        type="bio" 
+        onChange={(e) => setBio(e.target.value)}
+        value={bio} 
+      />
+      <div>
+        <button disabled={isLoading}>Sign up</button>
+      </div>
       {error && <div className="error">{error}</div>}
     </form>
   )

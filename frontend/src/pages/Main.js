@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 // components
 import ListingDetails from '../components/ListingDetails'
 import ListingForm from '../components/ListingForm'
+import Navbar from '../components/Navbar'
 
 const Main = () => {
   const {listings, dispatch} = useListingsContext()
@@ -26,13 +27,16 @@ const Main = () => {
   }, [dispatch])
 
   return (
-    <div className="main">
-      <div className="listings">
-        {listings && listings.map((listing) => (
-          <ListingDetails key={listing._id} listing={listing} />
-        ))}
-      </div>
-      <ListingForm />
+    <div>
+        <Navbar />
+        <div className="main">
+        <div className="listings">
+            {listings && listings.map((listing) => (
+            <ListingDetails key={listing._id} listing={listing} />
+            ))}
+        </div>
+        <ListingForm />
+        </div>
     </div>
   )
 }

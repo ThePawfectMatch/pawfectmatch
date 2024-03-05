@@ -1,19 +1,11 @@
 import React from 'react'
 import Select from 'react-select'
 
-const options = [
-    {label: 'test', value: 'test'},
-    {label: 'Jonathan', value: 'Johnathan'},
-    {label: 'Jack', value: 'Jack'},
-    {label: 'Ryan', value: 'Ryan'}
-]
-
-function Dropdown(props, isMulti) {
+function Dropdown({question,isMulti,options,onChange}) {
     return (
-        <div>
-            <p>Question:</p>
-            <Select options={options}/>
-            <p></p>
+        <div className="dropdown">
+            <h3 className="dropdownQuestion">{question}</h3>
+            <Select isMulti={isMulti} options={options} onChange={onChange}/>
         </div>
     )
 }
