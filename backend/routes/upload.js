@@ -18,10 +18,15 @@ router.post('/user', upload.single('file'), async (req, res) => {
     await sharp(req.file.buffer)
       .resize({ width: 600, height: 400})
       .toFile(filePath)
-    res.send({message: 'Uploaded successfully for user', path: filePath})
+
+    res.status(200).json({
+        message: 'Uploaded successfully for listing',
+        path: filePath
+    })
   }
   catch (error) {
     console.log('Error processing file', error)
+    res.status(400).json({ message:'Error processing file', error: error });
   }
   
 })
@@ -34,10 +39,14 @@ router.post('/listing', requireAuth, upload.array('files', 5), async (req, res) 
     await sharp(req.file.buffer)
       .resize({ width: 600, height: 400})
       .toFile(filePath)
-    res.send({message: 'Uploaded successfully for listing', path: filePath})
+    res.status(200).json({
+      message: 'Uploaded successfully for listing',
+      path: filePath
+    })
+    
   }
   catch (error) {
-    console.log('Error processing file', error)
+    res.status(400).json({ message: 'No file uploaded' });
   }
 })
 
