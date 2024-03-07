@@ -14,6 +14,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  picPath: {
+    type: String,
+    required: false
+  },
   firstName: {
     type: String,
     required: true
@@ -53,7 +57,7 @@ const userSchema = new Schema({
 })
 
 // static signup method
-userSchema.statics.signup = async function(email, password, firstName, lastName, phoneNumber, 
+userSchema.statics.signup = async function(email, password, picPath, firstName, lastName, phoneNumber, 
   zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences) {
   // validation
   if (!email || !password || !firstName || !lastName || !phoneNumber || !zipcode || !accountType) {
@@ -80,7 +84,7 @@ userSchema.statics.signup = async function(email, password, firstName, lastName,
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ email, password: hash, firstName, lastName, phoneNumber, 
+  const user = await this.create({ email, password: hash, picPath, firstName, lastName, phoneNumber, 
     zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences})
 
   return user

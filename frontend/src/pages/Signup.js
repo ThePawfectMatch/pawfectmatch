@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
+
 import Dropdown from "../components/Dropdown"
 
 /* Dropdown menu question arrays */
@@ -34,6 +35,8 @@ const Signup = () => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [zip, setZip] = useState('')
   const [bio, setBio] = useState('')
+  const [file, setFile] = useState(null)
+  const [picPath, setPicPath] = useState('')
 
   /* Dropdown questions return object with label and value */
   const [userType, setUserType] = useState()
@@ -49,9 +52,33 @@ const Signup = () => {
     /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
     const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
     const petPreferencesValues = petPreferences?.map(preference => preference.value)
-
-    await signup(email, password, firstName, lastName, phoneNumber, 
+    console.log(picPath)
+    await signup(email, password, picPath, firstName, lastName, phoneNumber, 
       zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
+  }
+
+  const handleUpload = async (e) => {
+    e.preventDefault()
+    
+    if (!file) {
+      throw Error('Please select a file first')
+    }
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+      const response = await fetch('/api/upload/user', {
+        method: 'POST',
+        body: formData
+    })
+    const json = await response.json()
+    if (response.ok) {
+      setPicPath(json.path) 
+      console.log('File uploaded successfully to', json.path)
+    }
+    if (!response.ok) {
+      console.log('Error uploading file')
+    }
   }
 
   const genBio = async () => {
@@ -74,6 +101,12 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)} 
         value={password} 
       />
+      <h3>Upload a Profile Picture:</h3>
+      <input 
+        type="file" 
+        onChange={(e) => setFile(e.target.files[0])}
+      />
+      <button type="button" onClick={handleUpload}>Upload</button>
 
       <h2>Contact Information</h2>
       <h3>First Name:</h3>
