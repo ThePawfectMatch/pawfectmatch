@@ -143,6 +143,8 @@ form.signup, form.login {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
+
+  
 }
 
 /* This container is needed to position the front and back side */
@@ -172,7 +174,7 @@ form.signup, form.login {
 /* Style the front side (fallback if image is missing) */
 .card-front {
   background-color: #bbb;
-  color: black;
+  color: black; 
 }
 
 /* Style the back side */
@@ -181,3 +183,26 @@ form.signup, form.login {
   color: white;
   transform: rotateY(180deg);
 } 
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  bottom: 100px; /* Adjust as needed */
+  left: 0;
+  right: 0;
+}
+
+.next-button {
+  transform: rotate(90deg);
+  width: 50%;
+  height: 50%;
+
+}
+
+.prev-button {
+  transform: rotate(-90deg);
+  width: 50%;
+  height: 50%;
+}
