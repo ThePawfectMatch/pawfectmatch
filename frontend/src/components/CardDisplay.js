@@ -21,13 +21,13 @@ const CardDisplay = ({ listing }) => {
               <img src="/images/chevron.png" alt="Previous Button"/>
             </button>
           </div>
-          <CardDetails key={listing[currentIndex]._id} listing={listing[currentIndex]}/>
           <div className='next-button'>
             <button onClick={goToNextListing} disabled={currentIndex === listing.length - 1}>
               <img src='/images/chevron.png' alt="Next Button"/>
           </button>
           </div>
         </div>
+        <CardDetails key={listing[currentIndex]._id} listing={listing[currentIndex]}/>
       </div>
     </div>
   );

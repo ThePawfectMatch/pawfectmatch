@@ -187,22 +187,23 @@ form.signup, form.login {
 .nav-buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  position: fixed;
-  bottom: 100px; /* Adjust as needed */
-  left: 0;
-  right: 0;
+  height: 50;
 }
 
 .next-button {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  width: 50%;
-  height: 50%;
-
 }
 
 .prev-button {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
-  width: 50%;
-  height: 50%;
 }
