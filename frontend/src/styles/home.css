@@ -1,0 +1,51 @@
+@import url('colors.css');
+
+body {
+    /* background-image: url('../../public/images/home_background_draft.jpg'); */
+    /* background-size: cover;
+    background-position: center top; */
+    background-color: var(--color-4);
+  }
+
+.home-container {
+    text-align: center; /* Center the content horizontally */
+    position: absolute;
+    top: 40%; /* Example: position the container vertically centered */
+    left: 51%; /* Example: position the container horizontally centered */
+    transform: translate(-50%, -50%);
+    padding: 75px 50px;
+    border-radius: 30px;
+    background-color: rgba(var(--color-2), 1);
+}
+
+
+.logo-container {
+    width: 700px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo-container img {
+    width: 100%; /* Make the image fill the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Scale the image while preserving aspect ratio to cover the entire container */
+    object-position: center; /* Position the image at the center */
+}
+
+.home-button-container {
+    margin-top: 20px; /* Adjust spacing between logo and buttons */
+}
+
+.home-button {
+    padding: 10px 20px; /* Adjust button padding */
+    margin: 0 10px; /* Adjust spacing between buttons */
+    font-size: 18px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* Example text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    background-color: var(--color-2);
+}

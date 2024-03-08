@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom'
+import '../styles/home.css'
 
  const Home = () => { 
   return (
-    <div>
-        <img src={'/images/logo_draft.png'} alt="Pawfect Match"/>
-        <div>
+    <div className='home-container'>
+        <img className='logo-container' src={'/images/logo.png'} alt="Pawfect Match"/>
+        <div className='home-button-container'>
             <Link to="/login">
-                <button>Login</button>
+                <button className='home-button'>Login</button>
             </Link>
             <Link to="/signup">
-                <button>Sign Up</button>
+                <button className='home-button'>Sign Up</button>
             </Link>
         </div>
     </div>
