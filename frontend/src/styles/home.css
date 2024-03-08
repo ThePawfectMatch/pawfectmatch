@@ -1,8 +1,9 @@
 @import url('colors.css');
+@import url('fonts.css');
 
 body {
-    /* background-image: url('../../public/images/home_background_draft.jpg'); */
-    /* background-size: cover;
+    /* background-image: url('../../public/images/home_background_draft.jpg');
+    background-size: cover;
     background-position: center top; */
     background-color: var(--color-4);
   }
@@ -10,8 +11,8 @@ body {
 .home-container {
     text-align: center; /* Center the content horizontally */
     position: absolute;
-    top: 40%; /* Example: position the container vertically centered */
-    left: 51%; /* Example: position the container horizontally centered */
+    top: 40%; /* position the container vertically centered */
+    left: 51%; /* position the container horizontally centered */
     transform: translate(-50%, -50%);
     padding: 75px 50px;
     border-radius: 30px;
@@ -36,11 +37,12 @@ body {
 }
 
 .home-button {
+    font-family: 'More Sugar Regular', sans-serif;
     padding: 10px 20px; /* Adjust button padding */
     margin: 0 10px; /* Adjust spacing between buttons */
     font-size: 18px; /* Adjust font size */
     background-color: var(--color-1); /* Example button color */
-    color: white; /* Example text color */
+    color: white; /* text color */
     border: 3px solid var(--color-2);
     border-radius: 5px;
     cursor: pointer;
