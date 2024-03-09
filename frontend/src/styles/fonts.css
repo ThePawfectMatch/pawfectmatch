@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'More Sugar Regular';
+    src: url('../fonts/MoreSugar-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'More Sugar Thin';
+    src: url('../fonts/MoreSugar-Thin.ttf') format('truetype');
+}

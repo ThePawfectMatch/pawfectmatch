@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
-
 import Dropdown from "../components/Dropdown"
+import '../styles/signup.css'
 
 /* Dropdown menu question arrays */
 const Q1 = [
@@ -86,74 +86,111 @@ const Signup = () => {
   }
 
   return (
+    <div className="signup-border">
+    <div className='signup-container'>
     <form className="signup" onSubmit={handleSubmit}>
-      <h1>Sign Up</h1>
-      
-      <h3>Email:</h3>
-      <input 
-        type="email" 
-        onChange={(e) => setEmail(e.target.value)}
-        value={email} 
-      />
-      <h3>Password:</h3>
-      <input 
-        type="password" 
-        onChange={(e) => setPassword(e.target.value)} 
-        value={password} 
-      />
-      <h3>Upload a Profile Picture:</h3>
-      <input 
-        type="file" 
-        onChange={(e) => setFile(e.target.files[0])}
-      />
-      <button type="button" onClick={handleUpload}>Upload</button>
+      <h1 className="signup-header">Sign Up</h1>
+      <div className="signup-required-info">
 
-      <h2>Contact Information</h2>
-      <h3>First Name:</h3>
-      <input 
-        type="firstName" 
-        onChange={(e) => setFirstName(e.target.value)}
-        value={firstName} 
-      />
-      <h3>Last Name:</h3>
-      <input 
-        type="lastName" 
-        onChange={(e) => setLastName(e.target.value)}
-        value={lastName} 
-      />
-      <h3>Phone Number:</h3>
-      <input 
-        type="number" 
-        onChange={(e) => setPhoneNumber(e.target.value)}
-        value={phoneNumber} 
-      />
-      <h3>Zip Code:</h3>
-      <input 
-        type="number" 
-        onChange={(e) => setZip(e.target.value)}
-        value={zip} 
-      />
+      <div className="signup-question">
+        <label className="signup-info">Email</label>
+        <input className="signup-input"
+          type="email" 
+          onChange={(e) => setEmail(e.target.value)}
+          value={email} 
+        />
+      </div>
 
-      <Dropdown question={"User Type:"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
-      <Dropdown question={"Living Arrangements:"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
-      <Dropdown question={"Lifestyle Traits (select all that apply):"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
-      <Dropdown question={"Pet Preferences (select all that apply):"} isMulti={true} options={Q4} onChange={(value) => setPetPreferences(value)} />
+      <div className="signup-question">
+        <label className="signup-info">Password</label>
+        <input className="signup-input"
+          type="password" 
+          onChange={(e) => setPassword(e.target.value)} 
+          value={password} 
+        />
+      </div>
 
-      <h3>Bio:</h3>
-      <input 
+      <div className="signup-question">
+        <label className="signup-info">Upload a Profile Picture</label>
+        <input
+          className="file-upload"
+          id="file-upload"
+          type="file" 
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <label for="file-upload" class="file-upload-label">Choose File</label>
+        <button type="button" onClick={handleUpload}>Upload</button>
+      </div>
+      </div>
+
+      <h2 className="signup-header2">Contact Information</h2>
+      <div className="signup-contact-info">
+
+      <div className="signup-question">
+        <label className="signup-info">First Name</label>
+        <input className="signup-input2"
+          type="firstName" 
+          onChange={(e) => setFirstName(e.target.value)}
+          value={firstName} 
+        />
+      </div>
+
+      <div className="signup-question">
+        <label className="signup-info">Last Name</label>
+        <input className="signup-input2"
+          type="lastName" 
+          onChange={(e) => setLastName(e.target.value)}
+          value={lastName} 
+        />
+      </div>
+
+      <div className="signup-question">
+        <label className="signup-info">Phone Number</label>
+        <input className="signup-input2"
+          type="number" 
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          value={phoneNumber} 
+        />
+      </div>
+
+      <div className="signup-question">
+        <label className="signup-info">Zip Code</label>
+        <input className="signup-input2"
+          type="number" 
+          onChange={(e) => setZip(e.target.value)}
+          value={zip} 
+        />
+      </div>
+      </div>
+
+      <h2 className="signup-header2">Additional Information</h2>
+      <div className="signup-dropdowns">
+        <Dropdown question={"User Type"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
+        <Dropdown question={"Living Arrangements"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
+        <Dropdown question={"Lifestyle Traits"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
+        <Dropdown question={"Pet Preferences"} isMulti={true} options={Q4} onChange={(value) => setPetPreferences(value)} />
+      </div>
+
+      <h2 className="signup-header2">Bio</h2>
+      <textarea className="signup-bio"
         type="bio" 
         onChange={(e) => setBio(e.target.value)}
         value={bio} 
       />
+
       {/* ADD API CALL TO THIS BUTTON*/}
       <div>
-        <button type="button" onClick={genBio}>Generate Bio</button>
+        <button className="gen-bio-button" type="button" onClick={genBio}>Generate Bio</button>
       </div>
       <div>
-        <button disabled={isLoading}>Sign up</button>
+        <button className="signup-button" disabled={isLoading}>Sign Up</button>
       </div>
+
       {error && <div className="error">{error}</div>}
+      
     </form>
+    </div>
+    </div>
   )
 }
 

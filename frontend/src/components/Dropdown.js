@@ -4,7 +4,7 @@ import Select from 'react-select'
 function Dropdown({question,isMulti,options,onChange}) {
     return (
         <div className="dropdown">
-            <h3 className="dropdownQuestion">{question}</h3>
+            <label className="signup-info">{question}</label>
             <Select isMulti={isMulti} options={options} onChange={onChange}/>
         </div>
     )

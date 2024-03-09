@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useLogin } from "../hooks/useLogin"
 import { useNavigate } from "react-router-dom"
+import '../styles/login.css'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -15,25 +16,31 @@ const Login = () => {
   }
 
   return (
-    <form className="login" onSubmit={handleSubmit}>
-      <h3>Log In</h3>
-      
-      <label>Email address:</label>
-      <input 
-        type="email" 
-        onChange={(e) => setEmail(e.target.value)} 
-        value={email} 
-      />
-      <label>Password:</label>
-      <input 
-        type="password" 
-        onChange={(e) => setPassword(e.target.value)} 
-        value={password} 
-      />
+    <div className='login-container'>
+      <form className="login" onSubmit={handleSubmit}>
+        <h1 className="login-header">Log In</h1>
+        
+        <div className="login-field">
+          <label className="login-info">Email address</label>
+          <input className="login-input"
+            type="email" 
+            onChange={(e) => setEmail(e.target.value)} 
+            value={email} 
+          />
+          <label className="login-info">Password</label>
+          <input className="login-input"
+            type="password" 
+            onChange={(e) => setPassword(e.target.value)} 
+            value={password} 
+          />
+        </div>
 
-      <button disabled={isLoading}>Log in</button>
-      {error && <div className="error">{error}</div>}
-    </form>
+        {error && <div className="error">{error}</div>}
+
+        <button className='login-button' disabled={isLoading}>Log In</button>
+
+      </form>
+    </div>
   )
 }
 
