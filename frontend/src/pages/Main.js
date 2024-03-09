@@ -3,7 +3,7 @@ import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
-import '../index.css'
+//import '../index.css'
 
 // components
 import CardDetails from '../components/Card'
