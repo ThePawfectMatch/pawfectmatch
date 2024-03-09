@@ -1,16 +1,19 @@
 import { useEffect }from 'react'
 import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import '../index.css'
 
 // components
-import ListingDetails from '../components/ListingDetails'
-import ListingForm from '../components/ListingForm'
+import CardDetails from '../components/Card'
 import Navbar from '../components/Navbar'
+import CardDisplay from '../components/CardDisplay'
 
 const Main = () => {
   const {listings, dispatch} = useListingsContext()
   const {user} = useAuthContext()
-
+  
   useEffect(() => {
     const fetchListings = async () => {
       const response = await fetch('/api/listings', {
@@ -31,11 +34,13 @@ const Main = () => {
         <Navbar />
         <div className="main">
         <div className="listings">
-            {listings && listings.map((listing) => (
-            <ListingDetails key={listing._id} listing={listing} />
-            ))}
+            {listings && <CardDisplay listing={listings}></CardDisplay>}
         </div>
-        <ListingForm />
+        </div>
+        <div className="listing-button">
+          <Link to="/Listing">
+            <button>List</button>
+          </Link>
         </div>
     </div>
   )
