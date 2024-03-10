@@ -5,12 +5,26 @@ import React, { useState } from 'react'
  const Home = () => { 
 
     const [isActive, setIsActive] = useState(false);
+    const [isReversed, setIsReversed] = useState(false);
     const [isChanging, setIsChanging] = useState(false);
-  
-    const handleMouseEnter = () => {
+
+    const handleAnimation = () => {
+
         if (!isChanging) {
             setIsChanging(true);
             setIsActive(!isActive);
+            setIsReversed(false);
+          setTimeout(() => {
+            setIsChanging(false);
+          }, 300);
+        }
+    };
+
+    const handleReverseAnimation = () => {
+        if (!isChanging) {
+            setIsChanging(true);
+            setIsActive(!isActive);
+            setIsReversed(true);
           setTimeout(() => {
             setIsChanging(false);
           }, 300);
@@ -20,7 +34,7 @@ import React, { useState } from 'react'
   return (
     <body className='home-body'>
         <div className='home-container'>
-            <img className='logo-container' onClick={handleMouseEnter} src={'/images/logo.png'} alt="Pawfect Match"/>
+            <img className='logo-container' onClick={isActive ? handleReverseAnimation : handleAnimation} src={'/images/logo.png'} alt="Pawfect Match"/>
             <div className='home-button-container'>
                 <Link to="/login">
                     <button className='home-button' >Login</button>
@@ -30,7 +44,7 @@ import React, { useState } from 'react'
                 </Link>
             </div>
         </div>
-        <img className={`slide-dog ${isActive ? 'active' : 'inactive'}`} src={'/images/puppy_peeking1.png'} alt="puppy_peeking1"/>
+        <img className={`slide-dog ${isActive ? 'active' : ''} ${isReversed ? 'reverse' : ''}`} src={'/images/puppy_peeking1.png'} alt="puppy_peeking1"/>
     </body>
   )
  }

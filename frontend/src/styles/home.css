@@ -54,6 +54,7 @@ body {
 }
 
 .slide-dog {
+    transform: translateY(700px);
     position: absolute;
     left: 42%; 
     width: 300px;
@@ -67,8 +68,8 @@ body {
     animation-duration: 0.3s;
 }
 
-.slide-dog.inactive {
-    transform: translateY(1200px); /* Start offscreen */
+.slide-dog.reverse {
+    transform: translateY(700px);
     animation-name: slide-dog-out;
     animation-timing-function: ease-in;
     animation-duration: 0.3s;
