@@ -9,7 +9,6 @@ import React, { useState } from 'react'
     const [isChanging, setIsChanging] = useState(false);
 
     const handleAnimation = () => {
-
         if (!isChanging) {
             setIsChanging(true);
             setIsActive(!isActive);
