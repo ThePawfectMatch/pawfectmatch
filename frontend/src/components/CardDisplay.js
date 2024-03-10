@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CardDetails from './Card';
+import '../styles/card.css'
 
 const CardDisplay = ({ listing }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
