@@ -49,7 +49,7 @@ const ListingForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Listing</h3>
+      <h3>Post a Pet</h3>
 
       <label>Name:</label>
       <input 

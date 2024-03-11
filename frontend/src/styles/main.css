@@ -1,3 +1,11 @@
+* {
+    -webkit-user-drag: none;
+}
+
 .main {
-    margin-top: 20px;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    height: auto;
+    z-index: -1;
 }

@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className='nav-bar-buttons'>
           <div className="listing-button-container">
               <Link to="/Listing">
-                <button className='listing-button'>List</button>
+                <button className='listing-button'>Post a Pet</button>
               </Link>
           </div>
           {/* create liked pets page and link */}

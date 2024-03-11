@@ -1,77 +1,192 @@
- /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
- .card {
-    background-color: transparent;
-    width: 25%;
-    height: 50%;
-    border: 5px solid #f1f1f1;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+.card {
+  position: absolute;
+  top: 57%; /* Align to 50% from top */
+  left: 49%; /* Align to 50% from left */
+  transform: translate(-50%, -50%); /* Move back by 50% of its own width and height */
+  box-sizing: border-box;
+  width: 510px; /* Set card width */
+  height: 600px; /* Set card height */
+  perspective: 6000px; /* Set perspective for 3D effect */
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.checkbox {
+	display: none;
+}
+
+.flip-card .front,
+.flip-card .back {
+  position: absolute;
+	width: 100%;
+	height: 95%;
+  margin-top: 20px;
+	text-align: center;
+	background: var(--color-3);
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+	border-radius: 20px;
+}
+
+.flip-card {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	transition: all 0.8s ease-in-out;
+	z-index: 1;
+}
+
+.flip-card .back {
+	transform: rotateY(180deg);
+}
+
+.checkbox:checked + .flip-card {
+	transform: rotateY(180deg);
+}
+
+.front img {
+  border: 3px solid var(--color-6);
+  border-radius: 20px;
+  margin-top: 10px;
+  width: 94%;
+  height: auto;
+}
+
+.front h1 {
+  text-align: center;
+  font-family: 'More Sugar Regular', sans-serif;
+	font-size: 45px;
+	color: var(--color-7);
+	margin: 8px 0px 0px 0px;
+}
+
+.front h2 {
+	text-align: left;
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 22px;
+	color: var(--color-6);
+	margin: 10px 0px 0px 40px;
+}
+
+.front h3 {
+	text-align: right;
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 14px;
+	color: var(--color-6);
+	margin: 10px 40px 0px 40px;
+}
+
+.like-button {
+	/* FIXME - not final like button */
+  text-align: right;
+  padding-right: 66px;
+}
+
+.back h2 {
+  text-align: center;
+  font-family: 'More Sugar Regular', sans-serif;
+  font-size: 28px;
+	color: var(--color-7);
+	margin: 40px 10px 10px 0;
+}
+
+.back h3 {
+  text-align: center;
+  font-family: 'More Sugar Regular', sans-serif;
+  font-size: 22px;
+	color: var(--color-7);
+	margin: 25px 10px 10px 0;
+}
+
+.back p {
+  text-align: left;
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 16px;
+	color: var(--color-6);
+	padding-left: 35px;
+  padding-right: 25px;
+	line-height: 30px;
+	margin: 0 auto;
+}
+
   
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px;
-  
-    
-  }
-  
-  /* This container is needed to position the front and back side */
-  .card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-  }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  .card:hover .card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  /* Position the front and back side */
-  .card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
-    backface-visibility: hidden;
-  }
-  
-  /* Style the front side (fallback if image is missing) */
-  .card-front {
-    background-color: #bbb;
-    color: black; 
-  }
-  
-  /* Style the back side */
-  .card-back {
-    background-color: dodgerblue;
-    color: white;
-    transform: rotateY(180deg);
-  } 
-  
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 50;
-  }
-  
-  .next-button {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }
-  
-  .prev-button {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-  }
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 70%;
+  height: auto;
+}
+
+.arrow-button {
+  display: flex;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.left-arrow {
+  font-family: 'More Sugar Thin', sans-serif;
+  font-size: 400px;
+  border: none; /* Remove border */
+  background-color: transparent; /* Set background color to transparent */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  color: var(--color-6);
+  cursor: pointer; /* Set cursor to pointer for clickable behavior */
+}
+
+.right-arrow {
+  font-family: 'More Sugar Thin', sans-serif;
+  font-size: 400px;
+  border: none; /* Remove border */
+  background-color: transparent; /* Set background color to transparent */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  color: var(--color-6);
+  cursor: pointer; /* Set cursor to pointer for clickable behavior */
+}
+
+.right-arrow {
+  font-family: 'More Sugar Thin', sans-serif;
+}
+
+.left-arrow:not([disabled]):hover {
+  transform: scale(1.1); /* Scale up on hover */
+  transition: 0.3s ease; /* Add smooth transition */
+}
+
+.left-arrow:not([disabled]):not(:hover) {
+  transform: scale(1); /* Maintain scaled state after hover */
+  transition: 0.3s ease;
+}
+
+.left-arrow[disabled]:hover {
+  transform: scale(1); /* Maintain scaled state after hover */
+  transition: 0.3s ease;
+}
+
+.left-arrow[disabled] {
+  opacity: 0.5; /* Optionally reduce opacity for disabled button */
+}
+
+.right-arrow[disabled] {
+  opacity: 0.5; /* Optionally reduce opacity for disabled button */
+}
+
+.right-arrow:not([disabled]):hover {
+  transform: scale(1.1); /* Scale up on hover */
+  transition: transform 0.3s ease; /* Add smooth transition */
+}
+
+.right-arrow:not([disabled]):not(:hover) {
+  transform: scale(1); /* Maintain scaled state after hover */
+  transition: transform 0.3s ease;
+}
+
+.right-arrow[disabled]:hover {
+  transform: scale(1); /* Maintain scaled state after hover */
+  opacity: 0.5; /* Optionally reduce opacity for disabled button */
+  transition: 0.3s ease;
+}

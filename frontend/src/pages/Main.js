@@ -33,9 +33,7 @@ const Main = () => {
     <div>
         <Navbar />
         <div className="main">
-        <div className="listings">
             {listings && <CardDisplay listing={listings}></CardDisplay>}
-        </div>
         </div>
     </div>
   )
