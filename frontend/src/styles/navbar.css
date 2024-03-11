@@ -1,0 +1,107 @@
+@import url('colors.css');
+@import url('fonts.css');
+
+.nav-container {
+    position: relative;
+    background-color: var(--color-3);
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0px auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* border: 3px solid var(--color-1); */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-logo-container {
+    width: 400px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.main-logo-container img {
+    width: 100%; /* Make the image fill the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Scale the image while preserving aspect ratio to cover the entire container */
+    object-position: center; /* Position the image at the center */
+}
+
+.nav-bar-buttons {
+    display: flex;
+}
+
+.main-acc-buttons {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    margin-left: 12px;
+    margin-top: 2px;
+}
+
+.logout-button {
+    font-family: 'More Sugar Regular', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin: 0 10px; /* Adjust spacing between buttons */
+    font-size: 16px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-email {
+    font-family: 'More Sugar Thin', sans-serif;
+}
+
+.logout-button:hover {
+    background-color: var(--color-2);
+}
+
+.liked-pets-button {
+    font-family: 'More Sugar Regular', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin: 0 10px; /* Adjust spacing between buttons */
+    max-height: 39px;
+    font-size: 16px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+.liked-pets-button-container {
+    margin-left: 12px;
+    margin-top: 2px;
+}
+
+.liked-pets-button:hover {
+    background-color: var(--color-2);
+}
+
+.listing-button {
+    font-family: 'More Sugar Regular', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin: 0 10px; /* Adjust spacing between buttons */
+    max-height: 39px;
+    font-size: 16px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.listing-button-container {
+    margin-left: 12px;
+    margin-top: 2px;
+}
+
+.listing-button:hover {
+    background-color: var(--color-2);
+}

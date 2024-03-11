@@ -1,6 +1,7 @@
-import "../index.css"
+import { useEffect } from 'react'
 
 const CardDetails = ({ listing }) => {
+  
 
   return (
     <div class="card">
