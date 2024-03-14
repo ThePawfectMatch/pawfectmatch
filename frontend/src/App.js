@@ -33,7 +33,7 @@ function App() {
             />
             <Route
               path="/listing"
-              element={user ? <Listing /> : <Navigate to="\main" />}
+              element={user ? <Listing /> : <Navigate to="/" />}
             />
           </Routes>
         </div>

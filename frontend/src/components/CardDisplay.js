@@ -14,21 +14,19 @@ const CardDisplay = ({ listing }) => {
   };
 
   return (
-    <div>
-      <div>
-        <div className='nav-buttons'>
-          <div className='prev-button'>
-            <button onClick={goToPreviousListing} disabled={currentIndex === 0}>
-              <img src="/images/chevron.png" alt="Previous Button"/>
-            </button>
-          </div>
-          <div className='next-button'>
-            <button onClick={goToNextListing} disabled={currentIndex === listing.length - 1}>
-              <img src='/images/chevron.png' alt="Next Button"/>
-          </button>
-          </div>
-        </div>
-        <CardDetails key={listing[currentIndex]._id} listing={listing[currentIndex]}/>
+    <div className='nav-buttons'>
+    <div className='arrow-button'>
+        <button className='left-arrow' onClick={goToPreviousListing} disabled={currentIndex === 0}>
+          {/* <img src="/images/chevron.png" alt="Previous Button"/> */}
+          &lt;
+        </button>
+      </div>
+      <CardDetails key={listing[currentIndex]._id} listing={listing[currentIndex]}/>
+      <div className='arrow-button'>
+        <button className='right-arrow' onClick={goToNextListing} disabled={currentIndex === listing.length - 1}>
+          {/* <img src='/images/chevron.png' alt="Next Button"/> */}
+          &gt;
+      </button>
       </div>
     </div>
   );

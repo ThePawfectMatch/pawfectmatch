@@ -1,9 +1,9 @@
-import { useEffect }from 'react'
+import { useEffect } from 'react'
 import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
-//import '../index.css'
+import '../styles/main.css'
 
 // components
 import CardDetails from '../components/Card'
@@ -33,14 +33,7 @@ const Main = () => {
     <div>
         <Navbar />
         <div className="main">
-        <div className="listings">
             {listings && <CardDisplay listing={listings}></CardDisplay>}
-        </div>
-        </div>
-        <div className="listing-button">
-          <Link to="/Listing">
-            <button>List</button>
-          </Link>
         </div>
     </div>
   )
