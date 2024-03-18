@@ -7,6 +7,7 @@ body {
     background-position: center top; */
     background-color: var(--color-4);
     overflow: hidden;
+    margin: 0;
   }
 
 .home-container {
@@ -54,7 +55,7 @@ body {
 }
 
 .slide-dog {
-    transform: translateY(700px);
+    transform: translateY(650px);
     position: absolute;
     left: 42%; 
     width: 300px;
@@ -76,11 +77,11 @@ body {
 }
 
 @keyframes slide-dog-in {
-  0% { transform: translateY(700px); }
+  0% { transform: translateY(650px); }
   100% { transform: translateY(500px); } 
 }
 
 @keyframes slide-dog-out {
     0% { transform: translateY(500px); }
-    100% { transform: translateY(700px); } 
+    100% { transform: translateY(650px); } 
 }

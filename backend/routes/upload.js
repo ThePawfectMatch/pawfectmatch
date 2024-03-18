@@ -33,10 +33,10 @@ router.post('/user', upload.single('file'), async (req, res) => {
 
 // upload listing image (requires Authentication since listing tied to user)
 router.post('/listing', requireAuth, upload.array('files', 5), async (req, res) => {
-  const filename = Date.now() + '-' + req.file.originalname.split(' ').join('-')  
+  const filename = Date.now() + '-' + req.files[0].originalname.split(' ').join('-')  
   const filePath = `uploads/${filename}`
   try {
-    await sharp(req.file.buffer)
+    await sharp(req.files[0].buffer)
       .resize({ width: 600, height: 400})
       .toFile(filePath)
     res.status(200).json({
