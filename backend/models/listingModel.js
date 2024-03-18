@@ -11,6 +11,10 @@ const listingSchema = new Schema({
     type: String,
     required: true
   },
+  picPaths: {
+    type: [String],
+    required: false
+  },
   breed: {
     type: String,
     required: true
@@ -21,6 +25,10 @@ const listingSchema = new Schema({
   },
   traits: {
     type: [String],
+    required: false
+  },
+  bio: {
+    type: String,
     required: false
   }
 }, { timestamps: true })
