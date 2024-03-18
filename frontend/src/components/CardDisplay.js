@@ -13,6 +13,10 @@ const CardDisplay = ({ listing }) => {
     setCurrentIndex(prevIndex => Math.min(prevIndex + 1, listing.length - 1));
   };
 
+  if (listing.length === 0) { // in case we purge the listings
+    return <div className="no-listings">No listings yet!</div>;
+  }
+
   return (
     <div className='nav-buttons'>
     <div className='arrow-button'>
