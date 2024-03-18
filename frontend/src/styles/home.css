@@ -55,15 +55,15 @@ body {
 }
 
 .slide-dog {
-    transform: translateY(650px);
+    transform: translateY(700px);
     position: absolute;
-    left: 42%; 
+    left: 42.5%;
     width: 300px;
     height: auto;
 }
 
 .slide-dog.active {
-    transform: translateY(500px);
+    transform: translateY(508px);
     animation-name: slide-dog-in;
     animation-timing-function: ease-out;
     animation-duration: 0.3s;
@@ -77,11 +77,11 @@ body {
 }
 
 @keyframes slide-dog-in {
-  0% { transform: translateY(650px); }
-  100% { transform: translateY(500px); } 
+  0% { transform: translateY(700px); }
+  100% { transform: translateY(508px); } 
 }
 
 @keyframes slide-dog-out {
-    0% { transform: translateY(500px); }
-    100% { transform: translateY(650px); } 
+    0% { transform: translateY(508px); }
+    100% { transform: translateY(700px); } 
 }
