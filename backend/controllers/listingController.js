@@ -28,7 +28,7 @@ const getListing = async (req, res) => {
 
 // create new listing
 const createListing = async (req, res) => {
-  const {name, type, breed} = req.body
+  const {name, type, breed, userID} = req.body
 
   let emptyFields = []
 

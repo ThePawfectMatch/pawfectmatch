@@ -14,6 +14,14 @@ const listingSchema = new Schema({
   breed: {
     type: String,
     required: true
+  },
+  createdBy: {
+    type: String,
+    required: true
+  },
+  traits: {
+    type: [String],
+    required: false
   }
 }, { timestamps: true })
 

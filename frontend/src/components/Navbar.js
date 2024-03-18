@@ -20,7 +20,7 @@ const Navbar = () => {
         </Link>
         <div className='nav-bar-buttons'>
           <div className="listing-button-container">
-              <Link to="/Listing">
+              <Link to="/listing">
                 <button className='listing-button'>Post a Pet</button>
               </Link>
           </div>
