@@ -6,6 +6,7 @@ body {
     background-size: cover;
     background-position: center top; */
     background-color: var(--color-4);
+    overflow: hidden;
     margin: 0;
   }
 
@@ -51,4 +52,36 @@ body {
 
 .home-button:hover {
     background-color: var(--color-2);
+}
+
+.slide-dog {
+    transform: translateY(700px);
+    position: absolute;
+    left: 42.5%;
+    width: 300px;
+    height: auto;
+}
+
+.slide-dog.active {
+    transform: translateY(508px);
+    animation-name: slide-dog-in;
+    animation-timing-function: ease-out;
+    animation-duration: 0.3s;
+}
+
+.slide-dog.reverse {
+    transform: translateY(700px);
+    animation-name: slide-dog-out;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+}
+
+@keyframes slide-dog-in {
+  0% { transform: translateY(700px); }
+  100% { transform: translateY(508px); } 
+}
+
+@keyframes slide-dog-out {
+    0% { transform: translateY(508px); }
+    100% { transform: translateY(700px); } 
 }
