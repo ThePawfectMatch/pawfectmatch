@@ -16,7 +16,7 @@ router.post('/user', upload.single('file'), async (req, res) => {
   const filePath = `uploads/${filename}`
   try {
     await sharp(req.file.buffer)
-      .resize({ width: 600, height: 400})
+      .resize({ width: 500, height: 300})
       .toFile(filePath)
 
     res.status(200).json({
@@ -37,7 +37,7 @@ router.post('/listing', requireAuth, upload.array('files', 5), async (req, res) 
   const filePath = `uploads/${filename}`
   try {
     await sharp(req.files[0].buffer)
-      .resize({ width: 600, height: 400})
+      .resize({ width: 500, height: 300})
       .toFile(filePath)
     res.status(200).json({
       message: 'Uploaded successfully for listing',

@@ -34,6 +34,7 @@ const ListingForm = () => {
     }
     const traitValues = traits?.map(trait => trait.value)
     const listing = {name, type, picPaths, breed, traitValues, bio}
+    console.log(listing)
 
     const response = await fetch('/api/listings', {
       method: 'POST',
@@ -53,6 +54,7 @@ const ListingForm = () => {
       setName('')
       setType('')
       setBreed('')
+      setBio('')
       setError(null)
       setEmptyFields([])
       console.log('new listing added', json)
@@ -89,6 +91,29 @@ const ListingForm = () => {
 
   const genBio = async () => {
       console.log('Sending request to generate Bio')
+      const traitValues = traits?.map(trait => trait.value)
+      const l = {path: picPaths, name, type, breed, traitValues}
+
+      console.log(l)
+
+      const response = await fetch('/api/openai/listing-bio', {
+        method: 'POST',
+        body: JSON.stringify(l),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+
+      const json = await response.json()
+
+      if (response.ok) {
+        console.log(json.bio)
+        setBio(json.bio)
+      }
+      if (!response.ok) {
+        console.log(response.error)
+      }
   }
 
   return (
