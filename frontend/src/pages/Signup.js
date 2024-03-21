@@ -82,7 +82,29 @@ const Signup = () => {
   }
 
   const genBio = async () => {
+    console.log('Sending request to generate Bio')
+    const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
+    const petPreferencesValues = petPreferences?.map(preference => preference.value)
+    const livingArrangementsValue = livingArrangements?.value
+    const u = {firstName, lastName, livingArrangementsValue, lifestyleTraitValues, petPreferencesValues}
 
+    const response = await fetch('/api/openai/user-bio', {
+        method: 'POST',
+        body: JSON.stringify(u),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+    })
+
+    const json = await response.json()
+
+    if (response.ok) {
+        // console.log(json.bio)
+        setBio(json.bio)
+    }
+    if (!response.ok) {
+        console.log(response.error)
+    }
   }
 
   return (
