@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import Dropdown from "../components/Dropdown"
+import '../styles/listing.css'
 
 const ListingForm = () => {
   const { dispatch } = useListingsContext()
@@ -117,8 +118,10 @@ const ListingForm = () => {
   }
 
   return (
+    <div className="listing-border">
+    <div className='listing-container'>
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Post a Pet</h3>
+      <h1 className="listing-header">Post a Pet</h1>
 
       <div className="listing-question">
         <label className="listing-info">Upload a Profile Picture</label>
@@ -173,6 +176,8 @@ const ListingForm = () => {
       <button>Add Listing</button>
       {error && <div className="error">{error}</div>}
     </form>
+    </div>
+    </div>
   )
 }
 
