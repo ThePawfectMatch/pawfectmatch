@@ -16,18 +16,18 @@ const CardDetails = ({ listing }) => {
               <div className='like-button'> 
                 <input type="checkbox" />
               </div>
-              <h3>Match: 69%</h3>
+              <h3>Match: 70%</h3>
             </div>
 
             <div className="back">
               <h2>About Me</h2>
-              <p>Introducing {listing.name}, the gentle giant of the dog world! At 10 years young and 67 pounds, this cuddly canine is the epitome of mellow. With a heart as big as his size, Yolo is both house trained and hypoallergenic, making him the perfect addition to any family seeking a loyal and affectionate companion. Get ready to snuggle up with Yolo and experience a lifetime of love and joy!</p>
+              <p>Introducing {listing.name}, the gentle giant of the dog world! At 10 years young and 67 pounds, this cuddly canine is the epitome of mellow. With a heart as big as his size, {listing.name} is both house trained and hypoallergenic, making him the perfect addition to any family seeking a loyal and affectionate companion.</p>
               <h3>Details</h3>
               <p>Animal Type: {listing.type}</p>
               <p>Breed: {listing.breed}</p>
               <h3>Contact Information</h3>
               <p>Email: Yourmom@gmail.com</p>
-              <p>Phone Number: 911-420-6969</p>
+              <p>Phone Number: 911-421-6868</p>
             </div>
 
           </div>

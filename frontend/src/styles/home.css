@@ -56,7 +56,8 @@ body {
 
 .slide-dog {
     transform: translateY(700px);
-    position: absolute;
+    position: fixed;
+    bottom: 430px;
     left: 42.5%;
     width: 300px;
     height: auto;
@@ -70,18 +71,18 @@ body {
 }
 
 .slide-dog.reverse {
-    transform: translateY(700px);
+    transform: translateY(800px);
     animation-name: slide-dog-out;
     animation-timing-function: ease-in;
     animation-duration: 0.3s;
 }
 
 @keyframes slide-dog-in {
-  0% { transform: translateY(700px); }
+  0% { transform: translateY(800px); }
   100% { transform: translateY(508px); } 
 }
 
 @keyframes slide-dog-out {
     0% { transform: translateY(508px); }
-    100% { transform: translateY(700px); } 
+    100% { transform: translateY(800px); } 
 }

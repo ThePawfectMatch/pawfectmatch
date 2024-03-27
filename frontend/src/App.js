@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Main from './pages/Main'
 import Listing from './pages/Listing'
+import LikedPets from './pages/LikedPets'
 
 function App() {
   const { user } = useAuthContext()
@@ -34,6 +35,10 @@ function App() {
             <Route
               path="/listing"
               element={user ? <Listing /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/likedpets"
+              element={user ? <LikedPets /> : <Navigate to="/" />}
             />
           </Routes>
         </div>
