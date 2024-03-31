@@ -4,27 +4,46 @@ import Dropdown from "../components/Dropdown"
 import '../styles/signup.css'
 
 /* Dropdown menu question arrays */
-const Q1 = [
+const userVals = [
   {label: 'Individual', value: 'individual'},
   {label: 'Organization', value: 'organization'}
 ]
 
-const Q2 = [
+const homeVals = [
   {label: 'House', value: 'house'},
-  {label: 'Apartment', value: 'apartment'},
-  {label: 'Homeless', value: 'loser'}
+  {label: 'Townhouse', value: 'townhouse'},
+  {label: 'Apartment', value: 'apartment'}
 ]
 
-const Q3 = [
-  {label: 'Happy', value: 'happy'},
-  {label: 'Energetic', value: 'energetic'},
-  {label: 'Lonely', value: 'lonely'}
+const lifestyleVals = [
+  {label: 'Single', value: 'single'},
+  {label: 'Couple', value: 'couple'},
+  {label: 'Small family', value: 'sfamily'},
+  {label: 'Large family', value: 'lfamily'},
+  {label: 'Full-time worker', value: 'full-time'},
+  {label: 'Part-time worker', value: 'part-time'},
+  {label: 'Flexible schedule', value: 'flex'},
+  {label: 'Active', value: 'active'},
+  {label: 'Sedentary', value: 'sedentary'}
 ]
 
-const Q4 = [
+const petprefVals = [
   {label: 'Dog', value: 'dog'},
   {label: 'Cat', value: 'cat'},
-  {label: 'Gator', value: 'gator'}
+  {label: 'Other', value: 'other'}
+]
+
+const expVals = [
+  {label: 'Little/None', value: 'none'},
+  {label: 'Moderate', value: 'moderate'},
+  {label: 'Lots', value: 'lots'},
+]
+
+const spaceVals = [
+  {label: 'Small outdoor space', value: 'soutdoor'},
+  {label: 'Large outdoor space', value: 'loutdoor'},
+  {label: 'Small living space', value: 'sliving'},
+  {label: 'Large living space', value: 'lliving'}
 ]
 
 const Signup = () => {
@@ -43,6 +62,8 @@ const Signup = () => {
   const [livingArrangements, setLivingArrangements] = useState()
   const [lifestyleTraits, setLifestyleTraits] = useState() /* multi dropdown returns array of objects */
   const [petPreferences, setPetPreferences] = useState()
+  const [experience, setExperience] = useState()
+  const [space, setSpace] = useState()
 
   const {signup, error, isLoading} = useSignup()
 
@@ -112,10 +133,14 @@ const Signup = () => {
     <div className='signup-container'>
     <form className="signup" onSubmit={handleSubmit}>
       <h1 className="signup-header">Sign Up</h1>
+      <div className="signup-disclaim">
+      <label>Required info indicated with *</label>
+      </div>
+    
       <div className="signup-required-info">
 
       <div className="signup-question">
-        <label className="signup-info">Email</label>
+        <label className="signup-info">Email*</label>
         <input className="signup-input"
           type="email" 
           onChange={(e) => setEmail(e.target.value)}
@@ -124,7 +149,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Password</label>
+        <label className="signup-info">Password*</label>
         <input className="signup-input"
           type="password" 
           onChange={(e) => setPassword(e.target.value)} 
@@ -149,7 +174,7 @@ const Signup = () => {
       <div className="signup-contact-info">
 
       <div className="signup-question">
-        <label className="signup-info">First Name</label>
+        <label className="signup-info">First Name*</label>
         <input className="signup-input2"
           type="firstName" 
           onChange={(e) => setFirstName(e.target.value)}
@@ -158,7 +183,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Last Name</label>
+        <label className="signup-info">Last Name*</label>
         <input className="signup-input2"
           type="lastName" 
           onChange={(e) => setLastName(e.target.value)}
@@ -167,7 +192,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Phone Number</label>
+        <label className="signup-info">Phone Number*</label>
         <input className="signup-input2"
           type="number" 
           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -176,7 +201,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Zip Code</label>
+        <label className="signup-info">Zip Code*</label>
         <input className="signup-input2"
           type="number" 
           onChange={(e) => setZip(e.target.value)}
@@ -187,10 +212,15 @@ const Signup = () => {
 
       <h2 className="signup-header2">Additional Information</h2>
       <div className="signup-dropdowns">
-        <Dropdown question={"User Type"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
-        <Dropdown question={"Living Arrangements"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
-        <Dropdown question={"Lifestyle Traits"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
-        <Dropdown question={"Pet Preferences"} isMulti={true} options={Q4} onChange={(value) => setPetPreferences(value)} />
+        <Dropdown question={"User Type"} isMulti={false} options={userVals} onChange={(value) => setUserType(value)} />
+        <Dropdown question={"Pet Preferences"} isMulti={true} options={petprefVals} onChange={(value) => setPetPreferences(value)} />
+        <Dropdown question={"Experience with Pets"} isMulti={false} options={expVals} onChange={(value) => setExperience(value)} />
+        <Dropdown question={"Lifestyle"} isMulti={true} options={lifestyleVals} onChange={(value) => setLifestyleTraits(value)} />
+      </div>
+
+      <div className="signup-dropdowns">
+        <Dropdown question={"Living Arrangements"} isMulti={false} options={homeVals} onChange={(value) => setLivingArrangements(value)} />
+        <Dropdown question={"Available Space"} isMulti={false} options={spaceVals} onChange={(value) => setSpace(value)} />
       </div>
 
       <h2 className="signup-header2">Bio</h2>
@@ -208,7 +238,7 @@ const Signup = () => {
         <button className="signup-button" disabled={isLoading}>Sign Up</button>
       </div>
 
-      {error && <div className="error">{error}</div>}
+      {error && <div className="error">*** {error} ***</div>}
       
     </form>
     </div>

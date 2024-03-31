@@ -19,17 +19,15 @@ const CardDisplay = ({ listing }) => {
 
   return (
     <div className='nav-buttons'>
-    <div className='arrow-button'>
+      <div className='arrow-button'>
         <button className='left-arrow' onClick={goToPreviousListing} disabled={currentIndex === 0}>
-          {/* <img src="/images/chevron.png" alt="Previous Button"/> */}
-          &lt;
+          <img src={'/images/left_arrow.png'} alt="left arrow"/>
         </button>
       </div>
       <CardDetails key={listing[currentIndex]._id} listing={listing[currentIndex]}/>
       <div className='arrow-button'>
         <button className='right-arrow' onClick={goToNextListing} disabled={currentIndex === listing.length - 1}>
-          {/* <img src='/images/chevron.png' alt="Next Button"/> */}
-          &gt;
+          <img src={'/images/right_arrow.png'} alt="right arrow"/>
       </button>
       </div>
     </div>

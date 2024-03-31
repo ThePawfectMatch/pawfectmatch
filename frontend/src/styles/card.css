@@ -123,13 +123,17 @@
 
 .arrow-button {
   display: flex;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.arrow-button img {
+  width: 150px; /* Set a specific width */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .left-arrow {
-  font-family: 'More Sugar Thin', sans-serif;
-  font-size: 400px;
+  height: 300px;
   border: none; /* Remove border */
   background-color: transparent; /* Set background color to transparent */
   padding: 0; /* Remove padding */
@@ -139,8 +143,7 @@
 }
 
 .right-arrow {
-  font-family: 'More Sugar Thin', sans-serif;
-  font-size: 400px;
+  height: auto;
   border: none; /* Remove border */
   background-color: transparent; /* Set background color to transparent */
   padding: 0; /* Remove padding */

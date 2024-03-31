@@ -48,11 +48,19 @@
     font-size: 3.7em;
     color: var(--color-1);
     margin: auto;
+    margin-bottom: 12px;
     text-shadow: 
     0px -1px var(--color-2),
     1px 0px var(--color-2),
     0px 1px var(--color-2),
     -1px 0px var(--color-2);
+}
+
+.signup-disclaim {
+    text-align: center;
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 0.8em;
+    color: var(--color-6);
 }
 
 .signup-header2 {
@@ -84,20 +92,21 @@
     padding: 20px;
 }
 
-.signup-dropdowns {
+.signup .signup-dropdowns {
     display: flex;
     padding: 20px;
+    justify-content: center;   
 }
 
-.dropdown {
+.signup .dropdown {
     font-family: 'More Sugar Thin', sans-serif;
     color: var(--color-6);
-    padding-right: 30px;
+    margin-right: 30px;
     text-align: left;
-    width: 250px;
+    width: 210px;
 }
 
-.signup-info {
+.signup .signup-info {
     font-family: 'More Sugar Thin', sans-serif;
     color: var(--color-6);
     margin-top: 5px;
@@ -199,5 +208,12 @@
   /* Hover effect for the label */
   .file-upload-label:hover {
     background-color: var(--color-2);
+  }
+
+  .signup .error {
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 1.2em;
+    color: var(--color-error);
+    padding-bottom: 10px;
   }
   
