@@ -31,7 +31,7 @@ import React, { useState } from 'react'
     };
 
   return (
-    <body className='home-body'>
+    <div className='home-body'>
         <div className='home-container'>
             <img className='logo-container' onClick={isActive ? handleReverseAnimation : handleAnimation} src={'/images/logo.png'} alt="Pawfect Match"/>
             <div className='home-button-container'>
@@ -44,7 +44,7 @@ import React, { useState } from 'react'
             </div>
         </div>
         <img className={`slide-dog ${isActive ? 'active' : ''} ${isReversed ? 'reverse' : ''}`} src={'/images/puppy_peeking1.png'} alt="puppy_peeking1"/>
-    </body>
+    </div>
   )
  }
 

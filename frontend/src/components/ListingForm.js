@@ -211,7 +211,7 @@ const ListingForm = () => {
         type="file" 
         onChange={(e) => setFiles(e.target.files[0])} // later will need to change to accommodate 2+ pics
       />
-      <label for="file-upload" class="file-upload-label">Choose File</label>
+      <label htmlFor="file-upload" className="file-upload-label">Choose File</label>
       <button type="button" onClick={handleUpload}>Upload</button>
 
       <Dropdown question={"Age"} isMulti={false} options={ageVals} onChange={(value) => setAge(value)} />

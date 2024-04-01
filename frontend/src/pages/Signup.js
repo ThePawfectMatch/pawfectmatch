@@ -158,6 +158,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
+      <img className='pfp' src={'../backend/uploads/default_pfp.png'} alt="Profile Picture"/>
         <label className="signup-info">Upload a Profile Picture</label>
         <input
           className="file-upload"

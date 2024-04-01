@@ -1,7 +1,7 @@
 .card {
   position: absolute;
   top: 57%; /* Align to 50% from top */
-  left: 49%; /* Align to 50% from left */
+  left: 50%; /* Align to 50% from left */
   transform: translate(-50%, -50%); /* Move back by 50% of its own width and height */
   box-sizing: border-box;
   width: 510px; /* Set card width */
