@@ -67,38 +67,56 @@ const Signup = () => {
 
   const {signup, error, isLoading} = useSignup()
 
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    setFile(e.target.files[0])
+    console.log(file)
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     /* FIXME: update signup with required info */
     /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
     const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
     const petPreferencesValues = petPreferences?.map(preference => preference.value)
-    console.log(picPath)
+    handleUpload() /* upload photo upon submit */
     await signup(email, password, picPath, firstName, lastName, phoneNumber, 
       zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
   }
 
-  const handleUpload = async (e) => {
-    e.preventDefault()
+  const handleUpload = async () => {
+    // e.preventDefault() // causes error when called from handle submit
     
     if (!file) {
-      throw Error('Please select a file first')
+      // throw Error('Please select a file first')
+      console.log("No PFP")
     }
-
-    const formData = new FormData()
-    formData.append('file', file)
-
-      const response = await fetch('/api/upload/user', {
-        method: 'POST',
-        body: formData
-    })
-    const json = await response.json()
-    if (response.ok) {
-      setPicPath(json.path) 
-      console.log('File uploaded successfully to', json.path)
-    }
-    if (!response.ok) {
-      console.log('Error uploading file')
+    else {
+      const formData = new FormData()
+      formData.append('file', file)
+        const response = await fetch('/api/upload/user', {
+          method: 'POST',
+          body: formData
+      })
+      const json = await response.json()
+      if (response.ok) {
+        setPicPath(json.path) 
+        console.log('JSON.path: ', json.path)
+        console.log('Pic Path: ', picPath)
+      }
+      if (!response.ok) {
+        console.log('Error uploading file')
+      }
     }
   }
 
@@ -157,19 +175,27 @@ const Signup = () => {
         />
       </div>
 
-      <div className="signup-question">
-      <img className='pfp' src={'../backend/uploads/default_pfp.png'} alt="Profile Picture"/>
-        <label className="signup-info">Upload a Profile Picture</label>
+      <div className="signup-pfp">
+      {(previewUrl === null) ? (
+          <img className='pfp' src={"/images/uploads/default_pfp.png"} alt="Default PFP"/>
+        ) : (
+          <img className='pfp' src={previewUrl} alt="PFP"/>
+        ) }
+      
+        {/* <label className="signup-info">Upload Profile Picture</label> */}
         <input
           className="file-upload"
           id="file-upload"
           type="file" 
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={handleFileInputChange}
         />
-        <label for="file-upload" class="file-upload-label">Choose File</label>
+        <button className="file-upload-button" type="button">
+        <label for="file-upload" className="file-upload-label">Upload Profile Picture</label>
+        </button>
         <button type="button" onClick={handleUpload}>Upload</button>
       </div>
       </div>
+      
 
       <h2 className="signup-header2">Contact Information</h2>
       <div className="signup-contact-info">
@@ -221,7 +247,7 @@ const Signup = () => {
 
       <div className="signup-dropdowns">
         <Dropdown question={"Living Arrangements"} isMulti={false} options={homeVals} onChange={(value) => setLivingArrangements(value)} />
-        <Dropdown question={"Available Space"} isMulti={false} options={spaceVals} onChange={(value) => setSpace(value)} />
+        <Dropdown question={"Available Space"} isMulti={true} options={spaceVals} onChange={(value) => setSpace(value)} />
       </div>
 
       <h2 className="signup-header2">Bio</h2>
