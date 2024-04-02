@@ -3,6 +3,7 @@ import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import Dropdown from "../components/Dropdown"
 import '../styles/listing.css'
+import {animalTypes, hypo, ageVals, sizeVals, energyVals, temperVals, trainingVals} from '../const/listingConst'
 
 const ListingForm = () => {
   const { dispatch } = useListingsContext()
@@ -29,62 +30,6 @@ const ListingForm = () => {
   const [traits, setTraits] = useState()
   const [training, setTraining] = useState()
 
-  const animalTypes = [
-    {label: 'Dog', value: 'dog'},
-    {label: 'Cat', value: 'cat'},
-    {label: 'Other', value: 'other'}
-  ]
-
-  const hypo = [
-    {label: 'Yes', value: 'true'},
-    {label: 'No', value: 'false'}
-  ]
-
-  const ageVals = [
-    {label: 'Small', value: 's'},
-    {label: 'Medium', value: 'm'},
-    {label: 'Large', value: 'l'}
-  ]
-  
-  const sizeVals = [
-    {label: 'Less than 1 year', value: '<1'},
-    {label: '2 to 4 years', value: '2-4'},
-    {label: '5 to 7 years', value: '5-7'},
-    {label: '8+ years', value: '8+'}
-  ]
-
-  const energyVals = [
-    {label: 'Laid-back', value: 'low'},
-    {label: 'Couch Potato', value: 'low'},
-    {label: 'Calm', value: 'low'},
-    {label: 'Active', value: 'med'},
-    {label: 'Adaptable', value: 'med'},
-    {label: 'Moderate', value: 'med'},
-    {label: 'Hyper', value: 'high'},
-    {label: 'Energetic', value: 'high'},
-    {label: 'Lively', value: 'high'}
-  ]
-
-  const temperVals = [
-    {label: 'Friendly', value: 'friendly'},
-    {label: 'Shy/Timid', value: 'shy'},
-    {label: 'Independent', value: 'independent'},
-    {label: 'Affectionate', value: 'affectionate'},
-    {label: 'Protective', value: 'protective'},
-    {label: 'Playful', value: 'playful'},
-    {label: 'Anxious/Nervous', value: 'nervous'},
-    {label: 'Aggressive', value: 'aggressive'},
-    {label: 'Destructive', value: 'destructive'},
-    {label: 'Stubborn', value: 'stubborn'},
-    {label: 'Noisy', value: 'noisy'}
-  ]
-
-  const trainingVals = [
-    {label: 'In Need of Training', value: 'need'},
-    {label: 'Untrained', value: 'none'},
-    {label: 'Partially trained', value: 'part'},
-    {label: 'Well trained', value: 'well'}
-  ]
 
   const handleSubmit = async (e) => {
     e.preventDefault()
