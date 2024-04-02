@@ -48,11 +48,19 @@
     font-size: 3.7em;
     color: var(--color-1);
     margin: auto;
+    margin-bottom: 12px;
     text-shadow: 
     0px -1px var(--color-2),
     1px 0px var(--color-2),
     0px 1px var(--color-2),
     -1px 0px var(--color-2);
+}
+
+.signup-disclaim {
+    text-align: center;
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 0.8em;
+    color: var(--color-6);
 }
 
 .signup-header2 {
@@ -74,9 +82,19 @@
     
 }
 
+.signup-required-info .signup-question {
+    text-align: left;
+    padding-right: 0px;
+    width: 300px;
+}
+
 .signup-required-info {
+    align-items: center;
     display: flex;
     padding: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    justify-content: space-between;
 }
 
 .signup-contact-info {
@@ -84,20 +102,21 @@
     padding: 20px;
 }
 
-.signup-dropdowns {
+.signup .signup-dropdowns {
     display: flex;
     padding: 20px;
+    justify-content: center;   
 }
 
-.dropdown {
+.signup .dropdown {
     font-family: 'More Sugar Thin', sans-serif;
     color: var(--color-6);
-    padding-right: 30px;
+    margin-right: 30px;
     text-align: left;
-    width: 250px;
+    width: 210px;
 }
 
-.signup-info {
+.signup .signup-info {
     font-family: 'More Sugar Thin', sans-serif;
     color: var(--color-6);
     margin-top: 5px;
@@ -176,28 +195,43 @@
 /* Hide the file input */
 .file-upload {
     display: none;
-  }
-  
-  /* Style the label to resemble a button */
-  .file-upload-label {
-    display: inline-block;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none; /* Prevent text selection */
+}
 
-    font-family: 'More Sugar Regular', sans-serif;
+.file-upload-button {
+    font-family: 'More Sugar Thin', sans-serif;
     padding: 5px 10px; /* Adjust button padding */
-    font-size: 16px; /* Adjust font size */
+    margin-top: 8px;
+    font-size: 12px; /* Adjust font size */
     background-color: var(--color-1); /* Example button color */
     color: white; /* text color */
     border: 3px solid var(--color-2);
     border-radius: 5px;
     cursor: pointer;
-    
-  }
-  
-  /* Hover effect for the label */
-  .file-upload-label:hover {
+}
+
+.file-upload-button:hover {
     background-color: var(--color-2);
-  }
-  
+}
+
+.signup .error {
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 1.2em;
+    color: var(--color-error);
+    padding-bottom: 10px;
+}
+
+.signup-pfp {
+    margin-right: 50px;
+    width: 180px;
+    align-content: center;
+    justify-content: center;
+}
+
+.signup-pfp .pfp {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%; /* This makes the border circular */
+    border: 1px solid var(--color-5);
+    object-fit: cover; /* Ensures the image fills the circular container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

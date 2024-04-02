@@ -2,30 +2,8 @@ import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
 import Dropdown from "../components/Dropdown"
 import '../styles/signup.css'
+import {userVals, homeVals, lifestyleVals, petprefVals, expVals, spaceVals} from '../const/signupConst'
 
-/* Dropdown menu question arrays */
-const Q1 = [
-  {label: 'Individual', value: 'individual'},
-  {label: 'Organization', value: 'organization'}
-]
-
-const Q2 = [
-  {label: 'House', value: 'house'},
-  {label: 'Apartment', value: 'apartment'},
-  {label: 'Homeless', value: 'loser'}
-]
-
-const Q3 = [
-  {label: 'Happy', value: 'happy'},
-  {label: 'Energetic', value: 'energetic'},
-  {label: 'Lonely', value: 'lonely'}
-]
-
-const Q4 = [
-  {label: 'Dog', value: 'dog'},
-  {label: 'Cat', value: 'cat'},
-  {label: 'Gator', value: 'gator'}
-]
 
 const Signup = () => {
   const [password, setPassword] = useState('')
@@ -43,8 +21,26 @@ const Signup = () => {
   const [livingArrangements, setLivingArrangements] = useState()
   const [lifestyleTraits, setLifestyleTraits] = useState() /* multi dropdown returns array of objects */
   const [petPreferences, setPetPreferences] = useState()
+  const [experience, setExperience] = useState()
+  const [space, setSpace] = useState()
 
   const {signup, error, isLoading} = useSignup()
+
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    setFile(e.target.files[0])
+    console.log(file)
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -52,32 +48,34 @@ const Signup = () => {
     /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
     const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
     const petPreferencesValues = petPreferences?.map(preference => preference.value)
-    console.log(picPath)
+    handleUpload() /* upload photo upon submit */
     await signup(email, password, picPath, firstName, lastName, phoneNumber, 
       zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
   }
 
-  const handleUpload = async (e) => {
-    e.preventDefault()
+  const handleUpload = async () => {
+    // e.preventDefault() // causes error when called from handle submit
     
     if (!file) {
-      throw Error('Please select a file first')
+      // throw Error('Please select a file first')
+      console.log("No PFP")
     }
-
-    const formData = new FormData()
-    formData.append('file', file)
-
-      const response = await fetch('/api/upload/user', {
-        method: 'POST',
-        body: formData
-    })
-    const json = await response.json()
-    if (response.ok) {
-      setPicPath(json.path) 
-      console.log('File uploaded successfully to', json.path)
-    }
-    if (!response.ok) {
-      console.log('Error uploading file')
+    else {
+      const formData = new FormData()
+      formData.append('file', file)
+        const response = await fetch('/api/upload/user', {
+          method: 'POST',
+          body: formData
+      })
+      const json = await response.json()
+      if (response.ok) {
+        setPicPath(json.path) 
+        console.log('JSON.path: ', json.path)
+        console.log('Pic Path: ', picPath)
+      }
+      if (!response.ok) {
+        console.log('Error uploading file')
+      }
     }
   }
 
@@ -112,10 +110,14 @@ const Signup = () => {
     <div className='signup-container'>
     <form className="signup" onSubmit={handleSubmit}>
       <h1 className="signup-header">Sign Up</h1>
+      <div className="signup-disclaim">
+      <label>Required info indicated with *</label>
+      </div>
+    
       <div className="signup-required-info">
 
       <div className="signup-question">
-        <label className="signup-info">Email</label>
+        <label className="signup-info">Email*</label>
         <input className="signup-input"
           type="email" 
           onChange={(e) => setEmail(e.target.value)}
@@ -124,7 +126,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Password</label>
+        <label className="signup-info">Password*</label>
         <input className="signup-input"
           type="password" 
           onChange={(e) => setPassword(e.target.value)} 
@@ -132,24 +134,33 @@ const Signup = () => {
         />
       </div>
 
-      <div className="signup-question">
-        <label className="signup-info">Upload a Profile Picture</label>
+      <div className="signup-pfp">
+      {(previewUrl === null) ? (
+          <img className='pfp' src={"/images/uploads/default_pfp.png"} alt="Default PFP"/>
+        ) : (
+          <img className='pfp' src={previewUrl} alt="PFP"/>
+        ) }
+      
+        {/* <label className="signup-info">Upload Profile Picture</label> */}
         <input
           className="file-upload"
           id="file-upload"
           type="file" 
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={handleFileInputChange}
         />
-        <label for="file-upload" class="file-upload-label">Choose File</label>
+        <button className="file-upload-button" type="button">
+        <label for="file-upload" className="file-upload-label">Upload Profile Picture</label>
+        </button>
         <button type="button" onClick={handleUpload}>Upload</button>
       </div>
       </div>
+      
 
       <h2 className="signup-header2">Contact Information</h2>
       <div className="signup-contact-info">
 
       <div className="signup-question">
-        <label className="signup-info">First Name</label>
+        <label className="signup-info">First Name*</label>
         <input className="signup-input2"
           type="firstName" 
           onChange={(e) => setFirstName(e.target.value)}
@@ -158,7 +169,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Last Name</label>
+        <label className="signup-info">Last Name*</label>
         <input className="signup-input2"
           type="lastName" 
           onChange={(e) => setLastName(e.target.value)}
@@ -167,7 +178,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Phone Number</label>
+        <label className="signup-info">Phone Number*</label>
         <input className="signup-input2"
           type="number" 
           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -176,7 +187,7 @@ const Signup = () => {
       </div>
 
       <div className="signup-question">
-        <label className="signup-info">Zip Code</label>
+        <label className="signup-info">Zip Code*</label>
         <input className="signup-input2"
           type="number" 
           onChange={(e) => setZip(e.target.value)}
@@ -187,10 +198,15 @@ const Signup = () => {
 
       <h2 className="signup-header2">Additional Information</h2>
       <div className="signup-dropdowns">
-        <Dropdown question={"User Type"} isMulti={false} options={Q1} onChange={(value) => setUserType(value)} />
-        <Dropdown question={"Living Arrangements"} isMulti={false} options={Q2} onChange={(value) => setLivingArrangements(value)} />
-        <Dropdown question={"Lifestyle Traits"} isMulti={true} options={Q3} onChange={(value) => setLifestyleTraits(value)} />
-        <Dropdown question={"Pet Preferences"} isMulti={true} options={Q4} onChange={(value) => setPetPreferences(value)} />
+        <Dropdown question={"User Type"} isMulti={false} options={userVals} onChange={(value) => setUserType(value)} />
+        <Dropdown question={"Pet Preferences"} isMulti={true} options={petprefVals} onChange={(value) => setPetPreferences(value)} />
+        <Dropdown question={"Experience with Pets"} isMulti={false} options={expVals} onChange={(value) => setExperience(value)} />
+        <Dropdown question={"Lifestyle"} isMulti={true} options={lifestyleVals} onChange={(value) => setLifestyleTraits(value)} />
+      </div>
+
+      <div className="signup-dropdowns">
+        <Dropdown question={"Living Arrangements"} isMulti={false} options={homeVals} onChange={(value) => setLivingArrangements(value)} />
+        <Dropdown question={"Available Space"} isMulti={true} options={spaceVals} onChange={(value) => setSpace(value)} />
       </div>
 
       <h2 className="signup-header2">Bio</h2>
@@ -208,7 +224,7 @@ const Signup = () => {
         <button className="signup-button" disabled={isLoading}>Sign Up</button>
       </div>
 
-      {error && <div className="error">{error}</div>}
+      {error && <div className="error">*** {error} ***</div>}
       
     </form>
     </div>
