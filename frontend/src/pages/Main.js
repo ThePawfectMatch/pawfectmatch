@@ -6,13 +6,13 @@ import React, { useState } from 'react'
 import '../styles/main.css'
 
 // components
-import CardDetails from '../components/Card'
 import Navbar from '../components/Navbar'
 import CardDisplay from '../components/CardDisplay'
 
 const Main = () => {
   const {listings, dispatch} = useListingsContext()
   const {user} = useAuthContext()
+  const [isInView, setInView] = useState(false)
   
   useEffect(() => {
     const fetchListings = async () => {
@@ -29,9 +29,23 @@ const Main = () => {
     fetchListings()
   }, [dispatch])
 
+
+  const handleView = () => {
+    setInView(!isInView)
+    console.log(isInView)
+  }
+
   return (
     <div>
         <Navbar />
+      <div className={`filters-container ${isInView ? 'inView' : ''}`}>
+          <div className='filters-tab'>
+            <img src="/images/filters_tab.png" alt="-" onClick={handleView}/>
+          </div>
+          <div className='filters'>
+            <h1>Filters</h1>
+          </div>
+        </div>
         <div className="main">
             {listings && <CardDisplay listing={listings}></CardDisplay>}
         </div>
