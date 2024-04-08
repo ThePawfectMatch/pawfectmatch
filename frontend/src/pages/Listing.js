@@ -8,7 +8,7 @@ const Listing = () => {
   return (
     <div>
         <Navbar />
-        <div className="main">
+        <div className="postapet">
         <ListingForm />
         </div>
     </div>
