@@ -50,7 +50,7 @@ router.post('/listing-bio', async (req, res) => {
     try {
         // get path from req, convert to base64
         const { path, name, type, breed, traits } = req.body
-        const image = fs.readFileSync(`${path}`);
+        const image = fs.readFileSync(`./../frontend/public${path}`);
         const base64Image = Buffer.from(image).toString('base64');
         const imageDataUrl = `data:image/${path.split('.').pop()};base64,${base64Image}`;
 
