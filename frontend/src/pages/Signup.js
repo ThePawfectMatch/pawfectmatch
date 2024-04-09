@@ -14,7 +14,9 @@ const Signup = () => {
   const [zip, setZip] = useState('')
   const [bio, setBio] = useState('')
   const [file, setFile] = useState(null)
-  const [picPath, setPicPath] = useState('')
+  var picPath = ''
+
+  const [emptyFields, setEmptyFields] = useState([])
 
   /* Dropdown questions return object with label and value */
   const [userType, setUserType] = useState()
@@ -24,7 +26,7 @@ const Signup = () => {
   const [experience, setExperience] = useState()
   const [space, setSpace] = useState()
 
-  const {signup, error, isLoading} = useSignup()
+  const {signup, isLoading, error } = useSignup()
 
   const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -42,22 +44,58 @@ const Signup = () => {
     console.log(file)
   };
 
+  const checkFields = () => {
+    let emptyFields = []
+    if (!email) {
+      emptyFields.push('email')
+    }
+    if (!password) {
+      emptyFields.push('password')
+    }
+    if (!firstName) {
+      emptyFields.push('firstName')
+    }
+    if (!lastName) {
+      emptyFields.push('lastName')
+    }
+    if (!phoneNumber) {
+      emptyFields.push('phoneNumber')
+    }
+    if (!zip) {
+      emptyFields.push('zipcode')
+    }
+    if (!userType) {
+      emptyFields.push('accountType')
+    }
+    if (emptyFields.length > 0) {
+      setEmptyFields(emptyFields)
+      throw Error("All fields must be filled")
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     /* FIXME: update signup with required info */
     /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
     const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
     const petPreferencesValues = petPreferences?.map(preference => preference.value)
-    handleUpload() /* upload photo upon submit */
-    await signup(email, password, picPath, firstName, lastName, phoneNumber, 
-      zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
+    try {
+      checkFields()
+      await handleUpload() /* upload photo upon submit. NOTE: CHANGE LATER TO UPDATE USER PIC IF ACCOUNT IS GOOD (this way we have problem where a pic can be uploaded if the email exists already. ) */
+      await signup(email, password, picPath, firstName, lastName, phoneNumber, 
+        zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
+    }
+    catch (error) {
+      console.log(`Error signing up: ${error}`)
+      // later note, we may be able to use the catch blocks to do the CSS styling of if there's an error
+      // and add the red outline to the empty fields
+    }
   }
 
   const handleUpload = async () => {
     // e.preventDefault() // causes error when called from handle submit
     
     if (!file) {
-      // throw Error('Please select a file first')
       console.log("No PFP")
     }
     else {
@@ -69,39 +107,42 @@ const Signup = () => {
       })
       const json = await response.json()
       if (response.ok) {
-        setPicPath(json.path) 
-        console.log('JSON.path: ', json.path)
-        console.log('Pic Path: ', picPath)
+        picPath = json.path
       }
       if (!response.ok) {
-        console.log('Error uploading file')
+        throw Error(`Error uploading. ${response.error}`)
       }
     }
   }
 
   const genBio = async () => {
-    console.log('Sending request to generate Bio')
-    const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
-    const petPreferencesValues = petPreferences?.map(preference => preference.value)
-    const livingArrangementsValue = livingArrangements?.value
-    const u = {firstName, lastName, livingArrangementsValue, lifestyleTraitValues, petPreferencesValues}
-
-    const response = await fetch('/api/openai/user-bio', {
-        method: 'POST',
-        body: JSON.stringify(u),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-    })
-
-    const json = await response.json()
-
-    if (response.ok) {
-        // console.log(json.bio)
-        setBio(json.bio)
+    try {
+      checkFields()
+      console.log('Sending request to generate Bio')
+      const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
+      const petPreferencesValues = petPreferences?.map(preference => preference.value)
+      const livingArrangementsValue = livingArrangements?.value
+      const u = {firstName, lastName, livingArrangementsValue, lifestyleTraitValues, petPreferencesValues}
+  
+      const response = await fetch('/api/openai/user-bio', {
+          method: 'POST',
+          body: JSON.stringify(u),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      })
+  
+      const json = await response.json()
+  
+      if (response.ok) {
+          setBio(json.bio)
+      }
+      if (!response.ok) {
+          throw Error(response.error)
+      }
     }
-    if (!response.ok) {
-        console.log(response.error)
+    catch (error) {
+      console.log(`Error generating bio: ${error}`)
     }
   }
 
@@ -151,7 +192,7 @@ const Signup = () => {
         <button className="file-upload-button" type="button">
         <label for="file-upload" className="file-upload-label">Upload Profile Picture</label>
         </button>
-        <button type="button" onClick={handleUpload}>Upload</button>
+        {/* <button type="button" onClick={handleUpload}>Upload</button>*/} 
       </div>
       </div>
       
@@ -198,7 +239,7 @@ const Signup = () => {
 
       <h2 className="signup-header2">Additional Information</h2>
       <div className="signup-dropdowns">
-        <Dropdown question={"User Type"} isMulti={false} options={userVals} onChange={(value) => setUserType(value)} />
+        <Dropdown question={"User Type*"} isMulti={false} options={userVals} onChange={(value) => setUserType(value)} />
         <Dropdown question={"Pet Preferences"} isMulti={true} options={petprefVals} onChange={(value) => setPetPreferences(value)} />
         <Dropdown question={"Experience with Pets"} isMulti={false} options={expVals} onChange={(value) => setExperience(value)} />
         <Dropdown question={"Lifestyle"} isMulti={true} options={lifestyleVals} onChange={(value) => setLifestyleTraits(value)} />
