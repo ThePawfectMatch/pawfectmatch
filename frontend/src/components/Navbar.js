@@ -12,6 +12,7 @@ const Navbar = () => {
 
   const handleUserMenu = () => {
     setIsActive(!isActive)
+    console.log(user.picPath)
   }
 
   const handleLogout = () => {
@@ -19,7 +20,7 @@ const Navbar = () => {
   }
 
   return (
-      <div className="nav-container">
+      <div className={`nav-container ${isActive ? 'active' : ''}`}>
         <Link to="/main">
           <img className='main-logo-container' src={'/images/logo.png'} alt="Pawfect Match"/>
         </Link>
@@ -48,13 +49,13 @@ const Navbar = () => {
 
             <ul>
               <li className='edit' onClick={handleLogout}>Log Out</li>
-                <Link to="/main" className='button-link'>
+                <Link to="/editaccount" className='button-link'>
                   <li className='edit'>Edit Account</li>
                 </Link>
                 {/* <Link to="/likedpets" className='button-link'>
                   <li className='liked'>My Liked Pets</li>
                 </Link> */}
-                <Link to="/likedpets" className='button-link'>
+                <Link to="/mylistings" className='button-link'>
                   <li className='liked'>My Listings</li>
                 </Link>
               </ul>
