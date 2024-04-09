@@ -3,7 +3,7 @@ import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import Dropdown from "../components/Dropdown"
 import '../styles/listing.css'
-import {animalTypes, hypo, ageVals, sizeVals, energyVals, temperVals, trainingVals} from '../const/listingConst'
+import {animalTypes, hypo, sizeVals, ageVals, energyVals, temperVals, trainingVals} from '../const/listingConst'
 
 const ListingForm = () => {
   const { dispatch } = useListingsContext()
@@ -19,6 +19,7 @@ const ListingForm = () => {
   const [weight, setWeight] = useState('')
 
   const [error, setError] = useState(null)
+  const [uploadError, setUploadError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
 
   // Dropdown question variables
@@ -33,8 +34,7 @@ const ListingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    if(!user) {
+    if (!user) {
       setError('You must be logged in')
       return
     }
@@ -66,32 +66,39 @@ const ListingForm = () => {
       console.log('new listing added', json)
       dispatch({type: 'CREATE_LISTING', payload: json})
     }
+    
   }
 
   const handleUpload = async (e) => {
     e.preventDefault()
-    
-    if (!files) {
-      throw Error('Please select a file first')
+    try {
+      if (!files) {
+        throw Error('Please select a file first.')
+      }
+  
+      const formData = new FormData()
+      formData.append('files', files)
+  
+        const response = await fetch('/api/upload/listing', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
+      })
+      const json = await response.json()
+      if (response.ok) {
+        setPicPaths(json.path) 
+        console.log('File uploaded successfully to', json.path)
+      }
+      if (!response.ok) {
+        throw Error('Could not successfully upload.')
+      }
     }
 
-    const formData = new FormData()
-    formData.append('files', files)
-
-      const response = await fetch('/api/upload/listing', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        }
-    })
-    const json = await response.json()
-    if (response.ok) {
-      setPicPaths(json.path) 
-      console.log('File uploaded successfully to', json.path)
-    }
-    if (!response.ok) {
-      console.log('Error uploading file')
+    catch (error) {
+      console.log(`${error} Could not complete request.`)
+      setUploadError(error.message)
     }
   }
 
@@ -158,6 +165,8 @@ const ListingForm = () => {
       />
       <label htmlFor="file-upload" className="file-upload-label">Choose File</label>
       <button type="button" onClick={handleUpload}>Upload</button>
+
+      {uploadError && <div className="error">{uploadError}</div>}
 
       <Dropdown question={"Age"} isMulti={false} options={ageVals} onChange={(value) => setAge(value)} />
 

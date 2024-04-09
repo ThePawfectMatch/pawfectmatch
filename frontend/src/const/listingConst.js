@@ -9,13 +9,13 @@ export const animalTypes = [
     {label: 'No', value: 'false'}
   ]
 
-  export const ageVals = [
+  export const sizeVals = [
     {label: 'Small', value: 's'},
     {label: 'Medium', value: 'm'},
     {label: 'Large', value: 'l'}
   ]
   
-  export const sizeVals = [
+  export const ageVals = [
     {label: 'Less than 1 year', value: '<1'},
     {label: '2 to 4 years', value: '2-4'},
     {label: '5 to 7 years', value: '5-7'},

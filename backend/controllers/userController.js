@@ -25,7 +25,6 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
   const {email, password, picPath, firstName, lastName, phoneNumber, 
     zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences} = req.body
-
   try {
     const user = await User.signup(email, password, picPath, firstName, lastName, phoneNumber, 
       zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences)
@@ -34,7 +33,8 @@ const signupUser = async (req, res) => {
     const token = createToken(user._id)
 
     res.status(200).json({email, token}) // come back to this on if we should pass in all these values 
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(400).json({error: error.message})
   }
 }
