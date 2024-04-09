@@ -1,11 +1,15 @@
-.card {
-  position: absolute;
-  top: 57%; /* Align to 50% from top */
-  left: 50%; /* Align to 50% from left */
-  transform: translate(-50%, -50%); /* Move back by 50% of its own width and height */
-  box-sizing: border-box;
+.card-div {
   width: 510px; /* Set card width */
-  height: 600px; /* Set card height */
+  height: 82vh; /* Set card height */
+  min-width: 510px; /* Set card width */
+  min-height: 600px; /* Set card height */
+}
+
+.card {
+  /* position: absolute; */
+  box-sizing: border-box;
+  width: 510px; 
+  min-height: 600px; 
   perspective: 6000px; /* Set perspective for 3D effect */
   transform-style: preserve-3d;
   cursor: pointer;
@@ -18,7 +22,7 @@
 .flip-card .front,
 .flip-card .back {
   position: absolute;
-	width: 100%;
+  min-width: 100%;
 	height: 95%;
   margin-top: 20px;
 	text-align: center;
@@ -26,6 +30,13 @@
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 	border-radius: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 2px solid var(--color-6);
+}
+
+.back::-webkit-scrollbar {
+  display: none;
 }
 
 .flip-card {
@@ -39,27 +50,28 @@
 
 .flip-card .back {
 	transform: rotateY(180deg);
-}
+  box-sizing: border-box;
+  padding-bottom: 20px;
+ }
 
 .checkbox:checked + .flip-card {
 	transform: rotateY(180deg);
 }
 
-.front img {
-  /* border: 3px solid var(--color-6); */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  margin-top: 10px;
-  width: 94%;
-  height: auto;
-}
+
 
 .front h1 {
   text-align: center;
   font-family: 'More Sugar Regular', sans-serif;
-	font-size: 45px;
 	color: var(--color-7);
 	margin: 8px 0px 0px 0px;
+}
+
+.name {
+  display: flex;
+  height: 68px;
+  justify-content: center;
+  align-items: center;
 }
 
 .front h2 {
@@ -78,11 +90,22 @@
 	margin: 10px 40px 0px 40px;
 }
 
-.like-button {
-	/* FIXME - not final like button */
-  text-align: right;
-  padding-right: 66px;
+.photo-index {
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 14px;
+  position: absolute;
+  right: 55px;
+  top: 245px;
+  color: var(--color-4);
+  text-shadow: 
+  -1px -1px 0 var(--color-6),  
+   1px -1px 0 var(--color-6),
+  -1px  1px 0 var(--color-6),
+   1px  1px 0 var(--color-6); /* Outline color and size */
+  opacity: 0; /* Initial opacity */
+  transition: opacity 0.3s ease; /* Add transition for smooth effect */
 }
+
 
 .back h2 {
   text-align: center;
@@ -117,8 +140,6 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-width: 70%;
-  height: auto;
 }
 
 .arrow-button {
@@ -193,4 +214,67 @@
   transform: scale(1); /* Maintain scaled state after hover */
   opacity: 0.5; /* Optionally reduce opacity for disabled button */
   transition: 0.3s ease;
+}
+
+.like-button-container {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.like-button {
+	/* FIXME - not final like button */
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.like-button img {
+  filter: grayscale(100%);
+  height: 50px;
+  width: auto;
+  box-shadow: none;
+}
+
+.like-button.liked img {
+  filter: grayscale(0%);
+  height: 50px;
+  width: auto;
+  box-shadow: none;
+}
+
+.like-button:hover {
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.pet-photos {
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: none;
+  background: none;
+  margin: 0;
+  margin-top: 20px;
+  padding: 0;
+  width: 450px;
+  height: 275px;
+  background-color: var(--color-8);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pet-photos img {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: 275px;
+ 
+}
+
+.pet-photos img:hover + .photo-index {
+  opacity: 1;
+}
+
+.like-and-match {
+  position: absolute;
+  bottom: 30px;
+  right: 0;
 }

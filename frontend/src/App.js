@@ -8,6 +8,8 @@ import Signup from './pages/Signup'
 import Main from './pages/Main'
 import Listing from './pages/Listing'
 import LikedPets from './pages/LikedPets'
+import MyListings from './pages/MyListings'
+import EditAccount from './pages/EditAccount'
 
 function App() {
   const { user } = useAuthContext()
@@ -39,6 +41,14 @@ function App() {
             <Route
               path="/likedpets"
               element={user ? <LikedPets /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/mylistings"
+              element={user ? <MyListings /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/editaccount"
+              element={user ? <EditAccount /> : <Navigate to="/" />}
             />
           </Routes>
         </div>
