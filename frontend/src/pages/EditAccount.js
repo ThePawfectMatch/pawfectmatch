@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Dropdown from "../components/Dropdown"
 import '../styles/editaccount.css'
 import { useAuthContext } from "../hooks/useAuthContext"
@@ -10,34 +10,6 @@ import Navbar from '../components/Navbar'
 
 const EditAccount = () => {
   const {user} = useAuthContext()
-  
-  const initializeCells = async () => {
-    try {
-      const response = await fetch('/api/user/info', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.token}`
-        }
-      })
-      const json = await response.json()
-
-      if (response.ok) {
-
-      }
-
-      if (!response.ok) {
-
-      }
-    }
-  
-    catch (e) {
-  
-    }
-  }
-
-  initializeCells()
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -59,6 +31,42 @@ const EditAccount = () => {
 
   const [previewUrl, setPreviewUrl] = useState(null);
 
+  useEffect(() => {
+    const initializeCells = async () => {
+        const response = await fetch('/api/user/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          }
+        })
+        const json = await response.json()
+  
+        if (response.ok) {
+          console.log(json)
+          json.user.email && setEmail(json.user.email)
+          json.user.firstName && setFirstName(json.user.firstName)
+          json.user.lastName && setLastName(json.user.lastName)
+          json.user.phoneNumber && setPhoneNumber(json.user.phoneNumber)
+          json.user.zipcode && setZip(json.user.zipcode)
+          json.user.accountType && setUserType(json.user.accountType)
+          json.user.petPreferences && setPetPreferences(json.user.petPreferences)
+          json.user.lifestyleTraits && setLifestyleTraits(json.user.lifestyleTraits)
+          json.user.livingArrangements && setLivingArrangements(json.user.livingArrangements)
+          json.user.experience && setExperience(json.user.experience)
+          json.user.space && setSpace(json.user.space)
+          picPath = json.user.picPath
+          json.user.bio && setBio(json.user.bio)
+        }
+  
+        if (!response.ok) {
+          console.log('ermmm what the flip')
+        }
+    }
+
+    initializeCells()
+  }, [user])
+
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -73,8 +81,79 @@ const EditAccount = () => {
     console.log(file)
   };
 
-  const handleSubmit = () => {
+  const checkFields = () => {
+    let emptyFields = []
+    if (!firstName) {
+      emptyFields.push('firstName')
+    }
+    if (!lastName) {
+      emptyFields.push('lastName')
+    }
+    if (!phoneNumber) {
+      emptyFields.push('phoneNumber')
+    }
+    if (!zip) {
+      emptyFields.push('zipcode')
+    }
+    if (!userType) {
+      emptyFields.push('accountType')
+    }
+    if (emptyFields.length > 0) {
+      setEmptyFields(emptyFields)
+      throw Error("All fields must be filled")
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     
+    try {
+      checkFields()
+      await handleUpload() /* upload photo upon submit. NOTE: CHANGE LATER TO UPDATE USER PIC IF ACCOUNT IS GOOD (this way we have problem where a pic can be uploaded if the email exists already. ) */
+      const userInfo = {picPath, firstName, lastName, phoneNumber, 
+        zipcode: zip, bio, accountType: userType, livingArrangements, lifestyleTraits, petPreferences, experience, space}
+      const response = await fetch('/api/user/', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify(userInfo)
+      })
+      const json = await response.json()
+      if (response.ok) {
+        console.log(json.user)
+      }
+      if (!response.ok) {
+        console.log('update user unsuccessful')
+      }
+    }
+    catch (error) {
+      console.log(`Error updating information: ${error}`)
+      // later note, we may be able to use the catch blocks to do the CSS styling of if there's an error
+      // and add the red outline to the empty fields
+    }
+  }
+
+  const handleUpload = async () => {    
+    if (!file) {
+      console.log("No PFP")
+    }
+    else {
+      const formData = new FormData()
+      formData.append('file', file)
+        const response = await fetch('/api/upload/user', {
+          method: 'POST',
+          body: formData
+      })
+      const json = await response.json()
+      if (response.ok) {
+        picPath = json.path
+      }
+      if (!response.ok) {
+        throw Error(`Error uploading. ${response.error}`)
+      }
+    }
   }
 
 
@@ -96,7 +175,7 @@ const EditAccount = () => {
             <label className="editaccount-info" >Email*</label>
             <input className="editaccount-input"
               type="email" 
-              value={'YOUR EMAIL HERE'} 
+              value={email} 
               disabled
             />
           </div>
@@ -174,15 +253,15 @@ const EditAccount = () => {
 
           <h2 className="editaccount-header2">Additional Information</h2>
           <div className="editaccount-dropdowns">
-            <Dropdown question={"User Type*"} isMulti={false} options={userVals} onChange={(value) => setUserType(value)} />
-            <Dropdown question={"Pet Preferences"} isMulti={true} options={petprefVals} onChange={(value) => setPetPreferences(value)} />
-            <Dropdown question={"Experience with Pets"} isMulti={false} options={expVals} onChange={(value) => setExperience(value)} />
-            <Dropdown question={"Lifestyle"} isMulti={true} options={lifestyleVals} onChange={(value) => setLifestyleTraits(value)} />
+            <Dropdown question={"User Type*"} isMulti={false} value={userType} options={userVals} onChange={(value) => setUserType(value)} />
+            <Dropdown question={"Pet Preferences"} isMulti={true} value={petPreferences} options={petprefVals} onChange={(value) => setPetPreferences(value)} />
+            <Dropdown question={"Experience with Pets"} isMulti={false} value={experience} options={expVals} onChange={(value) => setExperience(value)} />
+            <Dropdown question={"Lifestyle"} isMulti={true} value={lifestyleTraits} options={lifestyleVals} onChange={(value) => setLifestyleTraits(value)} />
           </div>
 
           <div className="editaccount-dropdowns">
-            <Dropdown question={"Living Arrangements"} isMulti={false} options={homeVals} onChange={(value) => setLivingArrangements(value)} />
-            <Dropdown question={"Available Space"} isMulti={true} options={spaceVals} onChange={(value) => setSpace(value)} />
+            <Dropdown question={"Living Arrangements"} value={livingArrangements} isMulti={false} options={homeVals} onChange={(value) => setLivingArrangements(value)} />
+            <Dropdown question={"Available Space"} value={space} isMulti={true} options={spaceVals} onChange={(value) => setSpace(value)} />
           </div>
 
           <h2 className="editaccount-header2">Bio</h2>
@@ -194,7 +273,7 @@ const EditAccount = () => {
 
           {/* MAKE ANOTHER PROTECTED API ROUTE FOR THIS ONE
           <div>
-            <button className="gen-bio-button" type="button" onClick={genBio}>Generate Bio</button>
+            <button className="gen-bio-button" type="button" onClick={handleGenBio}>Generate Bio</button>
           </div>
           */}
           <div>

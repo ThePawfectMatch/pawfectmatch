@@ -76,14 +76,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     /* FIXME: update signup with required info */
-    /* will have to breakdown dropdown objects to access info e.g. -> userType.value */
-    const lifestyleTraitValues = lifestyleTraits?.map(trait => trait.value)
-    const petPreferencesValues = petPreferences?.map(preference => preference.value)
+    /* will have to breakdown dropdown objects to access info e.g. -> userType?.value */
     try {
       checkFields()
       await handleUpload() /* upload photo upon submit. NOTE: CHANGE LATER TO UPDATE USER PIC IF ACCOUNT IS GOOD (this way we have problem where a pic can be uploaded if the email exists already. ) */
       await signup(email, password, picPath, firstName, lastName, phoneNumber, 
-        zip, bio, userType?.value, livingArrangements?.value, lifestyleTraitValues, petPreferencesValues)
+        zip, bio, userType, livingArrangements, lifestyleTraits, petPreferences, experience, space)
     }
     catch (error) {
       console.log(`Error signing up: ${error}`)

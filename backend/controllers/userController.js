@@ -25,10 +25,10 @@ const loginUser = async (req, res) => {
 // signup a user
 const signupUser = async (req, res) => {
   const {email, password, picPath, firstName, lastName, phoneNumber, 
-    zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences} = req.body
+    zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space} = req.body
   try {
     const user = await User.signup(email, password, picPath, firstName, lastName, phoneNumber, 
-      zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences)
+      zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space)
 
     // create a token
     const token = createToken(user._id)
@@ -44,7 +44,7 @@ const updateUser = async (req, res) => {
   const id = req.user
   try {
     const {picPath, firstName, lastName, phoneNumber, 
-      zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences} = req.body
+      zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space} = req.body
     const updateFields = {};
     if (picPath) updateFields.picPath = picPath;
     if (firstName) updateFields.firstName = firstName;
@@ -56,6 +56,8 @@ const updateUser = async (req, res) => {
     if (livingArrangements) updateFields.livingArrangements = livingArrangements;
     if (lifestyleTraits) updateFields.lifestyleTraits = lifestyleTraits;
     if (petPreferences) updateFields.petPreferences = petPreferences;
+    if (experience) updateFields.experience = experience;
+    if (space) updateFields.space = space;
     
     const updatedUser = await User.findByIdAndUpdate(id, updateFields, { new: true });
 

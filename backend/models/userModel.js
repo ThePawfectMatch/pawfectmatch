@@ -53,12 +53,20 @@ const userSchema = new Schema({
   petPreferences: {
     type: Object,
     required: false // for now
+  },
+  experience: {
+    type: Object,
+    required: false
+  },
+  space: {
+    type: Object,
+    required: false
   }
 })
 
 // static signup method
 userSchema.statics.signup = async function(email, password, picPath, firstName, lastName, phoneNumber, 
-  zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences) {
+  zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space) {
   // validation
   if (!email || !password || !firstName || !lastName || !phoneNumber || !zipcode || !accountType) {
     throw Error('All fields must be filled')
