@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const { ObjectId } = require('mongodb')
 
 const Schema = mongoose.Schema
 
@@ -93,7 +94,7 @@ userSchema.statics.signup = async function(email, password, picPath, firstName, 
   const hash = await bcrypt.hash(password, salt)
 
   const user = await this.create({ email, password: hash, picPath, firstName, lastName, phoneNumber, 
-    zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences})
+    zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space})
 
   return user
 }
