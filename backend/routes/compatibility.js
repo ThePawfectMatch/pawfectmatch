@@ -5,6 +5,6 @@ const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
 
-router.get('/:_id', computeCompatibility)
+router.get('/', requireAuth, computeCompatibility)
 
 module.exports = router

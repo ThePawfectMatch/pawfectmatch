@@ -3,7 +3,8 @@ const User = require('../models/userModel')
 
 //Creates a tuple of (Listing ID : compatibility score) 
 const computeCompatibility = async (req, res) => {
-    const user = await User.findById(req.params._id)
+    const id = req.user
+    const user = await User.findById(id)
     const listings = await Listing.find({}).sort({createdAt: -1})
 
     //CHANGE THIS IF WE ADD MORE FIELDS SO IT DIVIDES CORRECTLY
