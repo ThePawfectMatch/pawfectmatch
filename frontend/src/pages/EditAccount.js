@@ -56,6 +56,7 @@ const EditAccount = () => {
           json.user.experience && setExperience(json.user.experience)
           json.user.space && setSpace(json.user.space)
           picPath = json.user.picPath
+          setPreviewUrl(json.user.picPath)
           json.user.bio && setBio(json.user.bio)
         }
   

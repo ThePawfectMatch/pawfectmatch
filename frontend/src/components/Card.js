@@ -35,7 +35,6 @@ const CardDetails = ({ listing }) => {
   // updates current photo
   useEffect(() => {
     setCurrPic(images[currentIndex])
-    console.log(currentIndex)
   }, [currentIndex]);
 
   const handleImageLoad = () => {
