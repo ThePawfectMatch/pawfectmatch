@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import Dropdown from "../components/Dropdown"
 import '../styles/listing.css'
 import {animalTypes, hypo, sizeVals, ageVals, energyVals, temperVals, trainingVals} from '../const/listingConst'
+import CardPreview from '../components/CardPreview'
 
 const ListingForm = () => {
   const { dispatch } = useListingsContext()
@@ -25,7 +26,7 @@ const ListingForm = () => {
   // Dropdown question variables
   const [type, setType] = useState('')
   const [hypoallergenic, setHypo] = useState()
-  const [age, setAge] = useState()
+  const [age, setAge] = useState('')
   const [size, setSize] = useState()
   const [energy, setEnergy] = useState()
   const [traits, setTraits] = useState()
@@ -130,12 +131,12 @@ const ListingForm = () => {
   }
 
   return (
-    <div className="listing-border">
-    <div className='listing-container'>
+    <div className="postapet">
+    <div className='listing'>
     <form className="create" onSubmit={handleSubmit}>
       <h1 className="listing-header">Post a Pet</h1>
 
-      <label>Pet Name</label>
+      <label className="listing-info">Pet Name</label>
       <input 
         type="text"
         onChange={(e) => setName(e.target.value)}
@@ -148,6 +149,7 @@ const ListingForm = () => {
       <label>Breed:</label>
       <input 
         type="text"
+        maxLength="30"
         onChange={(e) => setBreed(e.target.value)}
         value={breed}
         className={emptyFields.includes('breed') ? 'error' : ''}
@@ -188,6 +190,7 @@ const ListingForm = () => {
       <label>Bio</label>
       <textarea className="listing-bio"
         type="bio" 
+        rows="4" cols="30"
         onChange={(e) => setBio(e.target.value)}
         value={bio} 
       />
@@ -200,8 +203,12 @@ const ListingForm = () => {
       <button>Add Listing</button>
       {error && <div className="error">{error}</div>}
     </form>
+      
     </div>
-    </div>
+      <div className="preview">
+        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight}></CardPreview>
+      </div>
+      </div>
   )
 }
 

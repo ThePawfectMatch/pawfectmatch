@@ -11,7 +11,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     /* border: 3px solid var(--color-1); */
-    height: 88px;
+    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,7 +64,7 @@
     justify-content: space-around;
     border-radius: 0px 0px 5px 5px;
     list-style: none;
-    top: 84.5px;
+    top: 90.5px;
     right: -2px;
     padding-top: 10px;
     padding-bottom: 20px;

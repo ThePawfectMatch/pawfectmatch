@@ -1,35 +1,34 @@
 @import url('colors.css');
 @import url('fonts.css');
 
-.listing-border {
-    overflow: hidden;
-    text-align: center; /* Center the content horizontally */
-    position: absolute;
-    top: 58%; /* position the container vertically centered */
-    left: 50%; /* position the container horizontally centered */
-    transform: translate(-50%, -50%);
-    height: 500px;
-    width: 1045px;
-    padding: 30px 50px 50px 50px;
-    border: 3px solid var(--color-3);
-    border-radius: 30px;
-    background-color: var(--color-4);
+.postapet {
+    display: flex;
+    width: 100%;
+    height: 82vh;
 }
 
-.listing-container {
+.preview {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    min-height: 100%;
+    min-width: 40vw;
+    /* align-items: center;
+    justify-content: center; */
+}
+
+.listing {
+    box-sizing: border-box;
+    padding: 20px 50px 20px 50px;
+    position: relative;
+    min-height: 80vh;
+    min-width: 60vw;
     overflow-y: auto; /* Enable vertical scrolling */
-    text-align: center; /* Center the content horizontally */
-    position: absolute;
-    top: 50%; /* position the container vertically centered */
-    left: 50%; /* position the container horizontally centered */
-    transform: translate(-50%, -50%);
-    height: 590px;
-    width: 1000px;
-    padding: 0px 50px 0px 50px;
 }
 
 ::-webkit-scrollbar {
     width: 10px; /* Adjust scrollbar width */
+    display: none;
   }
   
   /* Color of the scrollbar thumb */
@@ -67,4 +66,171 @@
     border-radius: 5px; /* Example border radius */
     box-sizing: border-box; /* Ensures padding and border are included in width */
     margin-top: 10px;
+}
+
+.listing-disclaim {
+    text-align: center;
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 0.8em;
+    color: var(--color-6);
+}
+
+.listing-header2 {
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 2em;
+    color: var(--color-1);
+    margin: auto;
+    margin-top: 20px;
+    text-shadow: 
+    0px -1px var(--color-2),
+    1px 0px var(--color-2),
+    0px 1px var(--color-2),
+    -1px 0px var(--color-2);
+}
+
+.listing-question {
+    text-align: left;
+    padding-right: 30px;
+    
+}
+
+.listing-required-info .listing-question {
+    text-align: left;
+    padding-right: 0px;
+    width: 300px;
+}
+
+.listing-required-info {
+    align-items: center;
+    display: flex;
+    padding: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    justify-content: space-between;
+}
+
+.listing-contact-info {
+    display: flex;
+    padding: 20px;
+}
+
+.listing .listing-dropdowns {
+    display: flex;
+    padding: 20px;
+    justify-content: center;   
+}
+
+.listing .dropdown {
+    font-family: 'More Sugar Thin', sans-serif;
+    color: var(--color-6);
+    margin-right: 30px;
+    text-align: left;
+    width: 210px;
+}
+
+.listing .listing-info {
+    font-family: 'More Sugar Thin', sans-serif;
+    color: var(--color-6);
+    margin-top: 5px;
+    padding: 1px;
+}
+
+.listing-input {
+    font-family: 'More Sugar Thin', sans-serif;
+    color: var(--color-6);
+    width: 300px; /* Adjust the width as needed */
+    height: 40px; /* Adjust the height as needed */
+    padding: 10px; /* Adjust the padding as needed */
+    border: 1px solid #ccc; /* Example border style */
+    border-radius: 5px; /* Example border radius */
+    box-sizing: border-box; /* Ensures padding and border are included in width */
+}
+
+.listing-input2 {
+    font-family: 'More Sugar Thin', sans-serif;
+    color: var(--color-6);
+    width: 220px; /* Adjust the width as needed */
+    height: 40px; /* Adjust the height as needed */
+    padding: 10px; /* Adjust the padding as needed */
+    border: 1px solid #ccc; /* Example border style */
+    border-radius: 5px; /* Example border radius */
+    box-sizing: border-box; /* Ensures padding and border are included in width */
+}
+
+.listing-button {
+    font-family: 'More Sugar Regular', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin-top: 10px;
+    margin-bottom: 18px;
+    font-size: 24px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.listing-button:hover {
+    background-color: var(--color-2);
+}
+
+.gen-bio-button {
+    font-family: 'More Sugar Regular', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 13px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gen-bio-button:hover {
+    background-color: var(--color-2);
+}
+
+/* Hide the file input */
+.file-upload {
+    display: none;
+}
+
+.file-upload-button {
+    font-family: 'More Sugar Thin', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin-top: 8px;
+    font-size: 12px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-upload-button:hover {
+    background-color: var(--color-2);
+}
+
+.listing .error {
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 1.2em;
+    color: var(--color-error);
+    padding-bottom: 10px;
+}
+
+.listing-pfp {
+    margin-right: 50px;
+    width: 180px;
+    align-content: center;
+    justify-content: center;
+}
+
+.listing-pfp .pfp {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%; /* This makes the border circular */
+    border: 1px solid var(--color-5);
+    object-fit: cover; /* Ensures the image fills the circular container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
