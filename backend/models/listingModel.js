@@ -50,6 +50,18 @@ const listingSchema = new Schema({
   training: {
     type: String,
     required: false
+  },
+  weight: {
+    type: String,
+    required: false
+  },
+  contactPhone: {
+    type: String,
+    required: false
+  },
+  contactEmail: {
+    type: String,
+    required: false
   }
 }, { timestamps: true })
 

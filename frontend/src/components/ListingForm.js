@@ -45,7 +45,18 @@ const ListingForm = () => {
     const sizeVal = size?.value
     const energyVals = energy?.map(energy => energy.value)
     const trainingVal = training?.value
-    const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal}
+
+    const usrInfo = await fetch('/api/user/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
+      }
+    })
+    const ujson = await usrInfo.json()
+    const num = ujson.user.phoneNumber
+    const mail = ujson.user.email
+    const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal, weight, contactPhone: num, contactEmail: mail}
     console.log(listing)
 
     const response = await fetch('/api/listings', {

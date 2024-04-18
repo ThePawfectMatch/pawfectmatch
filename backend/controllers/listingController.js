@@ -28,7 +28,7 @@ const getListing = async (req, res) => {
 
 // create new listing
 const createListing = async (req, res) => {
-  const {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal} = req.body
+  const {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal, weight, contactPhone, contactEmail} = req.body
   // need to add the traits when we add that on the front interface
   let emptyFields = []
 
@@ -48,7 +48,7 @@ const createListing = async (req, res) => {
   // add doc to db
   try {
     const user_id = req.user._id
-    const listing = await Listing.create({name, type, picPaths, breed, createdBy: user_id, traits: traitValues, bio, hypoallergenic: hypoVal, age: ageVal, size: sizeVal, energy: energyVals, training: trainingVal})
+    const listing = await Listing.create({name, type, picPaths, breed, createdBy: user_id, traits: traitValues, bio, hypoallergenic: hypoVal, age: ageVal, size: sizeVal, energy: energyVals, training: trainingVal, weight: weight, contactPhone: contactPhone, contactEmail: contactEmail})
     res.status(200).json(listing)
   } catch (error) {
     res.status(400).json({error: error.message})

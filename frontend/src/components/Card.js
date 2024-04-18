@@ -102,7 +102,7 @@ const CardDetails = ({ listing }) => {
                 {doneCalc ? <h1 style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{listing.name.toUpperCase()}</h1> : <div></div>}
               </div>
               <h2>Age: {`${listing.age? listing.age : 'Unknown'}`}</h2>
-              <h2>Weight: {`${listing.weight? listing.weight : 'Unknown'}`}</h2>
+              <h2>Weight: {`${listing.weight? listing.weight + ' lbs' : 'Unknown'}`}</h2>
 
             <div className='like-and-match'>
               <div className='like-button-container'> 
@@ -129,8 +129,8 @@ const CardDetails = ({ listing }) => {
               <p>Animal Type: {listing.type}</p>
               <p>Breed: {listing.breed}</p>
               <h3>Contact Information</h3>
-              <p>Email: {'Inquire for Details'/*`${listing.createdBy}`*/}</p>
-              <p>Phone Number: {'Inquire for Details'}</p>
+              <p>Email: {listing.contactEmail}</p>
+              <p>Phone Number: {listing.contactPhone}</p>
             </div>
 
           </div>
