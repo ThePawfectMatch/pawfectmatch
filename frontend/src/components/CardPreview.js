@@ -123,8 +123,8 @@ const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, 
               <p>Breed: {(!breed) ? 'No breed input' : breed}</p>
               <p>Size: {(!size) ? 'No size selected' : size}</p>
               <p>Hypoallergenic: {(!hypo) ? 'Unknown' : hypo}</p>
-              <p>Energy Level: {(!energy) ? 'No energy level selected' : energy}</p>
-              <p>Temperment: {(!temperment) ? 'No temperment selected' : temperment}</p>
+              {/* <p>Energy Level: {(!energy) ? 'No energy level selected' : energy}</p> */}
+              {/* <p>Temperment: {(!temperment) ? 'No temperment selected' : temperment}</p> */}
               <p>Training Level: {(!training) ? 'No training level selected' : training}</p>
               <h3>Contact Information</h3>
               <p>Email: {user.email}</p>

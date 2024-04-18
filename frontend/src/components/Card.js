@@ -102,6 +102,7 @@ const CardDetails = ({ listing }) => {
                 {doneCalc ? <h1 style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{listing.name.toUpperCase()}</h1> : <div></div>}
               </div>
               <h2>Age: {`${listing.age? listing.age : 'Unknown'}`}</h2>
+              <h2>Weight: {`${listing.weight? listing.weight : 'Unknown'}`}</h2>
 
             <div className='like-and-match'>
               <div className='like-button-container'> 

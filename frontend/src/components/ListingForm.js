@@ -28,8 +28,8 @@ const ListingForm = () => {
   const [hypoallergenic, setHypo] = useState('')
   const [age, setAge] = useState('')
   const [size, setSize] = useState('')
-  const [energy, setEnergy] = useState('')
-  const [traits, setTraits] = useState('')
+  const [energy, setEnergy] = useState()
+  const [traits, setTraits] = useState()
   const [training, setTraining] = useState('')
 
 
@@ -242,7 +242,7 @@ const ListingForm = () => {
       
     </div>
       <div className="preview">
-        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy.label} temperment={traits.label} training={training}></CardPreview>
+        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperment={traits} training={training}></CardPreview>
       </div>
       </div>
   )
