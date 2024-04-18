@@ -101,8 +101,7 @@ const CardDetails = ({ listing }) => {
               <div className='name'>
                 {doneCalc ? <h1 style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{listing.name.toUpperCase()}</h1> : <div></div>}
               </div>
-              <h2>Age: 10 years</h2>
-              <h2>Distance: 10 miles</h2>
+              <h2>Age: {`${listing.age? listing.age : 'Unknown'}`}</h2>
 
             <div className='like-and-match'>
               <div className='like-button-container'> 
@@ -111,7 +110,7 @@ const CardDetails = ({ listing }) => {
                 </label>
               </div>
 
-              <h3>Match: 70%</h3>
+              <h3>Match: {`${((listing.compatibility)*100).toFixed(0)}%`}</h3>
             </div>
             </div>
 
@@ -129,8 +128,8 @@ const CardDetails = ({ listing }) => {
               <p>Animal Type: {listing.type}</p>
               <p>Breed: {listing.breed}</p>
               <h3>Contact Information</h3>
-              <p>Email: Yourmom@gmail.com</p>
-              <p>Phone Number: 911-421-6868</p>
+              <p>Email: {'Inquire for Details'/*`${listing.createdBy}`*/}</p>
+              <p>Phone Number: {'Inquire for Details'}</p>
             </div>
 
           </div>

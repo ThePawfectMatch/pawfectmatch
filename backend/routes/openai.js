@@ -49,7 +49,7 @@ router.use(requireAuth) // because we only want this to be accessible if they're
 router.post('/listing-bio', async (req, res) => {
     try {
         // get path from req, convert to base64
-        const { path, name, type, breed, traits } = req.body
+        const { path, name, type, breed, traits, hypoVal, ageVal, sizeVal, energyVals, trainingVal } = req.body
         const image = fs.readFileSync(`./../frontend/public${path}`);
         const base64Image = Buffer.from(image).toString('base64');
         const imageDataUrl = `data:image/${path.split('.').pop()};base64,${base64Image}`;
@@ -63,7 +63,7 @@ router.post('/listing-bio', async (req, res) => {
                         content: [
                             {
                                 type: "text",
-                                text: `Create a description/bio for an adoption pet listing based on the image provided. Make the description from the pet's POV and very cute in order to make potential adopters want to adopt the pet! Here are some details about the animal to include: Name: ${name}, Pet Type: ${type}, Breed ${breed}, Traits: ${traits}, and any other details that you can gather from the picture provided that you think would be important to getting the pet adopted! Limit the word count to no more than 150 words`
+                                text: `Create a description/bio for an adoption pet listing based on the image provided. Make the description from the pet's POV and very cute in order to make potential adopters want to adopt the pet! Here are some details about the animal to include: Name: ${name}, Pet Type: ${type}, Breed ${breed}, Traits: ${traits}, Energy: ${energyVals}, Hypoallergenic: ${hypoVal}, Age: ${ageVal}, Size: ${sizeVal}, Training Level: ${trainingVal}, and any other details that you can gather from the picture provided that you think would be important to getting the pet adopted! Limit the word count to no more than 150 words`
                             },
                             {
                                 type: "image_url",

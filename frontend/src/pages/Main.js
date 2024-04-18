@@ -13,6 +13,7 @@ const Main = () => {
   const {listings, dispatch} = useListingsContext()
   const {user} = useAuthContext()
   const [isInView, setInView] = useState(false)
+  const [compatibilityScore, setCompatibilityScore] = useState({})
   
   useEffect(() => {
     const fetchListings = async () => {
@@ -22,13 +23,35 @@ const Main = () => {
       const json = await response.json()
 
       if (response.ok) {
-        dispatch({type: 'SET_LISTINGS', payload: json})
+        // dispatch({type: 'SET_LISTINGS', payload: json}) // commented out because compatibility score is final updated version
+        fetchCompatibility(json)
       }
     }
 
     fetchListings()
+
   }, [dispatch])
 
+  const fetchCompatibility = async (listings) => {
+    const response = await fetch('/api/compatibility', {
+      headers: {
+        'Authorization': `Bearer ${user.token}`,
+      },
+    })
+    const json = await response.json()
+
+    if (response.ok) {
+      setCompatibilityScore(json)
+      console.log(json)
+      console.log(listings)
+      const listWithComp = listings?.map(l => ({
+        ...l,
+        compatibility: json[l._id] // Add new attribute and its value here
+      }))
+
+      dispatch({type: 'SET_LISTINGS', payload: listWithComp})
+    }
+  }
 
   const handleView = () => {
     setInView(!isInView)

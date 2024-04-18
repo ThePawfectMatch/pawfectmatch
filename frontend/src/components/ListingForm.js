@@ -40,7 +40,12 @@ const ListingForm = () => {
       return
     }
     const traitValues = traits?.map(trait => trait.value)
-    const listing = {name, type, picPaths, breed, traitValues, bio}
+    const hypoVal = hypoallergenic?.value
+    const ageVal = age?.value
+    const sizeVal = size?.value
+    const energyVals = energy?.map(energy => energy.value)
+    const trainingVal = training?.value
+    const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal}
     console.log(listing)
 
     const response = await fetch('/api/listings', {
@@ -106,7 +111,12 @@ const ListingForm = () => {
   const genBio = async () => {
       console.log('Sending request to generate Bio')
       const traitValues = traits?.map(trait => trait.value)
-      const l = {path: picPaths, name, type, breed, traitValues}
+      const hypoVal = hypoallergenic?.value
+      const ageVal = age?.value
+      const sizeVal = size?.value
+      const energyVals = energy?.map(energy => energy.value)
+      const trainingVal = training?.value
+      const l = {path: picPaths, name, type, breed, traitValues, hypoVal, ageVal, sizeVal, energyVals, trainingVal}
 
       console.log(l)
 
@@ -209,9 +219,9 @@ const ListingForm = () => {
       <div className="listing-dropdowns">
       <Dropdown question={"Energy Level"} isMulti={true} options={energyVals} onChange={(value) => setEnergy(value)} />
 
-      <Dropdown question={"Temperment"} isMulti={true} options={temperVals} onChange={(value) => setTraits(value)} />
+      <Dropdown question={"Temperament"} isMulti={true} options={temperVals} onChange={(value) => setTraits(value)} />
 
-      <Dropdown question={"Training Level"} isMulti={true} options={trainingVals} onChange={(value) => setTraining(value)} />
+      <Dropdown question={"Training Level"} isMulti={false} options={trainingVals} onChange={(value) => setTraining(value)} />
       </div>
       <h2 className="listing-header2">Bio</h2>
       <textarea className="listing-bio"
