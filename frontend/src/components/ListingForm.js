@@ -25,12 +25,12 @@ const ListingForm = () => {
 
   // Dropdown question variables
   const [type, setType] = useState('')
-  const [hypoallergenic, setHypo] = useState()
+  const [hypoallergenic, setHypo] = useState('')
   const [age, setAge] = useState('')
-  const [size, setSize] = useState()
-  const [energy, setEnergy] = useState()
-  const [traits, setTraits] = useState()
-  const [training, setTraining] = useState()
+  const [size, setSize] = useState('')
+  const [energy, setEnergy] = useState('')
+  const [traits, setTraits] = useState('')
+  const [training, setTraining] = useState('')
 
 
   const handleSubmit = async (e) => {
@@ -135,59 +135,85 @@ const ListingForm = () => {
     <div className='listing'>
     <form className="create" onSubmit={handleSubmit}>
       <h1 className="listing-header">Post a Pet</h1>
+      <div className="listing-disclaim">
+      <label>Required info indicated with *</label>
+      </div>
 
-      <label className="listing-info">Pet Name</label>
+      <div className="listing-required-info">
+        <div className="listing-question">
+          <label className="listing-info">Pet Name*</label>
+          <input 
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            // className={emptyFields.includes('name') ? 'error' : ''}
+            className="listing-input"
+          />
+      </div>
+
+      <div className="listing-question">
+        <Dropdown question={"Animal Type*"} isMulti={false} options={animalTypes} onChange={(value) => setType(value.value)} />
+      </div>
+      
+    </div>
+
+    <div className="listing-required-info">
+
+      <div className="listing-question">
+        <label className="listing-info">Breed*</label>
+        <input 
+          type="text"
+          maxLength="30"
+          onChange={(e) => setBreed(e.target.value)}
+          value={breed}
+          // className={emptyFields.includes('breed') ? 'error' : ''}
+          className="listing-input"
+        />
+      </div>
+
+      <div className="listing-question">
+      <label className="listing-info">Weight (lbs)</label>
       <input 
-        type="text"
-        onChange={(e) => setName(e.target.value)}
-        value={name}
-        className={emptyFields.includes('name') ? 'error' : ''}
+        type="number"
+        onChange={(e) => setWeight(e.target.value)}
+        value={weight}
+        className="listing-input"
       />
-
-      <Dropdown question={"Animal Type"} isMulti={false} options={animalTypes} onChange={(value) => setType(value.value)} />
-
-      <label>Breed:</label>
-      <input 
-        type="text"
-        maxLength="30"
-        onChange={(e) => setBreed(e.target.value)}
-        value={breed}
-        className={emptyFields.includes('breed') ? 'error' : ''}
-      />
-
-      <Dropdown question={"Hypoallergenic"} isMulti={false} options={hypo} onChange={(value) => setHypo(value)} />
+      </div>
+    </div>
 
 
-      <label className="listing-info">Upload a Profile Picture</label>
+    <div className="photo-upload-area">
+      <label className="listing-info">Upload Pet Photos*</label>
       <input
         className="file-upload"
         id="file-upload"
         type="file" 
         onChange={(e) => setFiles(e.target.files[0])} // later will need to change to accommodate 2+ pics
       />
-      <label htmlFor="file-upload" className="file-upload-label">Choose File</label>
-      <button type="button" onClick={handleUpload}>Upload</button>
+      <label htmlFor="file-upload" className="file-upload-button">Choose File</label>
+      {/* <button type="button" onClick={handleUpload}>Upload</button> */}
 
       {uploadError && <div className="error">{uploadError}</div>}
+    </div>
 
-      <Dropdown question={"Age"} isMulti={false} options={ageVals} onChange={(value) => setAge(value)} />
+      <div className="listing-dropdowns">
 
-      <Dropdown question={"Size"} isMulti={false} options={sizeVals} onChange={(value) => setSize(value)} />
+        <Dropdown question={"Age"} isMulti={false} options={ageVals} onChange={(value) => setAge(value)} />
 
-      <label>Weight (lbs)</label>
-      <input 
-        type="number"
-        onChange={(e) => setWeight(e.target.value)}
-        value={weight}
-      />
-      
+        <Dropdown question={"Size"} isMulti={false} options={sizeVals} onChange={(value) => setSize(value)} />
+
+        <Dropdown question={"Hypoallergenic"} isMulti={false} options={hypo} onChange={(value) => setHypo(value)} />
+
+      </div>
+      <div className="listing-dropdowns">
       <Dropdown question={"Energy Level"} isMulti={true} options={energyVals} onChange={(value) => setEnergy(value)} />
 
       <Dropdown question={"Temperment"} isMulti={true} options={temperVals} onChange={(value) => setTraits(value)} />
 
       <Dropdown question={"Training Level"} isMulti={true} options={trainingVals} onChange={(value) => setTraining(value)} />
-
-      <label>Bio</label>
+      </div>
+      <h2 className="listing-header2">Bio</h2>
       <textarea className="listing-bio"
         type="bio" 
         rows="4" cols="30"
@@ -206,7 +232,7 @@ const ListingForm = () => {
       
     </div>
       <div className="preview">
-        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight}></CardPreview>
+        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy.label} temperment={traits.label} training={training}></CardPreview>
       </div>
       </div>
   )

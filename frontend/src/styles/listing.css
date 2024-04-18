@@ -24,6 +24,7 @@
     min-height: 80vh;
     min-width: 60vw;
     overflow-y: auto; /* Enable vertical scrolling */
+    text-align: center;
 }
 
 ::-webkit-scrollbar {
@@ -72,6 +73,7 @@
     text-align: center;
     font-family: 'More Sugar Thin', sans-serif;
     font-size: 0.8em;
+    margin-bottom: 20px;
     color: var(--color-6);
 }
 
@@ -89,15 +91,25 @@
 }
 
 .listing-question {
+    display: flex;
     text-align: left;
     padding-right: 30px;
-    
+    flex-direction: column;
+}
+
+.listing-required-info .dropdown {
+    font-family: 'More Sugar Thin', sans-serif;
+    color: var(--color-6);
+    margin-right: 0px;
+    text-align: left;
+    width: 200px;
 }
 
 .listing-required-info .listing-question {
     text-align: left;
-    padding-right: 0px;
-    width: 300px;
+    padding: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .listing-required-info {
@@ -106,7 +118,8 @@
     padding: 20px;
     padding-top: 0px;
     padding-bottom: 0px;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
 
 .listing-contact-info {
@@ -120,7 +133,12 @@
     justify-content: center;   
 }
 
-.listing .dropdown {
+.listing-required-info .dropdown {
+    margin-top: 5px;
+    padding-top: 1px;
+}
+
+.listing-dropdowns .dropdown {
     font-family: 'More Sugar Thin', sans-serif;
     color: var(--color-6);
     margin-right: 30px;
@@ -138,7 +156,7 @@
 .listing-input {
     font-family: 'More Sugar Thin', sans-serif;
     color: var(--color-6);
-    width: 300px; /* Adjust the width as needed */
+    width: 200px; /* Adjust the width as needed */
     height: 40px; /* Adjust the height as needed */
     padding: 10px; /* Adjust the padding as needed */
     border: 1px solid #ccc; /* Example border style */
@@ -196,22 +214,6 @@
     display: none;
 }
 
-.file-upload-button {
-    font-family: 'More Sugar Thin', sans-serif;
-    padding: 5px 10px; /* Adjust button padding */
-    margin-top: 8px;
-    font-size: 12px; /* Adjust font size */
-    background-color: var(--color-1); /* Example button color */
-    color: white; /* text color */
-    border: 3px solid var(--color-2);
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.file-upload-button:hover {
-    background-color: var(--color-2);
-}
-
 .listing .error {
     font-family: 'More Sugar Thin', sans-serif;
     font-size: 1.2em;
@@ -233,4 +235,32 @@
     border: 1px solid var(--color-5);
     object-fit: cover; /* Ensures the image fills the circular container */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.photo-upload-area {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-upload-area .file-upload-button {
+    width: 80px;
+    font-size: 16px; 
+}
+
+.file-upload-button {
+    font-family: 'More Sugar Thin', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin-top: 8px;
+    font-size: 16px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-upload-button:hover {
+    background-color: var(--color-2);
 }

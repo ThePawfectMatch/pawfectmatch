@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useAuthContext } from "../hooks/useAuthContext"
 import '../styles/cardpreview.css'
 
-const CardPreview = ({ name, bio, breed, type, age, weight }) => {
+const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, temperment, training }) => {
   const [isLiked, setLike] = useState(false); // replace with listing.likeStatus (should stay liked if was previously liked)
   const [currentIndex, setCurrentIndex] = useState(0)
   const images = ["/images/dog1.jpg", "/images/dog2.jpg", "/images/dog3.jpg"]  // replace with list of listing pics
@@ -94,8 +94,8 @@ const CardPreview = ({ name, bio, breed, type, age, weight }) => {
               <div className='preview-name'>
                 {doneCalc ? <h1 style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{(name === '') ? 'PET NAME' : name.toUpperCase()}</h1> : <div></div>}
               </div>
-              <h2>Age: {(!age) ? 'No Age Input' : age}</h2>
-              <h2>Weight: {(!weight) ? 'No Weight Input' : `${weight} lbs`}</h2>
+              <h2>Age: {(!age) ? 'No age input' : age}</h2>
+              <h2>Weight: {(!weight) ? 'No weight input' : `${weight} lbs`}</h2>
 
             <div className='preview-like-and-match'>
               {/* <div className='preview-like-button-container'> 
@@ -119,8 +119,13 @@ const CardPreview = ({ name, bio, breed, type, age, weight }) => {
 
 
               <h3>Details</h3>
-              <p>Animal Type: {(!type) ? 'No Type Selected' : type}</p>
-              <p>Breed: {(!breed) ? 'No Breed Input' : breed}</p>
+              <p>Animal Type: {(!type) ? 'No type selected' : type}</p>
+              <p>Breed: {(!breed) ? 'No breed input' : breed}</p>
+              <p>Size: {(!size) ? 'No size selected' : size}</p>
+              <p>Hypoallergenic: {(!hypo) ? 'Unknown' : hypo}</p>
+              <p>Energy Level: {(!energy) ? 'No energy level selected' : energy}</p>
+              <p>Temperment: {(!temperment) ? 'No temperment selected' : temperment}</p>
+              <p>Training Level: {(!training) ? 'No training level selected' : training}</p>
               <h3>Contact Information</h3>
               <p>Email: {user.email}</p>
               <p>Phone Number: {(!user.phoneNumber) ? 'N/A' : user.phoneNumber}</p> 
