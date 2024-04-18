@@ -44,6 +44,8 @@ router.post('/listing', requireAuth, upload.array('files', 4), async (req, res) 
       
       uploadedPaths.push(`/images/uploads/${filename}`);
     }
+    console.log(uploadedPaths)
+
     res.status(200).json({
       message: 'Uploaded successfully for listing',
       paths: uploadedPaths

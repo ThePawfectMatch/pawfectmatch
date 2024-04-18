@@ -14,9 +14,9 @@ const ListingForm = () => {
   const [name, setName] = useState('')
   // const [type, setType] = useState('')
   const [breed, setBreed] = useState('')
-  const [files, setFiles] = useState(null)
+  const [files, setFiles] = useState([])
   const [bio, setBio] = useState('')
-  const [picPaths, setPicPaths] = useState('')
+  let picPaths = []
   const [weight, setWeight] = useState('')
 
   const [error, setError] = useState(null)
@@ -34,67 +34,83 @@ const ListingForm = () => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!user) {
-      setError('You must be logged in')
-      return
-    }
-    const traitValues = traits?.map(trait => trait.value)
-    const hypoVal = hypoallergenic?.value
-    const ageVal = age?.value
-    const sizeVal = size?.value
-    const energyVals = energy?.map(energy => energy.value)
-    const trainingVal = training?.value
-
-    const usrInfo = await fetch('/api/user/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`
+    try {
+      e.preventDefault()
+      if (!user) {
+        setError('You must be logged in')
+        return
       }
-    })
-    const ujson = await usrInfo.json()
-    const num = ujson.user.phoneNumber
-    const mail = ujson.user.email
-    const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal, weight, contactPhone: num, contactEmail: mail}
-    console.log(listing)
 
-    const response = await fetch('/api/listings', {
-      method: 'POST',
-      body: JSON.stringify(listing),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`
+      if (!name || !breed || !type) {
+        setError('Fill in all fields')
+        return
       }
-    })
-    const json = await response.json()
 
-    if (!response.ok) {
-      setError(json.error)
-      setEmptyFields(json.emptyFields)
+      const traitValues = traits?.map(trait => trait.value)
+      const hypoVal = hypoallergenic?.value
+      const ageVal = age?.value
+      const sizeVal = size?.value
+      const energyVals = energy?.map(energy => energy.value)
+      const trainingVal = training?.value
+
+      const usrInfo = await fetch('/api/user/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+      const ujson = await usrInfo.json()
+      const num = ujson.user.phoneNumber
+      const mail = ujson.user.email
+      handleUpload()
+
+      const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal, weight, contactPhone: num, contactEmail: mail}
+      console.log(listing)
+
+      const response = await fetch('/api/listings', {
+        method: 'POST',
+        body: JSON.stringify(listing),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+      const json = await response.json()
+
+      if (!response.ok) {
+        setError(json.error)
+        setEmptyFields(json.emptyFields)
+      }
+      if (response.ok) {
+        setName('')
+        setType('')
+        setBreed('')
+        setBio('')
+        setError(null)
+        setEmptyFields([])
+        console.log('new listing added', json)
+        dispatch({type: 'CREATE_LISTING', payload: json})
+      }
     }
-    if (response.ok) {
-      setName('')
-      setType('')
-      setBreed('')
-      setBio('')
-      setError(null)
-      setEmptyFields([])
-      console.log('new listing added', json)
-      dispatch({type: 'CREATE_LISTING', payload: json})
+
+    catch {
+      
     }
-    
   }
 
   const handleUpload = async (e) => {
-    e.preventDefault()
     try {
-      if (!files) {
+      if (!files && !picPaths) {
         throw Error('Please select a file first.')
       }
   
       const formData = new FormData()
-      formData.append('files', files)
+      files.forEach((file) => {
+        formData.append('files', file);
+      })
+      
+      console.log(formData)
   
         const response = await fetch('/api/upload/listing', {
           method: 'POST',
@@ -105,8 +121,9 @@ const ListingForm = () => {
       })
       const json = await response.json()
       if (response.ok) {
-        setPicPaths(json.path) 
-        console.log('File uploaded successfully to', json.path)
+        console.log(json)
+        picPaths = json.paths
+        console.log('File uploaded successfully to', json.paths)
       }
       if (!response.ok) {
         throw Error('Could not successfully upload.')
@@ -119,6 +136,21 @@ const ListingForm = () => {
     }
   }
 
+  const handleFileInputChange = (e, index) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Update the files array at the specified index with the selected file
+        const updatedFiles = [...files];
+        updatedFiles[index] = file;
+        setFiles(updatedFiles);
+        console.log(updatedFiles)
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const genBio = async () => {
       console.log('Sending request to generate Bio')
       const traitValues = traits?.map(trait => trait.value)
@@ -127,7 +159,7 @@ const ListingForm = () => {
       const sizeVal = size?.value
       const energyVals = energy?.map(energy => energy.value)
       const trainingVal = training?.value
-      const l = {path: picPaths, name, type, breed, traitValues, hypoVal, ageVal, sizeVal, energyVals, trainingVal}
+      const l = {path: picPaths[0], name, type, breed, traitValues, hypoVal, ageVal, sizeVal, energyVals, trainingVal}
 
       console.log(l)
 
@@ -207,13 +239,36 @@ const ListingForm = () => {
     <div className="photo-upload-area">
       <label className="listing-info">Upload Pet Photos*</label>
       <input
-        className="file-upload"
-        id="file-upload"
+        style={{ display: 'none' }}
+        id="file-upload-1"
         type="file" 
-        onChange={(e) => setFiles(e.target.files[0])} // later will need to change to accommodate 2+ pics
+        onChange={(e) => handleFileInputChange(e, 0)}
       />
-      <label htmlFor="file-upload" className="file-upload-button">Choose File</label>
-      {/* <button type="button" onClick={handleUpload}>Upload</button> */}
+      <label htmlFor="file-upload-1" className="file-upload-button">Choose File 1</label>
+      
+      <input
+        style={{ display: 'none' }}
+        id="file-upload-2"
+        type="file" 
+        onChange={(e) => handleFileInputChange(e, 1)}
+      />
+      <label htmlFor="file-upload-2" className="file-upload-button">Choose File 2</label>
+      
+      <input
+        style={{ display: 'none' }}
+        id="file-upload-3"
+        type="file" 
+        onChange={(e) => handleFileInputChange(e, 2)}
+      />
+      <label htmlFor="file-upload-3" className="file-upload-button">Choose File 3</label>
+      
+      <input
+        style={{ display: 'none' }}
+        id="file-upload-4"
+        type="file" 
+        onChange={(e) => handleFileInputChange(e, 3)}
+      />
+      <label htmlFor="file-upload-4" className="file-upload-button">Choose File 4</label>
 
       {uploadError && <div className="error">{uploadError}</div>}
     </div>
@@ -247,7 +302,7 @@ const ListingForm = () => {
         <button className="gen-bio-button" type="button" onClick={genBio}>Generate Bio</button>
       </div>
 
-      <button>Add Listing</button>
+      <button className="add-listing-button">Add Listing</button>
       {error && <div className="error">{error}</div>}
     </form>
       

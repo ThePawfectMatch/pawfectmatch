@@ -264,3 +264,19 @@
 .file-upload-button:hover {
     background-color: var(--color-2);
 }
+
+.add-listing-button {
+    font-family: 'More Sugar Thin', sans-serif;
+    padding: 5px 10px; /* Adjust button padding */
+    margin-top: 8px;
+    font-size: 16px; /* Adjust font size */
+    background-color: var(--color-1); /* Example button color */
+    color: white; /* text color */
+    border: 3px solid var(--color-2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-listing-button:hover {
+    background-color: var(--color-2);
+}
