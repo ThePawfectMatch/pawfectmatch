@@ -31,15 +31,22 @@ router.post('/user', upload.single('file'), async (req, res) => {
 })
 
 // upload listing image (requires Authentication since listing tied to user)
-router.post('/listing', requireAuth, upload.array('files', 5), async (req, res) => {
-  const filename = Date.now() + '-' + req.files[0].originalname.split(' ').join('-')  
-  const filePath = `./../frontend/public/images/uploads/${filename}`
+router.post('/listing', requireAuth, upload.array('files', 4), async (req, res) => {
   try {
-    await sharp(req.files[0].buffer)
-      .toFile(filePath)
+    const uploadedPaths = [];
+    
+    for (const file of req.files) {
+      const filename = Date.now() + '-' + file.originalname.split(' ').join('-');
+      const filePath = `./../frontend/public/images/uploads/${filename}`;
+      
+      await sharp(file.buffer)
+        .toFile(filePath);
+      
+      uploadedPaths.push(`/images/uploads/${filename}`);
+    }
     res.status(200).json({
       message: 'Uploaded successfully for listing',
-      path: `/images/uploads/${filename}`
+      paths: uploadedPaths
     })
     
   }
