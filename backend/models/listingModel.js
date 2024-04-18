@@ -30,6 +30,26 @@ const listingSchema = new Schema({
   bio: {
     type: String,
     required: false
+  },
+  hypoallergenic: {
+    type: String,
+    required: false
+  },
+  age: {
+    type: String,
+    required: false
+  },
+  size: {
+    type: String,
+    required: false
+  },
+  energy: {
+    type: [String],
+    required: false
+  },
+  training: {
+    type: String,
+    required: false
   }
 }, { timestamps: true })
 
