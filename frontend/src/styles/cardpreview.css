@@ -283,3 +283,27 @@
   bottom: 30px;
   right: 0;
 }
+
+.x-button {
+    position: absolute;
+    font-family: 'More Sugar Regular', sans-serif;
+    font-size: 26px;
+    color: var(--color-error);
+    text-shadow: 
+  -1px -1px 0 var(--color-7),  
+   1px -1px 0 var(--color-7),
+  -1px  1px 0 var(--color-7),
+   1px  1px 0 var(--color-7); /* Outline color and size */
+   top: 1%;
+   left: 9%;
+   opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.preview-pet-photos img:hover + .preview-photo-index + .x-button {
+    opacity: 0.8;
+  }
+
+  .x-button:hover {
+    opacity: 1;
+  }

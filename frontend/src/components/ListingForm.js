@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useListingsContext } from "../hooks/useListingsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import Dropdown from "../components/Dropdown"
@@ -9,6 +9,7 @@ import CardPreview from '../components/CardPreview'
 const ListingForm = () => {
   const { dispatch } = useListingsContext()
   const { user } = useAuthContext()
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   // fill in the blank variables
   const [name, setName] = useState('')
@@ -16,7 +17,7 @@ const ListingForm = () => {
   const [breed, setBreed] = useState('')
   const [files, setFiles] = useState([])
   const [bio, setBio] = useState('')
-  let picPaths = []
+  var picPaths = []
   const [weight, setWeight] = useState('')
 
   const [error, setError] = useState(null)
@@ -102,7 +103,7 @@ const ListingForm = () => {
   const handleUpload = async (e) => {
     try {
       if (!files && !picPaths) {
-        throw Error('Please select a file first.')
+        throw Error('Missing pet photos.')
       }
   
       const formData = new FormData()
@@ -136,18 +137,16 @@ const ListingForm = () => {
     }
   }
 
-  const handleFileInputChange = (e, index) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        // Update the files array at the specified index with the selected file
-        const updatedFiles = [...files];
-        updatedFiles[index] = file;
-        setFiles(updatedFiles);
-        console.log(updatedFiles)
-      };
-      reader.readAsDataURL(file);
+  const [selectedImages, setSelectedImages] = useState([])
+
+  const handleFileInputChange = (e) => {
+    if(e.target.files) {
+      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file))
+      setSelectedImages((prevImages) => prevImages.concat(fileArray))
+      Array.from(e.target.files).map(
+        (file) => URL.revokeObjectURL(file)
+      )
+      setFiles((prevImages) => prevImages.concat(e.target.files))
     }
   };
 
@@ -183,11 +182,24 @@ const ListingForm = () => {
       }
   }
 
+  const handleXClick = (index) => {
+    // console.log(index)
+    setSelectedImages((prevItems) => {
+      // Create a new array without the element at the specified index
+      return [...prevItems.slice(0, index), ...prevItems.slice(index + 1)];
+    });
+    setFiles((prevItems) => {
+      // Create a new array without the element at the specified index
+      return [...prevItems.slice(0, index), ...prevItems.slice(index + 1)];
+    });
+    // console.log("Pressing X")
+  }
+
   return (
     <div className="postapet">
     <div className='listing'>
     <form className="create" onSubmit={handleSubmit}>
-      <h1 className="listing-header">Post a Pet</h1>
+      <h1 className="listing-header" onClick={() => {console.log(files)}}>Post a Pet</h1>
       <div className="listing-disclaim">
       <label>Required info indicated with *</label>
       </div>
@@ -238,39 +250,46 @@ const ListingForm = () => {
 
     <div className="photo-upload-area">
       <label className="listing-info">Upload Pet Photos*</label>
-      <input
-        style={{ display: 'none' }}
-        id="file-upload-1"
-        type="file" 
-        onChange={(e) => handleFileInputChange(e, 0)}
-      />
-      <label htmlFor="file-upload-1" className="file-upload-button">Choose File 1</label>
-      
-      <input
-        style={{ display: 'none' }}
-        id="file-upload-2"
-        type="file" 
-        onChange={(e) => handleFileInputChange(e, 1)}
-      />
-      <label htmlFor="file-upload-2" className="file-upload-button">Choose File 2</label>
-      
-      <input
-        style={{ display: 'none' }}
-        id="file-upload-3"
-        type="file" 
-        onChange={(e) => handleFileInputChange(e, 2)}
-      />
-      <label htmlFor="file-upload-3" className="file-upload-button">Choose File 3</label>
-      
-      <input
-        style={{ display: 'none' }}
-        id="file-upload-4"
-        type="file" 
-        onChange={(e) => handleFileInputChange(e, 3)}
-      />
-      <label htmlFor="file-upload-4" className="file-upload-button">Choose File 4</label>
 
-      {uploadError && <div className="error">{uploadError}</div>}
+      <div className="photo-uploads">
+        <input
+          multiple
+          style={{ display: 'none' }}
+          id="file-upload-1"
+          type="file" 
+          onChange={(e) => handleFileInputChange(e)}
+        />
+        <label htmlFor="file-upload-1" className="file-upload-button">
+          <i className="material-icons">add_a_photo</i>
+        </label>
+        
+        {/* <input
+          style={{ display: 'none' }}
+          id="file-upload-2"
+          type="file" 
+          onChange={(e) => handleFileInputChange(e, 1)}
+        />
+        <label htmlFor="file-upload-2" className="file-upload-button">Choose File 2</label>
+        
+        <input
+          style={{ display: 'none' }}
+          id="file-upload-3"
+          type="file" 
+          onChange={(e) => handleFileInputChange(e, 2)}
+        />
+        <label htmlFor="file-upload-3" className="file-upload-button">Choose File 3</label>
+        
+        <input
+          style={{ display: 'none' }}
+          id="file-upload-4"
+          type="file" 
+          onChange={(e) => handleFileInputChange(e, 3)}
+        />
+        <label htmlFor="file-upload-4" className="file-upload-button">Choose File 4</label> */}
+
+        {uploadError && <div className="error">{uploadError}</div>}
+
+        </div>
     </div>
 
       <div className="listing-dropdowns">
@@ -308,7 +327,7 @@ const ListingForm = () => {
       
     </div>
       <div className="preview">
-        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperment={traits} training={training}></CardPreview>
+        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperment={traits} training={training} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
       </div>
       </div>
   )

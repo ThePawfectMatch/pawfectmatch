@@ -1,5 +1,6 @@
 @import url('colors.css');
 @import url('fonts.css');
+@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
 
 .postapet {
     display: flex;
@@ -240,13 +241,22 @@
 .photo-upload-area {
     margin-top: 20px;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
 .photo-upload-area .file-upload-button {
-    width: 80px;
+    width: 95px;
     font-size: 16px; 
+}
+
+.photo-uploads {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 40px;
 }
 
 .file-upload-button {

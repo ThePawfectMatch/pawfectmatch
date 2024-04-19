@@ -128,6 +128,7 @@ const CardDetails = ({ listing }) => {
               <h3>Details</h3>
               <p>Animal Type: {listing.type}</p>
               <p>Breed: {listing.breed}</p>
+              <p>Size: {(!listing.size) ? 'Unknown' : listing.size}</p>
               <h3>Contact Information</h3>
               <p>Email: {listing.contactEmail}</p>
               <p>Phone Number: {listing.contactPhone}</p>

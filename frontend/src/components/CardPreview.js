@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { useAuthContext } from "../hooks/useAuthContext"
 import '../styles/cardpreview.css'
 
-const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, temperment, training }) => {
+const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, temperment, training, images, handleXClick }) => {
   const [isLiked, setLike] = useState(false); // replace with listing.likeStatus (should stay liked if was previously liked)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const images = ["/images/dog1.jpg", "/images/dog2.jpg", "/images/dog3.jpg"]  // replace with list of listing pics
+//   const images = ["/images/dog1.jpg", "/images/dog2.jpg", "/images/dog3.jpg"]  // replace with list of listing pics
   const [currPic, setCurrPic] = useState(images[currentIndex]); 
   const {user} = useAuthContext()
   const [scaleFactor, setScaleFactor] = useState(1);
@@ -34,21 +34,42 @@ const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, 
     if (!isLoading) {
       const boundingRect = event.target.getBoundingClientRect();
       const clickX = event.clientX - boundingRect.left;
+      const clickY = event.clientY - boundingRect.top;
 
-      if (clickX <= boundingRect.width / 2) {
-        // onClick('left'); // Call the onClick function with 'left' argument
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
-      } else {
-        // onClick('right'); // Call the onClick function with 'right' argument
-        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    //   console.log("X: ", clickX, "Y: ", clickY)
+
+      if (clickX < 35 && clickY < 35) {
+        // console.log("Pressing X") // stupid bandaid code
+        handleXClick(currentIndex)
+        setCurrentIndex(0)
+        return
       }
+
+    if (images.length > 0) {
+        if (clickX <= boundingRect.width / 2) {
+            // onClick('left'); // Call the onClick function with 'left' argument
+            setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
+        } else {
+            // onClick('right'); // Call the onClick function with 'right' argument
+            setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+        }
+        }
     }
   }
 
   // updates current photo
   useEffect(() => {
-    setCurrPic(images[currentIndex])
-  }, [currentIndex]);
+    // console.log(images)
+    // console.log(currentIndex)
+
+    if (images.length > 0) {
+        setCurrPic(images[currentIndex])
+    }
+    else {
+        // default pic
+        setCurrPic("/images/dog1.jpg")
+    }
+  }, [currentIndex, images]);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -89,7 +110,8 @@ const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, 
             <div className="preview-front">
               <button className="preview-pet-photos" onClick={getNextPhoto}>
                 <img src={currPic} alt="listing-photo" onLoad={handleImageLoad}></img>
-                <p className='preview-photo-index'>{currentIndex+1}/{images.length}</p>
+                <p className='preview-photo-index'>{(images.length > 0) ? (`${currentIndex+1}/${images.length}`) : ("No photos selected")}</p>
+                <p className='x-button'>X</p>
               </button>
               <div className='preview-name'>
                 {doneCalc ? <h1 style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{(name === '') ? 'PET NAME' : name.toUpperCase()}</h1> : <div></div>}
