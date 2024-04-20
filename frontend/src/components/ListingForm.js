@@ -17,7 +17,7 @@ const ListingForm = () => {
   const [breed, setBreed] = useState('')
   const [files, setFiles] = useState([])
   const [bio, setBio] = useState('')
-  var picPaths = []
+  let picPaths = []
   const [weight, setWeight] = useState('')
 
   const [error, setError] = useState(null)
@@ -64,7 +64,7 @@ const ListingForm = () => {
       const ujson = await usrInfo.json()
       const num = ujson.user.phoneNumber
       const mail = ujson.user.email
-      handleUpload()
+      await handleUpload()
 
       const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal, weight, contactPhone: num, contactEmail: mail}
       console.log(listing)
@@ -90,6 +90,8 @@ const ListingForm = () => {
         setBio('')
         setError(null)
         setEmptyFields([])
+        setFiles(null)
+        setSelectedImages([])
         console.log('new listing added', json)
         dispatch({type: 'CREATE_LISTING', payload: json})
       }
@@ -105,8 +107,9 @@ const ListingForm = () => {
       if (!files && !picPaths) {
         throw Error('Missing pet photos.')
       }
-  
+
       const formData = new FormData()
+
       files.forEach((file) => {
         formData.append('files', file);
       })
@@ -125,6 +128,7 @@ const ListingForm = () => {
         console.log(json)
         picPaths = json.paths
         console.log('File uploaded successfully to', json.paths)
+        console.log('File uploaded successfully to', picPaths)
       }
       if (!response.ok) {
         throw Error('Could not successfully upload.')
@@ -146,7 +150,7 @@ const ListingForm = () => {
       Array.from(e.target.files).map(
         (file) => URL.revokeObjectURL(file)
       )
-      setFiles((prevImages) => prevImages.concat(e.target.files))
+      setFiles((prevImages) => prevImages.concat(Array.from(e.target.files).map((file) => file)))
     }
   };
 
@@ -158,15 +162,24 @@ const ListingForm = () => {
       const sizeVal = size?.value
       const energyVals = energy?.map(energy => energy.value)
       const trainingVal = training?.value
-      const l = {path: picPaths[0], name, type, breed, traitValues, hypoVal, ageVal, sizeVal, energyVals, trainingVal}
+      const formData = new FormData();
+      formData.append('file', files[0]); // Assuming files[0] contains the file object
 
-      console.log(l)
+      // Adding other data to FormData
+      formData.append('name', name);
+      formData.append('type', type);
+      formData.append('breed', breed);
+      formData.append('traitValues', traitValues);
+      formData.append('hypoVal', hypoVal);
+      formData.append('ageVal', ageVal);
+      formData.append('sizeVal', sizeVal);
+      formData.append('energyVals', energyVals);
+      formData.append('trainingVal', trainingVal);
 
       const response = await fetch('/api/openai/listing-bio', {
         method: 'POST',
-        body: JSON.stringify(l),
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.token}`
         }
       })
@@ -327,7 +340,7 @@ const ListingForm = () => {
       
     </div>
       <div className="preview">
-        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperment={traits} training={training} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
+        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperment={traits} training={training.label} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
       </div>
       </div>
   )

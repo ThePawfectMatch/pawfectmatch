@@ -4,7 +4,7 @@ import { useState } from 'react'
 const CardDetails = ({ listing }) => {
   const [isLiked, setLike] = useState(false); // replace with listing.likeStatus (should stay liked if was previously liked)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const images = listing.picPath && listing.picPath.length > 0 ? listing.picPath.slice(0, 4) : ["/images/dog1.jpg", "/images/dog2.jpg", "/images/dog3.jpg"]
+  const images = listing.picPaths && listing.picPaths.length > 0 ? listing.picPaths.slice(0, 4) : ["/images/dog1.jpg", "/images/dog2.jpg", "/images/dog3.jpg"]
   const [currPic, setCurrPic] = useState(images[currentIndex]); 
   const [scaleFactor, setScaleFactor] = useState(1);
 
