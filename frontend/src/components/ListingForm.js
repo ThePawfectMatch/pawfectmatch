@@ -11,6 +11,9 @@ const ListingForm = () => {
   const { user } = useAuthContext()
   const [phoneNumber, setPhoneNumber] = useState('')
 
+  const [genLoading, setGenLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   // fill in the blank variables
   const [name, setName] = useState('')
   // const [type, setType] = useState('')
@@ -36,15 +39,14 @@ const ListingForm = () => {
 
   const handleSubmit = async (e) => {
     try {
+      setLoading(true)
       e.preventDefault()
       if (!user) {
-        setError('You must be logged in')
-        return
+        throw Error('You must be logged in')
       }
 
       if (!name || !breed || !type) {
-        setError('Fill in all fields')
-        return
+        throw Error('Fill in all fields')
       }
 
       const usrInfo = await fetch('/api/user/', {
@@ -73,8 +75,9 @@ const ListingForm = () => {
       const json = await response.json()
 
       if (!response.ok) {
-        setError(json.error)
+        console.log(json.error)
         setEmptyFields(json.emptyFields)
+        throw Error(json.error)
       }
       if (response.ok) {
         setName('')
@@ -90,8 +93,9 @@ const ListingForm = () => {
       }
     }
 
-    catch {
-      
+    catch (error) {
+      setError(error.message)
+      setLoading(false)
     }
   }
 
@@ -148,6 +152,7 @@ const ListingForm = () => {
   };
 
   const genBio = async () => {
+      setGenLoading(true)
       console.log('Sending request to generate Bio')
       const hypoVal = hypoallergenic?.label
       const ageVal = age?.label
@@ -181,10 +186,13 @@ const ListingForm = () => {
 
       if (response.ok) {
         console.log(json.bio)
+        setGenLoading(false)
         setBio(json.bio)
       }
       if (!response.ok) {
         console.log(response.error)
+        setTimeout(() => {setGenLoading(false)}, 1000);
+        setError(`Couldn't generate a bio`)
       }
   }
 
@@ -315,20 +323,21 @@ const ListingForm = () => {
       <Dropdown question={"Training Level"} isMulti={false} options={trainingVals} onChange={(value) => setTraining(value)} />
       </div>
       <h2 className="listing-header2">Bio</h2>
-      <textarea className="listing-bio"
+      <textarea className={`listing-bio${genLoading ? '-loading': ''}`}
         type="bio" 
+        disabled={genLoading}
         rows="4" cols="30"
         onChange={(e) => setBio(e.target.value)}
-        value={bio} 
+        value={genLoading ? 'Loading...' : bio} 
       />
 
       {/* ADD API CALL TO THIS BUTTON*/}
       <div>
         <button className="gen-bio-button" type="button" onClick={genBio}>Generate Bio</button>
       </div>
-
-      <button className="add-listing-button">Add Listing</button>
       {error && <div className="error">{error}</div>}
+      <button className="add-listing-button" disabled={loading}>Add Listing</button>
+      
     </form>
       
     </div>
