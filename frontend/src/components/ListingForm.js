@@ -47,13 +47,6 @@ const ListingForm = () => {
         return
       }
 
-      const traitValues = traits?.map(trait => trait.value)
-      const hypoVal = hypoallergenic?.value
-      const ageVal = age?.value
-      const sizeVal = size?.value
-      const energyVals = energy?.map(energy => energy.value)
-      const trainingVal = training?.value
-
       const usrInfo = await fetch('/api/user/', {
         method: 'GET',
         headers: {
@@ -66,7 +59,7 @@ const ListingForm = () => {
       const mail = ujson.user.email
       await handleUpload()
 
-      const listing = {name, type, picPaths, breed, traitValues, bio, hypoVal, ageVal, sizeVal, energyVals, trainingVal, weight, contactPhone: num, contactEmail: mail}
+      const listing = {name, type, picPaths, breed, traits, bio, hypoallergenic, age, size, energy, training, weight, contactPhone: num, contactEmail: mail}
       console.log(listing)
 
       const response = await fetch('/api/listings', {
@@ -156,12 +149,12 @@ const ListingForm = () => {
 
   const genBio = async () => {
       console.log('Sending request to generate Bio')
-      const traitValues = traits?.map(trait => trait.value)
-      const hypoVal = hypoallergenic?.value
-      const ageVal = age?.value
-      const sizeVal = size?.value
-      const energyVals = energy?.map(energy => energy.value)
-      const trainingVal = training?.value
+      const hypoVal = hypoallergenic?.label
+      const ageVal = age?.label
+      const sizeVal = size?.label
+      const traitValues = traits?.map(trait => trait.label).join(', ');
+      const energyVals = energy?.map(e => e.label).join(', ');
+      const trainingVal = training?.label
       const formData = new FormData();
       formData.append('file', files[0]); // Assuming files[0] contains the file object
 
@@ -340,7 +333,7 @@ const ListingForm = () => {
       
     </div>
       <div className="preview">
-        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperment={traits} training={training.label} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
+        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperament={traits} training={training.label} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
       </div>
       </div>
   )

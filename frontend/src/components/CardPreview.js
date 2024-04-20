@@ -3,13 +3,15 @@ import { useState } from 'react'
 import { useAuthContext } from "../hooks/useAuthContext"
 import '../styles/cardpreview.css'
 
-const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, temperment, training, images, handleXClick }) => {
+const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, temperament, training, images, handleXClick }) => {
   const [isLiked, setLike] = useState(false); // replace with listing.likeStatus (should stay liked if was previously liked)
   const [currentIndex, setCurrentIndex] = useState(0)
 //   const images = ["/images/dog1.jpg", "/images/dog2.jpg", "/images/dog3.jpg"]  // replace with list of listing pics
   const [currPic, setCurrPic] = useState(images[currentIndex]); 
   const {user} = useAuthContext()
   const [scaleFactor, setScaleFactor] = useState(1);
+  const traitValues = temperament?.map(trait => trait.label).join(', ');
+  const energyVals = energy?.map(e => e.label).join(', ');
 
   useEffect(() => {
     function handleResize() {
@@ -145,8 +147,8 @@ const CardPreview = ({ name, bio, breed, type, age, weight, size, hypo, energy, 
               <p>Breed: {(!breed) ? 'No breed input' : breed}</p>
               <p>Size: {(!size) ? 'No size selected' : size}</p>
               <p>Hypoallergenic: {(!hypo) ? 'Unknown' : hypo}</p>
-              {/* <p>Energy Level: {(!energy) ? 'No energy level selected' : energy}</p> */}
-              {/* <p>Temperment: {(!temperment) ? 'No temperment selected' : temperment}</p> */}
+              {<p>Energy Level: {(!energyVals) ? 'No energy level selected' : energyVals}</p>}
+              { <p>Temperament: {(!traitValues) ? 'No temperament selected' : traitValues}</p>}
               <p>Training Level: {(!training) ? 'No training level selected' : training}</p>
             </div>
 

@@ -8,6 +8,11 @@ const CardDetails = ({ listing }) => {
   const [currPic, setCurrPic] = useState(images[currentIndex]); 
   const [scaleFactor, setScaleFactor] = useState(1);
 
+  const traitValues = listing.traits?.map(trait => trait.label).join(', ');
+  const energyVals = listing.energy?.map(e => e.label).join(', ');
+  const hypo = listing.hypoallergenic?.label
+  const training = listing.training?.label
+
   useEffect(() => {
     function handleResize() {
       // Calculate scale factor based on window height
@@ -101,7 +106,7 @@ const CardDetails = ({ listing }) => {
               <div className='name'>
                 {doneCalc ? <h1 style={{ fontSize: `${fontSize}px`, whiteSpace: 'nowrap' }}>{listing.name.toUpperCase()}</h1> : <div></div>}
               </div>
-              <h2>Age: {`${listing.age? listing.age : 'Unknown'}`}</h2>
+              <h2>Age: {`${listing.age? listing.age.label : 'Unknown'}`}</h2>
               <h2>Weight: {`${listing.weight? listing.weight + ' lbs' : 'Unknown'}`}</h2>
 
             <div className='like-and-match'>
@@ -111,7 +116,7 @@ const CardDetails = ({ listing }) => {
                 </label>
               </div>
 
-              <h3>Match: {`${((listing.compatibility)*100).toFixed(0)}%`}</h3>
+              <h3>Match: {`${listing.compatibility && ((listing.compatibility)*100).toFixed(0)}%`}</h3>
             </div>
             </div>
 
@@ -128,7 +133,11 @@ const CardDetails = ({ listing }) => {
               <h3>Details</h3>
               <p>Animal Type: {listing.type}</p>
               <p>Breed: {listing.breed}</p>
-              <p>Size: {(!listing.size) ? 'Unknown' : listing.size}</p>
+              <p>Size: {(!listing.size.label) ? 'Unknown' : listing.size.label}</p>
+              <p>Hypoallergenic: {(!hypo) ? 'Unknown' : hypo}</p>
+              <p>Energy Level: {(!energyVals) ? 'No energy level selected' : energyVals}</p>
+              <p>Temperament: {(!traitValues) ? 'No temperament selected' : traitValues}</p>
+              <p>Training Level: {(!training) ? 'No training level selected' : training}</p>
               <h3>Contact Information</h3>
               <p>Email: {listing.contactEmail}</p>
               <p>Phone Number: {listing.contactPhone}</p>
