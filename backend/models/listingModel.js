@@ -24,7 +24,7 @@ const listingSchema = new Schema({
     required: true
   },
   traits: {
-    type: [String],
+    type: [Object],
     required: false
   },
   bio: {
@@ -32,22 +32,34 @@ const listingSchema = new Schema({
     required: false
   },
   hypoallergenic: {
-    type: String,
+    type: Object,
     required: false
   },
   age: {
-    type: String,
+    type: Object,
     required: false
   },
   size: {
-    type: String,
+    type: Object,
     required: false
   },
   energy: {
-    type: [String],
+    type: [Object],
     required: false
   },
   training: {
+    type: Object,
+    required: false
+  },
+  weight: {
+    type: String,
+    required: false
+  },
+  contactPhone: {
+    type: String,
+    required: false
+  },
+  contactEmail: {
     type: String,
     required: false
   }

@@ -45,15 +45,18 @@ router.post('/user-bio', async (req, res) => {
 // Listing Bio Generation
 
 router.use(requireAuth) // because we only want this to be accessible if they're logged in (as to make a listing also)
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post('/listing-bio', async (req, res) => {
+router.post('/listing-bio', upload.single('file'), async (req, res) => {
     try {
-        // get path from req, convert to base64
-        const { path, name, type, breed, traits, hypoVal, ageVal, sizeVal, energyVals, trainingVal } = req.body
-        const image = fs.readFileSync(`./../frontend/public${path}`);
-        const base64Image = Buffer.from(image).toString('base64');
-        const imageDataUrl = `data:image/${path.split('.').pop()};base64,${base64Image}`;
-
+        // get file from req, convert to base64
+        const { name, type, breed, traits, hypoVal, ageVal, sizeVal, energyVals, trainingVal } = req.body
+        const fileData = req.file.buffer;
+        const base64Data = fileData.toString('base64');
+        const fileExtension = req.file.originalname.split('.').pop(); // Get file extension from original file name
+        const imageDataUrl = `data:image/${fileExtension};base64,${base64Data}`;
+        console.log(`Create a description/bio for an adoption pet listing based on the image provided. Make the description from the pet's POV and very cute in order to make potential adopters want to adopt the pet! Here are some details about the animal to include: Name: ${name}, Pet Type: ${type}, Breed ${breed}, Traits: ${traits}, Energy: ${energyVals}, Hypoallergenic: ${hypoVal}, Age: ${ageVal}, Size: ${sizeVal}, Training Level: ${trainingVal}, and any other details that you can gather from the picture provided that you think would be important to getting the pet adopted! Limit the word count to no more than 150 words`)
         const response = await openai.chat.completions.create(
             {
                 model: "gpt-4-vision-preview",

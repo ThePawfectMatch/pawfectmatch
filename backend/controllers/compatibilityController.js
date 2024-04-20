@@ -24,10 +24,10 @@ const computeCompatibility = async (req, res) => {
         
         if (user.livingArrangements?.value === 'house')
         {
-            if (listings[i].size === 's') 
+            if (listings[i].size?.value === 's') 
             {
                 score+=.25
-            } else if (listings[i].size === 'm') 
+            } else if (listings[i].size?.value === 'm') 
             {
                 score+=1
             } else 
@@ -36,10 +36,10 @@ const computeCompatibility = async (req, res) => {
             }
         } else if (user.livingArrangements?.value === 'townhouse') 
         {
-            if (listings[i].size === 's') 
+            if (listings[i].size?.value === 's') 
             {
                 score+=.5
-            } else if (listings[i].size === 'm') 
+            } else if (listings[i].size?.value === 'm') 
             {
                 score+=.5
             } else 
@@ -48,10 +48,10 @@ const computeCompatibility = async (req, res) => {
             }
         } else 
         {
-            if (listings[i].size === 's') 
+            if (listings[i].size?.value === 's') 
             {
                 score+=1
-            } else if (listings[i].size === 'm') 
+            } else if (listings[i].size?.value === 'm') 
             {
                 score+=.5
             } else 
@@ -62,46 +62,46 @@ const computeCompatibility = async (req, res) => {
 
         if (user.experience?.value === 'none')
         { 
-            if (listings[i].training === 'need')
+            if (listings[i].training?.value === 'need')
             {
                 score += .25
-            } else if (listings[i].training === 'none')
+            } else if (listings[i].training?.value === 'none')
             {
                 score += -1
-            } else if (listings[i].training === 'part')
+            } else if (listings[i].training?.value === 'part')
             {
                 score += .5
-            } else if (listings[i].training === 'well')
+            } else if (listings[i].training?.value === 'well')
             {
                 score += 1
             }
         } else if (user.experience?.value === 'moderate') 
         {
-            if (listings[i].training === 'need')
+            if (listings[i].training?.value === 'need')
             {
                 score += .5
-            } else if (listings[i].training === 'none')
+            } else if (listings[i].training?.value === 'none')
             {
                 score += .25
-            } else if (listings[i].training === 'part')
+            } else if (listings[i].training?.value === 'part')
             {
                 score += 1
-            } else if (listings[i].training === 'well')
+            } else if (listings[i].training?.value === 'well')
             {
                 score += 1
             }
         } else 
         {
-            if (listings[i].training === 'need')
+            if (listings[i].training?.value === 'need')
             {
                 score += 1
-            } else if (listings[i].training === 'none')
+            } else if (listings[i].training?.value === 'none')
             {
                 score += 1
-            } else if (listings[i].training === 'part')
+            } else if (listings[i].training?.value === 'part')
             {
                 score += 1
-            } else if (listings[i].training === 'well')
+            } else if (listings[i].training?.value === 'well')
             {
                 score += 1
             }
@@ -114,52 +114,52 @@ const computeCompatibility = async (req, res) => {
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {
-                score += 1
+                score += 1 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {
-                score += .5
+                score += .5 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score += .5
+                score += .5 / listings[i].energy.length
             }
             outdoor = true
         } else if (user.space?.map(space => space.value).includes('loutdoor') && !outdoor)
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {
-                score += 1
+                score += 1 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {   
-                score += 1
+                score += 1 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score += 1
+                score += 1 / listings[i].energy.length
             }
             outdoor = true
         } else if (user.space?.map(space => space.value).includes('sliving') && !indoor)
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {   
-                score += 1
+                score += 1 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {
-                score += .5
+                score += .5 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score +=.25
+                score +=.25  / listings[i].energy.length
             }
             indoor = true
         } else if (user.space?.map(space => space.value).includes('lliving') && !indoor)
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {
-                score += 1
+                score += 1 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {
-                score += 1
+                score += 1 / listings[i].energy.length
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score += 1
+                score += 1 / listings[i].energy.length
             }
             indoor = true
         }

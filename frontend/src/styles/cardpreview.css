@@ -1,0 +1,309 @@
+.preview-card-div {
+  position: relative;
+  width: 510px; /* Set card width */
+  height: 600px; /* Set card height */
+  width: 510px; /* Set card width */
+  height: 600px; /* Set card height */
+  left: 6%;
+  top: 1%;
+  transform: translate(-50%, -50%);
+}
+
+.preview-card {
+  box-sizing: border-box;
+  width: 510px; 
+  height: 600px; 
+  perspective: 6000px; /* Set perspective for 3D effect */
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.preview-checkbox {
+	display: none;
+}
+
+.preview-flip-card .preview-front,
+.preview-flip-card .preview-back {
+  position: absolute;
+  width: 500px;
+  min-width: 100%;
+  height: 95%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  background: var(--color-3);
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 2px solid var(--color-6);
+}
+
+.preview-back::-webkit-scrollbar {
+  display: none;
+}
+
+.preview-flip-card {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	transition: all 0.8s ease-in-out;
+	z-index: 1;
+}
+
+.preview-flip-card .preview-back {
+  transform: rotateY(180deg);
+  right: 0%;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+  overflow-wrap: break-word;
+ }
+
+.preview-checkbox:checked + .preview-flip-card {
+	transform: rotateY(180deg);
+}
+
+.preview-front h1 {
+  text-align: center;
+  font-family: 'More Sugar Regular', sans-serif;
+	color: var(--color-7);
+	margin: 8px 0px 0px 0px;
+}
+
+.preview-name {
+  display: flex;
+  height: 68px;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-front h2 {
+	text-align: left;
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 22px;
+	color: var(--color-6);
+	margin: 10px 0px 0px 40px;
+}
+
+.preview-front h3 {
+	text-align: right;
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 14px;
+	color: var(--color-6);
+	margin: 10px 40px 0px 40px;
+}
+
+.preview-photo-index {
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 14px;
+  position: absolute;
+  right: 55px;
+  top: 245px;
+  color: var(--color-4);
+  text-shadow: 
+  -1px -1px 0 var(--color-6),  
+   1px -1px 0 var(--color-6),
+  -1px  1px 0 var(--color-6),
+   1px  1px 0 var(--color-6); /* Outline color and size */
+  opacity: 0; /* Initial opacity */
+  transition: opacity 0.3s ease; /* Add transition for smooth effect */
+}
+
+
+.preview-back h2 {
+  text-align: center;
+  font-family: 'More Sugar Regular', sans-serif;
+  font-size: 28px;
+	color: var(--color-7);
+	margin: 40px 10px 10px 0;
+}
+
+.preview-back h3 {
+  text-align: center;
+  font-family: 'More Sugar Regular', sans-serif;
+  font-size: 22px;
+	color: var(--color-7);
+	margin: 25px 10px 10px 0;
+}
+
+.preview-back p {
+  text-align: left;
+  font-family: 'More Sugar Thin', sans-serif;
+	font-size: 16px;
+	color: var(--color-6);
+	padding-left: 35px;
+  padding-right: 25px;
+	line-height: 30px;
+	margin: 0 auto;
+}
+
+  
+.preview-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 82vh;
+}
+
+.preview-arrow-button {
+  display: flex;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.preview-arrow-button img {
+  width: 150px; /* Set a specific width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.preview-left-arrow {
+  height: 300px;
+  border: none; /* Remove border */
+  background-color: transparent; /* Set background color to transparent */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  color: var(--color-6);
+  cursor: pointer; /* Set cursor to pointer for clickable behavior */
+}
+
+.preview-right-arrow {
+  height: auto;
+  border: none; /* Remove border */
+  background-color: transparent; /* Set background color to transparent */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  color: var(--color-6);
+  cursor: pointer; /* Set cursor to pointer for clickable behavior */
+}
+
+.preview-right-arrow {
+  font-family: 'More Sugar Thin', sans-serif;
+}
+
+.preview-left-arrow:not([disabled]):hover {
+  transform: scale(1.1); /* Scale up on hover */
+  transition: 0.3s ease; /* Add smooth transition */
+}
+
+.preview-left-arrow:not([disabled]):not(:hover) {
+  transform: scale(1); /* Maintain scaled state after hover */
+  transition: 0.3s ease;
+}
+
+.preview-left-arrow[disabled]:hover {
+  transform: scale(1); /* Maintain scaled state after hover */
+  transition: 0.3s ease;
+}
+
+.preview-left-arrow[disabled] {
+  opacity: 0.5; /* Optionally reduce opacity for disabled button */
+}
+
+.preview-right-arrow[disabled] {
+  opacity: 0.5; /* Optionally reduce opacity for disabled button */
+}
+
+.preview-right-arrow:not([disabled]):hover {
+  transform: scale(1.1); /* Scale up on hover */
+  transition: transform 0.3s ease; /* Add smooth transition */
+}
+
+.preview-right-arrow:not([disabled]):not(:hover) {
+  transform: scale(1); /* Maintain scaled state after hover */
+  transition: transform 0.3s ease;
+}
+
+.preview-right-arrow[disabled]:hover {
+  transform: scale(1); /* Maintain scaled state after hover */
+  opacity: 0.5; /* Optionally reduce opacity for disabled button */
+  transition: 0.3s ease;
+}
+
+.preview-like-button-container {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.preview-like-button {
+	/* FIXME - not final like button */
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.preview-like-button img {
+  filter: grayscale(100%);
+  height: 50px;
+  width: auto;
+  box-shadow: none;
+}
+
+.preview-like-button.liked img {
+  filter: grayscale(0%);
+  height: 50px;
+  width: auto;
+  box-shadow: none;
+}
+
+.preview-like-button:hover {
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.preview-pet-photos {
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: none;
+  background: none;
+  margin: 20px 20px 0px 20px;
+  padding: 0;
+  width: 450px;
+  height: 275px;
+  background-color: var(--color-8);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.preview-pet-photos img {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: 275px;
+ 
+}
+
+.preview-pet-photos img:hover + .preview-photo-index {
+  opacity: 1;
+}
+
+.preview-like-and-match {
+  position: absolute;
+  bottom: 30px;
+  right: 0;
+}
+
+.x-button {
+    position: absolute;
+    font-family: 'More Sugar Regular', sans-serif;
+    font-size: 26px;
+    color: var(--color-error);
+    text-shadow: 
+  -1px -1px 0 var(--color-7),  
+   1px -1px 0 var(--color-7),
+  -1px  1px 0 var(--color-7),
+   1px  1px 0 var(--color-7); /* Outline color and size */
+   top: 1%;
+   left: 9%;
+   opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.preview-pet-photos img:hover + .preview-photo-index + .x-button {
+    opacity: 0.8;
+  }
+
+  .x-button:hover {
+    opacity: 1;
+  }
