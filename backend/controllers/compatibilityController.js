@@ -16,7 +16,8 @@ const computeCompatibility = async (req, res) => {
     for(let i = 0; i < listings.length; i ++)
     {
         let score = 0
-        if (user.petPreferences?.map((pet => pet.value)).includes(listings[i].type))
+        let t = listings[i].type.value ? listings[i].type.value : listings[i].type
+        if (user.petPreferences?.map((pet => pet.value)).includes(t))
         {
             score+=1
         }
@@ -207,8 +208,9 @@ const computeCompatibility = async (req, res) => {
             }
         }
         */
+       score = score/DIVISOR > 1 ? 1 : score/DIVISOR
     
-        compatibilityScores.set(listings[i].id, score/DIVISOR)
+        compatibilityScores.set(listings[i].id, score)
     }
 
     const returnObj = Object.fromEntries(compatibilityScores)

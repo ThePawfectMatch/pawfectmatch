@@ -8,7 +8,7 @@ const listingSchema = new Schema({
     required: true
   },
   type: {
-    type: String,
+    type: Object,
     required: true
   },
   picPaths: {

@@ -131,7 +131,7 @@ const CardDetails = ({ listing }) => {
 
 
               <h3>Details</h3>
-              <p>Animal Type: {listing.type}</p>
+              <p>Animal Type: {listing.type.label ? listing.type.label : listing.type}</p>
               <p>Breed: {listing.breed}</p>
               <p>Size: {(!listing.size.label) ? 'Unknown' : listing.size.label}</p>
               <p>Hypoallergenic: {(!hypo) ? 'Unknown' : hypo}</p>

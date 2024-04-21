@@ -16,7 +16,6 @@ const ListingForm = () => {
 
   // fill in the blank variables
   const [name, setName] = useState('')
-  // const [type, setType] = useState('')
   const [breed, setBreed] = useState('')
   const [files, setFiles] = useState([])
   const [bio, setBio] = useState('')
@@ -87,7 +86,7 @@ const ListingForm = () => {
         setBio('')
         setError(null)
         setEmptyFields([])
-        setFiles(null)
+        setFiles([])
         setSelectedImages([])
         picPaths = []
         setWeight('')
@@ -100,6 +99,7 @@ const ListingForm = () => {
         console.log('new listing added', json)
         dispatch({type: 'CREATE_LISTING', payload: json})
         setFormSubmitted(true)
+        setLoading(false)
       }
     }
 
@@ -164,6 +164,7 @@ const ListingForm = () => {
 
   const genBio = async () => {
       setGenLoading(true)
+      setError('')
       console.log('Sending request to generate Bio')
       const hypoVal = hypoallergenic?.label
       const ageVal = age?.label
@@ -237,7 +238,7 @@ const ListingForm = () => {
     
     <div className='listing'>
     <form className="create" onSubmit={handleSubmit}>
-      <h1 className="listing-header" onClick={() => {console.log(files)}}>Post a Pet</h1>
+      <h1 className="listing-header" onClick={() => {console.log(type)}}>Post a Pet</h1>
       <div className="listing-disclaim">
       <label>Required info indicated with *</label>
       </div>
@@ -255,7 +256,7 @@ const ListingForm = () => {
       </div>
 
       <div className="listing-question">
-        <Dropdown question={"Animal Type*"} isMulti={false} options={animalTypes} onChange={(value) => setType(value.value)} />
+        <Dropdown question={"Animal Type*"} value={type ? type : null} isMulti={false} options={animalTypes} onChange={(value) => setType(value)} />
       </div>
       
     </div>
@@ -332,19 +333,19 @@ const ListingForm = () => {
 
       <div className="listing-dropdowns">
 
-        <Dropdown question={"Age"} isMulti={false} options={ageVals} onChange={(value) => setAge(value)} />
+        <Dropdown question={"Age"} isMulti={false} value={age ? age : null} options={ageVals} onChange={(value) => setAge(value)} />
 
-        <Dropdown question={"Size"} isMulti={false} options={sizeVals} onChange={(value) => setSize(value)} />
+        <Dropdown question={"Size"} isMulti={false} value={size ? size : null} options={sizeVals} onChange={(value) => setSize(value)} />
 
-        <Dropdown question={"Hypoallergenic"} isMulti={false} options={hypo} onChange={(value) => setHypo(value)} />
+        <Dropdown question={"Hypoallergenic"} isMulti={false} value={hypoallergenic ? hypoallergenic : null} options={hypo} onChange={(value) => setHypo(value)} />
 
       </div>
       <div className="listing-dropdowns">
-      <Dropdown question={"Energy Level"} isMulti={true} options={energyVals} onChange={(value) => setEnergy(value)} />
+      <Dropdown question={"Energy Level"} isMulti={true} value={energy ? energy : null} options={energyVals} onChange={(value) => setEnergy(value)} />
 
-      <Dropdown question={"Temperament"} isMulti={true} options={temperVals} onChange={(value) => setTraits(value)} />
+      <Dropdown question={"Temperament"} isMulti={true} value={traits ? traits : null} options={temperVals} onChange={(value) => setTraits(value)} />
 
-      <Dropdown question={"Training Level"} isMulti={false} options={trainingVals} onChange={(value) => setTraining(value)} />
+      <Dropdown question={"Training Level"} isMulti={false} value={training ? training : null} options={trainingVals} onChange={(value) => setTraining(value)} />
       </div>
       <h2 className="listing-header2">Bio</h2>
       <textarea className={`listing-bio${genLoading ? '-loading': ''}`}
@@ -359,14 +360,14 @@ const ListingForm = () => {
       <div>
         <button className="gen-bio-button" type="button" onClick={genBio}>Generate Bio</button>
       </div>
-      {error && <div className="error">{error}</div>}
+      {!genLoading && error && <div className="error">{error}</div>}
       <button className="add-listing-button" disabled={loading}>Add Listing</button>
       
     </form>
       
     </div>
       <div className="preview">
-        <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperament={traits} training={training.label} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
+        <CardPreview name={name} bio={bio} breed={breed} type={type.label} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperament={traits} training={training.label} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
       </div>
       </div>
       </div>
