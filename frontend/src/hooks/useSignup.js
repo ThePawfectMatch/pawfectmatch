@@ -7,7 +7,7 @@ export const useSignup = () => {
   const { dispatch } = useAuthContext()
 
   const signup = async (email, password, picPath, firstName, lastName, phoneNumber, 
-    zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences) => {
+    zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space) => {
     setIsLoading(true)
     setError(null)
 
@@ -15,7 +15,7 @@ export const useSignup = () => {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ email, password, picPath, firstName, lastName, phoneNumber, 
-        zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences })
+        zipcode, bio, accountType, livingArrangements, lifestyleTraits, petPreferences, experience, space })
     })
     const json = await response.json()
 

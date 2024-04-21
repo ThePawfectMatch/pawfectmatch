@@ -144,6 +144,7 @@ const Signup = () => {
       }
     }
     catch (error) {
+      setTimeout(() => {setGenLoading(false)}, 1000);
       console.log(`Error generating bio: ${error}`)
     }
   }

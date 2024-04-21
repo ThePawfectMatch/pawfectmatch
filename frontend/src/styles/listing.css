@@ -346,3 +346,7 @@
       transform: translateY(0px) translateX(-50%); /* Move to original position */
     }
   }
+
+  .my-listings {
+    padding-left: 20px;
+  }
