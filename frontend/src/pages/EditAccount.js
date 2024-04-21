@@ -206,7 +206,7 @@ const EditAccount = () => {
           {(previewUrl === null) ? (
               <img className='pfp' src={"/images/uploads/default_pfp.png"} alt="Default PFP"/>
             ) : (
-              <img className='pfp' src={previewUrl} alt="PFP"/>
+              <img className='pfp' src={previewUrl} onError={(e) => e.target.src = "/images/uploads/default_pfp.png"} alt="PFP"/>
             ) }
           
             {/* <label className="editaccount-info">Upload Profile Picture</label> */}

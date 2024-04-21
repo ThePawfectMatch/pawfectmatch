@@ -68,6 +68,7 @@
     border-radius: 5px; /* Example border radius */
     box-sizing: border-box; /* Ensures padding and border are included in width */
     margin-top: 10px;
+    background-color: rgba(255, 255, 255);
 }
 
 .listing-bio-loading {
@@ -81,7 +82,12 @@
     border-radius: 5px; /* Example border radius */
     box-sizing: border-box; /* Ensures padding and border are included in width */
     margin-top: 10px;
-    color: #cccccc80
+    color: (--color-6);
+    background-color: rgba(255, 255, 255);
+}
+
+.listing-bio-loading:disabled {
+    background-color: rgba(255, 255, 255, 0.70);
 }
 
 .listing-disclaim {

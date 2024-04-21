@@ -25,6 +25,7 @@ const Signup = () => {
   const [petPreferences, setPetPreferences] = useState()
   const [experience, setExperience] = useState()
   const [space, setSpace] = useState()
+  const [genLoading, setGenLoading] = useState(false)
 
   const {signup, isLoading, error } = useSignup()
 
@@ -114,6 +115,7 @@ const Signup = () => {
   }
 
   const genBio = async () => {
+    setGenLoading(true)
     try {
       checkFields()
       console.log('Sending request to generate Bio')
@@ -134,8 +136,10 @@ const Signup = () => {
   
       if (response.ok) {
           setBio(json.bio)
+          setGenLoading(false)
       }
       if (!response.ok) {
+          setTimeout(() => {setGenLoading(false)}, 1000);
           throw Error(response.error)
       }
     }
@@ -249,10 +253,11 @@ const Signup = () => {
       </div>
 
       <h2 className="signup-header2">Bio</h2>
-      <textarea className="signup-bio"
+      <textarea className={`listing-bio${genLoading ? '-loading': ''}`}
         type="bio" 
+        disabled={genLoading}
         onChange={(e) => setBio(e.target.value)}
-        value={bio} 
+        value={genLoading ? 'Loading...' : bio} 
       />
 
       {/* ADD API CALL TO THIS BUTTON*/}
