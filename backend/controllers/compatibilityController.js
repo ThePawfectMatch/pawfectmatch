@@ -114,52 +114,52 @@ const computeCompatibility = async (req, res) => {
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {
-                score += 1 / listings[i].energy.length
+                score += 1 / (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {
-                score += .5 / listings[i].energy.length
+                score += .5 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score += .5 / listings[i].energy.length
+                score += .5 /  (listings[i].energy.length + user.space.length)
             }
             outdoor = true
         } else if (user.space?.map(space => space.value).includes('loutdoor') && !outdoor)
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {   
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             }
             outdoor = true
         } else if (user.space?.map(space => space.value).includes('sliving') && !indoor)
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {   
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {
-                score += .5 / listings[i].energy.length
+                score += .5 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score +=.25  / listings[i].energy.length
+                score +=.25  /  (listings[i].energy.length + user.space.length)
             }
             indoor = true
         } else if (user.space?.map(space => space.value).includes('lliving') && !indoor)
         {
             if (listings[i].energy?.map(energy => energy.value).includes('low'))
             {
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('med'))
             {
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             } else if (listings[i].energy?.map(energy => energy.value).includes('high'))
             {
-                score += 1 / listings[i].energy.length
+                score += 1 /  (listings[i].energy.length + user.space.length)
             }
             indoor = true
         }
