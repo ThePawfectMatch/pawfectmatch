@@ -67,6 +67,14 @@
     cursor: pointer;
 }
 
+.login .error {
+    font-family: 'More Sugar Thin', sans-serif;
+    font-size: 1.2em;
+    color: var(--color-error);
+    padding-bottom: 10px;
+}
+
+
 .login-button:hover {
     background-color: var(--color-2);
 }
