@@ -105,6 +105,7 @@ const EditAccount = () => {
     }
   }
 
+  const [formSubmitted, setFormSubmitted] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault()
     
@@ -134,6 +135,7 @@ const EditAccount = () => {
       // later note, we may be able to use the catch blocks to do the CSS styling of if there's an error
       // and add the red outline to the empty fields
     }
+    setFormSubmitted(true)
   }
 
   const handleUpload = async () => {    
@@ -157,10 +159,20 @@ const EditAccount = () => {
     }
   }
 
+  useEffect(() => {
+    // Schedule a callback to set isVisible to false after 3000 milliseconds (3 seconds)
+    const timeoutId = setTimeout(() => {
+      setFormSubmitted(false);
+    }, 2000);
+
+    // Cleanup function to clear the timeout when the component unmounts or when the dependency changes
+    return () => clearTimeout(timeoutId);
+  }, [formSubmitted]);
 
   return (
     <div>
         <Navbar />
+        <div className={`update-popup ${formSubmitted ? 'visible' : ''}`}>Account Information Updated!</div>
         <div className="editaccount-account">
         <div className="editaccount-border">
         <div className='editaccount-container'>
@@ -277,13 +289,14 @@ const EditAccount = () => {
             <button className="gen-bio-button" type="button" onClick={handleGenBio}>Generate Bio</button>
           </div>
           */}
-          <div>
-            <button className="editaccount-button" /*disabled={isLoading}*/>Update Information</button>
+          <div className="page-bottom">
+            <button className="editaccount-button" /*disabled={isLoading}*/>Update Information</button>          
           </div>
 
           {/*error && <div className="error">*** {error} ***</div>*/}
           
         </form>
+        
         </div>
         </div>
             </div>

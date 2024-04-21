@@ -235,3 +235,48 @@
     object-fit: cover; /* Ensures the image fills the circular container */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.page-bottom {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.update-popup {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'More Sugar Thin', sans-serif;
+    color: var(--color-update);
+    background-color: #befac6;
+    padding: 7px 0px 10px 0px;
+    border-radius: 15px;
+    width: 250px;
+    text-align: center;
+    z-index: 1;
+    opacity: 0; /* Start with 0 opacity */
+    transform: translateY(0px) translateX(-50%);
+}
+
+.update-popup.visible {
+    animation: fadeDown 0.5s ease forwards, fadeOut 0.5s ease 1.5s forwards;
+    opacity: 1; /* Fade in to full opacity */
+  }
+
+  @keyframes fadeOut {
+    from {opacity: 1;} to {opacity: 0;}
+  }
+
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) translateX(-50%); /* Move up 20px */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px) translateX(-50%); /* Move to original position */
+    }
+  }

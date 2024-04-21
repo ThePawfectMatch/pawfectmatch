@@ -100,7 +100,7 @@ const CardDetails = ({ listing }) => {
 
             <div className="front">
               <button className="pet-photos" onClick={getNextPhoto}>
-                <img src={currPic} alt="listing-photo" onLoad={handleImageLoad}></img>
+                <img src={currPic} onError={(e) => e.target.src = "/images/dog1.jpg"} alt="listing-photo" onLoad={handleImageLoad}></img>
                 <p className='photo-index'>{currentIndex+1}/{images.length}</p>
               </button>
               <div className='name'>

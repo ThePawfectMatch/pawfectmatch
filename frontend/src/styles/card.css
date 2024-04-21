@@ -275,6 +275,10 @@
   opacity: 1;
 }
 
+.pet-photos:hover .photo-index {
+  opacity: 1;
+}
+
 .like-and-match {
   position: absolute;
   bottom: 30px;
