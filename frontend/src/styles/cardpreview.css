@@ -278,6 +278,10 @@
   opacity: 1;
 }
 
+.preview-pet-photos:hover .preview-photo-index {
+    opacity: 1;
+  }
+
 .preview-like-and-match {
   position: absolute;
   bottom: 30px;
@@ -300,7 +304,7 @@
    transition: opacity 0.3s ease;
 }
 
-.preview-pet-photos img:hover + .preview-photo-index + .x-button {
+  .preview-pet-photos:hover .x-button {
     opacity: 0.8;
   }
 

@@ -34,6 +34,7 @@ const ListingForm = () => {
   const [training, setTraining] = useState('')
 
 
+  const [formSubmitted, setFormSubmitted] = useState(false)
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
@@ -87,12 +88,14 @@ const ListingForm = () => {
         setSelectedImages([])
         console.log('new listing added', json)
         dispatch({type: 'CREATE_LISTING', payload: json})
+        setFormSubmitted(true)
       }
     }
 
     catch {
       
     }
+    
   }
 
   const handleUpload = async (e) => {
@@ -201,8 +204,21 @@ const ListingForm = () => {
     // console.log("Pressing X")
   }
 
+  useEffect(() => {
+    // Schedule a callback to set isVisible to false after 3000 milliseconds (3 seconds)
+    const timeoutId = setTimeout(() => {
+      setFormSubmitted(false);
+    }, 2000);
+
+    // Cleanup function to clear the timeout when the component unmounts or when the dependency changes
+    return () => clearTimeout(timeoutId);
+  }, [formSubmitted]);
+
   return (
+  <div>
+  <div className={`listing-popup ${formSubmitted ? 'visible' : ''}`}>Pet Posted!</div>
     <div className="postapet">
+    
     <div className='listing'>
     <form className="create" onSubmit={handleSubmit}>
       <h1 className="listing-header" onClick={() => {console.log(files)}}>Post a Pet</h1>
@@ -334,6 +350,7 @@ const ListingForm = () => {
     </div>
       <div className="preview">
         <CardPreview name={name} bio={bio} breed={breed} type={type} age={age.label} weight={weight} size={size.label} hypo={hypoallergenic.label} energy={energy} temperament={traits} training={training.label} phoneNumber={phoneNumber} images={selectedImages} handleXClick={handleXClick}></CardPreview>
+      </div>
       </div>
       </div>
   )
